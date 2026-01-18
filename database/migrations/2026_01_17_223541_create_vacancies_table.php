@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('vacancies', function (Blueprint $table) {
+            $table->id();
+            $table->json('title');
+            $table->json('description')->nullable();
+            $table->json('location')->nullable();
+            $table->string('salary')->nullable();
+            $table->json('experience')->nullable();
+            $table->json('education')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('vacancies');
+    }
+};

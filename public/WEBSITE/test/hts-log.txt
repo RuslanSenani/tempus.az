@@ -1,0 +1,13 @@
+HTTrack3.49-2 launched on Wed, 14 Jan 2026 14:40:48 at http://https://demoxml.com/html/maxihealth/services.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/*
+(webhttrack -q -%i -W http://https://demoxml.com/html/maxihealth/services.html -O "/Users/ruslanabbasov/websites/test" -n -%P -N0 -s2 -p7 -D -a -K0 -c4 -%k -A25000 -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -%s -%u )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+14:44:13	Warning: 	HTML file (41066 bytes) retransferred due to lack of cache: https://demoxml.com/html/maxihealth/index.html
+14:44:14	Error: 	"Not Found" (404) at link https://demoxml.com/html/maxihealth/libraries/owl-carousel/owl.video.play.png (from https://demoxml.com/html/maxihealth/libraries/owl-carousel/owl.carousel.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 3 minutes 26 seconds : 152 links scanned, 180 files written (8315569 bytes overall) [4806323 bytes received at 23331 bytes/sec], 1747800 bytes transferred using HTTP compression in 39 files, ratio 27%, 3.6 requests per connection
+(1 errors, 1 warnings, 0 messages)
