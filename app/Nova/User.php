@@ -28,6 +28,8 @@ class User extends Resource
      * @var string
      */
     public static $title = 'name';
+    public static $clickAction = 'select';
+
 
     /**
      * The columns that should be searched.

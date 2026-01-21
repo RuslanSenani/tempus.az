@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Contracts\LanguageRepositoryInterface;
 use App\Models\Language;
+use Illuminate\Database\Eloquent\Collection;
 
 class LanguageRepository implements LanguageRepositoryInterface
 {
@@ -30,6 +31,11 @@ class LanguageRepository implements LanguageRepositoryInterface
 
     public function count(): int
     {
-       return $this->languageModel->newQuery()->count();
+        return $this->languageModel->newQuery()->count();
+    }
+
+    public function getAllLanguages(): Collection
+    {
+        return $this->languageModel->newQuery()->where('is_active', true)->get();
     }
 }

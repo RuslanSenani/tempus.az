@@ -26,6 +26,8 @@ class SocialMedia extends Resource
      * @var string
      */
     public static $title = 'id';
+    public static $clickAction = 'select';
+
 
     /**
      * The columns that should be searched.

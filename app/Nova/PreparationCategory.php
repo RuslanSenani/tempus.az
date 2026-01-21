@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Slug;
@@ -23,7 +24,9 @@ class PreparationCategory extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
+    public static $clickAction = 'select';
+
 
     /**
      * The columns that should be searched.
@@ -31,37 +34,41 @@ class PreparationCategory extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function fields(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name', 'name')->rules('required'),
-            Slug::make('Slug')
-                ->from('Name')
-                ->separator('-')
-                ->rules('required')
-                ->creationRules('unique:preparation_categories,slug')
-                ->updateRules('unique:preparation_categories,slug,{{resourceId}}'),
             Boolean::make('Status', 'is_active')
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['width' => 'w-1/4']),
+
+            NovaTabTranslatable::make([
+                Text::make('Name', 'name')->rules('required'),
+                Slug::make('Slug')
+                    ->from('Name')
+                    ->separator('-')
+                    ->rules('required')
+                    ->creationRules('unique:preparation_categories,slug')
+                    ->updateRules('unique:preparation_categories,slug,{{resourceId}}')
+                    ->readonly(),
+            ])->setTitle('Name, Slug')
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function cards(NovaRequest $request)
@@ -72,7 +79,7 @@ class PreparationCategory extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function filters(NovaRequest $request)
@@ -83,7 +90,7 @@ class PreparationCategory extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function lenses(NovaRequest $request)
@@ -94,7 +101,7 @@ class PreparationCategory extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function actions(NovaRequest $request)

@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
+
+use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class SiteContent extends Resource
@@ -24,6 +24,8 @@ class SiteContent extends Resource
      */
     public static $title = 'id';
 
+    public static $clickAction = 'select';
+
     /**
      * The columns that should be searched.
      *
@@ -36,7 +38,7 @@ class SiteContent extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function fields(NovaRequest $request)
@@ -44,19 +46,21 @@ class SiteContent extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Key', 'key')
-                ->rules('required', 'max:255','unique:site_contents,lang_id,{{resourceId}}')
-                ->readonly(fn($request) => $request->isUpdate)
+                ->rules('required', 'max:255')
+                ->creationRules('unique:site_contents,key')
+                ->updateRules('unique:site_contents,key,{{resourceId}}')
                 ->sortable(),
-            Textarea::make('Value', 'value')
-                ->rules('required')
-                ->alwaysShow(),
+            NovaTabTranslatable::make([
+                Text::make('Value', 'value')
+                    ->rules('required')
+            ])->setTitle('Value'),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function cards(NovaRequest $request)
@@ -67,7 +71,7 @@ class SiteContent extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function filters(NovaRequest $request)
@@ -78,7 +82,7 @@ class SiteContent extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function lenses(NovaRequest $request)
@@ -89,11 +93,13 @@ class SiteContent extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function actions(NovaRequest $request)
     {
         return [];
     }
+
+
 }

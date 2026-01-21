@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
@@ -24,6 +25,8 @@ class Partner extends Resource
      * @var string
      */
     public static $title = 'id';
+    public static $clickAction = 'select';
+
 
     /**
      * The columns that should be searched.
@@ -44,17 +47,9 @@ class Partner extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name', 'name')
-                ->rules('required', 'max:255'),
             Image::make('Logo', 'logo')
                 ->disk('public')
                 ->path('partner')
-                ->preview(function ($value, $disk) {
-                    return $value ? Storage::disk($disk)->url($value) : null;
-                })
-                ->thumbnail(function ($value, $disk) {
-                    return $value ? Storage::disk($disk)->url($value) : null;
-                })
                 ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024')
                 ->prunable(),
             Text::make('Web Site', 'website')
@@ -62,6 +57,10 @@ class Partner extends Resource
                 ->displayUsing(function ($value) {
                     return $value ? "<a href='{$value}' target='_blank' class='link-default'>{$value}</a>" : '-';
                 })->asHtml(),
+            NovaTabTranslatable::make([
+                Text::make('Name', 'name')
+                    ->rules('required', 'max:255'),
+            ])->setTitle('Name')
         ];
     }
 

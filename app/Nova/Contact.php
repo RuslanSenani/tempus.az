@@ -23,6 +23,7 @@ class Contact extends Resource
      * @var string
      */
     public static $title = 'id';
+    public static $clickAction = 'select';
 
     /**
      * The columns that should be searched.
@@ -44,11 +45,7 @@ class Contact extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Phone', 'phone')->withMeta([
-                'extraAttributes' => [
-                    'onkeypress' => 'return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 43 || event.charCode == 40 || event.charCode == 41 || event.charCode == 45'
-                ]
-            ])
+            Text::make('Phone', 'phone')
                 ->rules('required', 'max:20'),
             Text::make('Email', 'email')
                 ->rules('required', 'email', 'max:255'),
@@ -57,9 +54,6 @@ class Contact extends Resource
                 Text::make('Xəritə Linki (URL)', 'map_link')
                     ->rules('required', 'url')
                     ->help('Google Maps-dən "Paylaş" düyməsinə sıxaraq linki bura yapışdırın.')
-                    ->displayUsing(function ($value) {
-                        return $value ? "<a href='{$value}' target='_blank' class='link-default'>Xəritədə Bax</a>" : '-';
-                    })->asHtml(),
             ])->setTitle('Address, Xəritə Linki (URL)'),
 
         ];

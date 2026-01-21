@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "build-nova-language-switcher": "cd nova-components/NovaLanguageSwitcher && npm run dev",
+        "build-nova-language-switcher-prod": "cd nova-components/NovaLanguageSwitcher && npm run prod"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",

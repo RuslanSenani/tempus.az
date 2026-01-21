@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Slug;
@@ -26,6 +27,8 @@ class MedicalInfo extends Resource
      * @var string
      */
     public static $title = 'id';
+    public static $clickAction = 'select';
+
 
     /**
      * The columns that should be searched.
@@ -39,21 +42,13 @@ class MedicalInfo extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function fields(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title', 'title'),
-            Trix::make('Content', 'content')
-                ->withMeta([
-                    'extraAttributes' => [
-                        'style' => 'min-height:200px'
-                    ]
-                ]),
-            Slug::make('Slug', 'slug'),
             Image::make('Image', 'image')
                 ->disk('public')
                 ->path('medicalInfo')
@@ -65,13 +60,24 @@ class MedicalInfo extends Resource
                 })
                 ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
                 ->prunable(),
+            NovaTabTranslatable::make([
+                Text::make('Title', 'title')->rules('required', 'max:100'),
+                Text::make('Image Alt Text', 'image_alt_text')->rules('required', 'max:100'),
+                Trix::make('Content', 'content')->rules('required','max:255')
+                    ->withMeta([
+                        'extraAttributes' => [
+                            'style' => 'min-height:200px'
+                        ]
+                    ]),
+                Slug::make('Slug', 'slug')->rules('required'),
+            ])->setTitle('Title, Content, Slug'),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function cards(NovaRequest $request)
@@ -82,7 +88,7 @@ class MedicalInfo extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function filters(NovaRequest $request)
@@ -93,7 +99,7 @@ class MedicalInfo extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function lenses(NovaRequest $request)
@@ -104,7 +110,7 @@ class MedicalInfo extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function actions(NovaRequest $request)

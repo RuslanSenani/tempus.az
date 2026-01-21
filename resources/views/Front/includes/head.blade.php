@@ -10,13 +10,15 @@
     <title>Maxi Health</title>
 
     <!-- Standard Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset("assets")}}/images/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{asset("assets")}}/images/favicon.ico"/>
 
     <!-- For iPhone 4 Retina display: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset("assets")}}/images/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{{asset("assets")}}/images/apple-touch-icon-114x114-precomposed.png">
 
     <!-- For iPad: -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset("assets")}}/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{{asset("assets")}}/images/apple-touch-icon-72x72-precomposed.png">
 
     <!-- For iPhone: -->
     <link rel="apple-touch-icon-precomposed" href="{{asset("assets")}}/images/apple-touch-icon-57x57-precomposed.png">
@@ -25,12 +27,19 @@
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/loader/loaders.min.css">
 
     <!-- Library - Google Font Familys -->
-    <link href='{{asset("assets")}}/fonts.googleapis.com/css812c.css?family=PT+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/csse491.css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/csse3e5.css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/cssf60f.css?family=Philosopher:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/css0733.css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='{{asset("assets")}}/fonts.googleapis.com/css812c.css?family=PT+Sans:400,400italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link href='{{asset("assets")}}/fonts.googleapis.com/csse491.css?family=Raleway:400,100,200,300,500,600,700,800,900'
+          rel='stylesheet' type='text/css'>
+    <link href='{{asset("assets")}}/fonts.googleapis.com/csse3e5.css?family=Montserrat:400,700' rel='stylesheet'
+          type='text/css'>
+    <link href='{{asset("assets")}}/fonts.googleapis.com/cssf60f.css?family=Philosopher:400,400italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link
+        href='{{asset("assets")}}/fonts.googleapis.com/css0733.css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
 
+    <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/custom.css">
     <!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/bootstrap/bootstrap.min.css">
 

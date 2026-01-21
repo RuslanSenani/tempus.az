@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -23,6 +24,8 @@ class Vacancy extends Resource
      * @var string
      */
     public static $title = 'id';
+    public static $clickAction = 'select';
+
 
     /**
      * The columns that should be searched.
@@ -43,12 +46,7 @@ class Vacancy extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title', 'title')
-                ->rules('required', 'unique:vacancies,title,{{resourceId}}'),
-            Trix::make('Description', 'description'),
             Currency::make('Salary', 'salary')->currency('AZN'),
-            Trix::make('Experience', 'experience'),
-            Text::make('Education', 'education'),
             Text::make('Email', 'email')
                 ->rules('required', 'email', 'max:255'),
             Text::make('Phone', 'phone')
@@ -56,6 +54,15 @@ class Vacancy extends Resource
                 ->displayUsing(function ($value) {
                     return $value;
                 })->showWhenPeeking(),
+
+            NovaTabTranslatable::make([
+                Text::make('Title', 'title')
+                    ->rules('required', 'unique:vacancies,title,{{resourceId}}'),
+                Text::make('Location', 'location'),
+                Trix::make('Description', 'description'),
+                Trix::make('Experience', 'experience'),
+                Text::make('Education', 'education'),
+            ])->setTitle('Title, Location, Description, Experience, Education'),
         ];
     }
 

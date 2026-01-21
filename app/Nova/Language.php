@@ -39,10 +39,10 @@ class Language extends Resource
     ];
 
 
-    public static function label(): string
-    {
-        return 'Dillər';
-    }
+//    public static function label(): string
+//    {
+//        return 'Dillər';
+//    }
 
     public static $showColumnBorders = true;
 

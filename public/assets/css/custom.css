@@ -1,0 +1,16 @@
+.language-dropdown {
+    position: relative;
+}
+
+.language-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    min-width: 180px;
+    z-index: 9999;
+}
+
+.language-dropdown.open .dropdown-menu {
+    display: block;
+}
