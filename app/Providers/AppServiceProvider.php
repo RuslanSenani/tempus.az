@@ -27,26 +27,26 @@ class AppServiceProvider extends ServiceProvider
     {
 
 
-//        if (!app()->runningInConsole()) {
-//
-//            if ($languageRepository->count() === 0) {
-//
-//                Artisan::call('db:seed', [
-//                    '--class' => 'LanguageSeeder',
-//                    '--force' => true
-//                ]);
-//            }
-//        }
-//
-//        if (Schema::hasTable((new Language())->getTable())) {
-//            User::firstOrCreate(
-//                ['email' => 'abbasov3232@inbox.ru'],
-//                [
-//                    'name' => 'admin',
-//                    'password' => Hash::make('12345678'),
-//                ]
-//            );
-//        }
+        if (!app()->runningInConsole()) {
+
+            if ($languageRepository->count() === 0) {
+
+                Artisan::call('db:seed', [
+                    '--class' => 'LanguageSeeder',
+                    '--force' => true
+                ]);
+            }
+        }
+
+        if (Schema::hasTable((new Language())->getTable())) {
+            User::firstOrCreate(
+                ['email' => 'abbasov3232@inbox.ru'],
+                [
+                    'name' => 'admin',
+                    'password' => Hash::make('12345678'),
+                ]
+            );
+        }
 
 
     }
