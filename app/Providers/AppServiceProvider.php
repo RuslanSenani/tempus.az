@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-      //
+        //
     }
 
     /**
@@ -40,10 +40,11 @@ class AppServiceProvider extends ServiceProvider
 
         if (Schema::hasTable((new Language())->getTable())) {
             User::firstOrCreate(
-                ['email' => 'abbasov3232@inbox.ru'],
+                ['email' => 'admin@admin.ru'],
                 [
                     'name' => 'admin',
                     'password' => Hash::make('12345678'),
+                    'is_admin' => true
                 ]
             );
         }
