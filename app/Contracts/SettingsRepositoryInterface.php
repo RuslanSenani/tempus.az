@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 interface SettingsRepositoryInterface
 {
-    public function getSettings(): Model;
+    public function getSettings(): ?Model;
 }

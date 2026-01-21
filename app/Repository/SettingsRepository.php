@@ -14,7 +14,7 @@ class SettingsRepository implements SettingsRepositoryInterface
         $this->settingModel = $settingModel;
     }
 
-    public function getSettings(): Setting
+    public function getSettings(): ?Setting
     {
         return $this->settingModel->newQuery()->first();
     }
