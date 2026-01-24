@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Contracts\LanguageRepositoryInterface;
 use App\Models\Language;
+use App\Models\SiteContent;
 use App\Models\User;
+use App\Observers\SiteContentObserver;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(LanguageRepositoryInterface $languageRepository): void
     {
 
+        SiteContent::observe(SiteContentObserver::class);
 
         if (!app()->runningInConsole()) {
 

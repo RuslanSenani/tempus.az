@@ -98,7 +98,9 @@ class SiteContent extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            (new Actions\SyncLanguages)->standalone(), // standalone() düyməni yuxarıda, tək göstərir
+        ];
     }
 
 

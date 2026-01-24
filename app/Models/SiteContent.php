@@ -12,4 +12,5 @@ class SiteContent extends Model
     protected $fillable = ['key', 'value'];
 
     public array $translatable = ['value'];
+    protected $casts = ['value' => 'array'];
 }

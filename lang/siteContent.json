@@ -1,0 +1,57 @@
+{
+    "home_our_location": {
+        "az": "Bizim Yerimiz",
+        "en": "Our Location",
+        "ru": "наше местоположение"
+    },
+    "home_call_us": {
+        "az": "İndi bizə zəng edin - 24\/7 Müştəri Dəstəyi",
+        "en": "Call Us Now- 24\/7 Customer Support",
+        "ru": "Позвоните нам прямо сейчас — круглосуточная поддержка клиентов."
+    },
+    "home_home": {
+        "az": "Əsas Səhifə",
+        "en": "Home",
+        "ru": "Дом"
+    },
+    "home_about_us": {
+        "az": "Hakkımızda",
+        "en": "About Us",
+        "ru": "О нас"
+    },
+    "home_preparations": {
+        "az": "Preparatlar",
+        "en": "Preparations",
+        "ru": "Препараты"
+    },
+    "home_partners": {
+        "az": "Partnyorlar",
+        "en": "Partners",
+        "ru": "Партнеры"
+    },
+    "home_medical_information": {
+        "az": "Məlumatlar",
+        "en": "Information",
+        "ru": "информация"
+    },
+    "home_vacancy": {
+        "az": "Vakansiya",
+        "en": "Vacancy",
+        "ru": "Вакансия"
+    },
+    "home_contact": {
+        "az": "Əlaqə",
+        "en": "Contact",
+        "ru": "Контакт"
+    },
+    "home_other": {
+        "az": "Digər",
+        "en": "Other",
+        "ru": "Другой"
+    },
+    "home_search": {
+        "az": "Axtarış edin...",
+        "en": "Search for...",
+        "ru": "Искать..."
+    }
+}

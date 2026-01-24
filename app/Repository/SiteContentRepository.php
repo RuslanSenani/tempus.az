@@ -35,4 +35,9 @@ class SiteContentRepository implements SiteContentInterface
     {
         return $this->siteContent->all()->keyBy('key');
     }
+
+    public function getAllContents(): array
+    {
+        return $this->siteContent->newQuery()->get()->all();
+    }
 }

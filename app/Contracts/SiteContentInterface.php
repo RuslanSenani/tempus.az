@@ -6,4 +6,5 @@ interface SiteContentInterface
 {
 //    public function translate(string $key): string;
     public function getAllContent();
+    public  function  getAllContents();
 }

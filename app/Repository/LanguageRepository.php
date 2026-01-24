@@ -43,4 +43,10 @@ class LanguageRepository implements LanguageRepositoryInterface
                 ->get();
         });
     }
+
+    public function getActiveLocales()
+    {
+        // Bazadan yalnız kodları (az, en, ru) massiv şəklində qaytarır
+        return $this->languageModel->newQuery()->where('is_active', true)->pluck('code')->toArray();
+    }
 }
