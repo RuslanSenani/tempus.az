@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 logo-block pull-left">
-                    <a href="#" title="Logo"><img src="{{asset("assets")}}/images/logo.png" alt="Logo"/></a>
+                    <a href="#" title="Logo"><img src="{{$setting->logo??''}}" alt="Logo"/></a>
                 </div>
                 <div class="col-md-9 text-right pull-right">
                     <div class="location">
@@ -73,20 +73,20 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav d-flex justify-content-between w-100">
                         <li class="active px-1"><a
-                                href="index.html">{{$siteContent['home_home']->value??'Əsas Səhifə'}}</a></li>
+                                    href="index.html">{{$siteContent['home_home']->value??'Əsas Səhifə'}}</a></li>
                         <li class="px-1"><a href="about.html">{{$siteContent['home_about_us']->value??'Hakkımızda'}}</a>
                         </li>
                         <li class="px-1"><a
-                                href="departments.html">{{$siteContent['home_preparations']->value??'Preparatlar'}}</a>
+                                    href="departments.html">{{$siteContent['home_preparations']->value??'Preparatlar'}}</a>
                         </li>
                         <li class="px-1"><a
-                                href="gallery.html">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
+                                    href="gallery.html">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
                         </li>
 
                         <li class="dropdown px-1">
                             <a href="#" class="dropdown-toggle"
                                data-toggle="dropdown">{{$siteContent['home_other']->value??'Digər'}} <i
-                                    class="fa fa-angle-down"></i></a>
+                                        class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
                                 </li>
