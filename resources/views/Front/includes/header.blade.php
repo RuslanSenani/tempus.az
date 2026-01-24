@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 logo-block pull-left">
-                    <a href="#" title="Logo"><img src="{{asset("assets")."/Logo/".$setting->logo??''}}" alt="Logo"/></a>
+                    <a href="#" title="Logo"><img src="{{asset("public")."/Logo/".$setting->logo??''}}" alt="Logo"/></a>
                 </div>
                 <div class="col-md-9 text-right pull-right">
                     <div class="location">
