@@ -1,16 +1,123 @@
-.language-dropdown {
-    position: relative;
+
+    /* Dil düyməsinin stili */
+.lang-btn {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none !important;
+    font-size: 14px;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
 }
 
-.language-dropdown .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 110%;
-    right: 0;
-    min-width: 180px;
-    z-index: 9999;
+.lang-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #007bff;
 }
 
-.language-dropdown.open .dropdown-menu {
-    display: block;
+/* Açılan menyunun (dropdown) stili */
+.custom-lang-dropdown .dropdown-menu {
+    min-width: 100px;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 5px;
+    animation: fadeIn 0.3s ease;
 }
+
+.custom-lang-dropdown .dropdown-item {
+    font-size: 13px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #555;
+    transition: background 0.2s;
+}
+
+.custom-lang-dropdown .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.custom-lang-dropdown .dropdown-item.active {
+    background-color: #e9ecef;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Animasiya */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ox işarəsinin fırlanması */
+.custom-lang-dropdown.show .fa-angle-down {
+    transform: rotate(180deg);
+    transition: transform 0.3s;
+}
+
+
+
+/*.lang-container {*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    margin-right: 15px;*/
+/*    vertical-align: middle;*/
+/*    z-index: 99999; !* Çox yuxarı qaldırırıq *!*/
+/*}*/
+
+/*.lang-current {*/
+/*    background: #fff !important;*/
+/*    color: #777 !important;*/
+/*    padding: 5px 15px !important;*/
+/*    border-radius: 20px !important;*/
+/*    font-size: 13px !important;*/
+/*    cursor: pointer !important;*/
+/*    display: flex !important;*/
+/*    align-items: center;*/
+/*    gap: 8px;*/
+/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+/*    font-weight: 700;*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+/*!* ƏSAS HİSSƏ: Menyu başlanğıcda mütləq gizli olmalıdır *!*/
+/*.lang-list {*/
+/*    position: absolute !important;*/
+/*    top: 100% !important;*/
+/*    right: 0 !important;*/
+/*    background: #fff !important;*/
+/*    min-width: 100px !important;*/
+/*    border-radius: 10px !important;*/
+/*    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;*/
+/*    list-style: none !important;*/
+/*    padding: 5px 0 !important;*/
+/*    margin: 10px 0 0 0 !important;*/
+/*    display: none !important; !* Məcburi gizlətmə *!*/
+/*    z-index: 999999 !important;*/
+/*}*/
+
+/*!* Klas "active" olanda menyunu göstər *!*/
+/*.lang-container.active .lang-list {*/
+/*    display: block !important;*/
+/*}*/
+
+/*.lang-list li {*/
+/*    margin: 0 !important;*/
+/*    padding: 0 !important;*/
+/*    display: block !important;*/
+/*}*/
+
+/*.lang-list li a {*/
+/*    display: block !important;*/
+/*    padding: 8px 15px !important;*/
+/*    color: #333 !important;*/
+/*    text-decoration: none !important;*/
+/*    text-align: left;*/
+/*}*/
+
+/*.lang-list li a:hover {*/
+/*    background: #f1f1f1 !important;*/
+/*    color: #00a3c8 !important;*/
+/*}*/

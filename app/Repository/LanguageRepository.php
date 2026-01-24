@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Contracts\LanguageRepositoryInterface;
 use App\Models\Language;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class LanguageRepository implements LanguageRepositoryInterface
 {
@@ -36,6 +37,10 @@ class LanguageRepository implements LanguageRepositoryInterface
 
     public function getAllLanguages(): Collection
     {
-        return $this->languageModel->newQuery()->where('is_active', true)->get();
+        return Cache::rememberForever('active_languages', function () {
+            return $this->languageModel->newQuery()
+                ->where('is_active', true)
+                ->get();
+        });
     }
 }

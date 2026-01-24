@@ -1,5 +1,5 @@
 @php
-    $languages = ['az','en','ru']; // Burada istəsən DB-dən də çəkə bilərsən
+    $languages = ['az','en','ru'];
 @endphp
 
 <form method="POST" action="{{ route('nova.set-locale') }}" style="display:inline">

@@ -1,24 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
+    var langWrapper = document.getElementById('customLang');
 
-    const wrap = document.getElementById('langDropdownWrap');
-    const toggle = document.getElementById('langToggle');
-    console.error('Language dropdown element tapılmadı');
+    if (langWrapper) {
+        // Düyməyə klikləyəndə
+        langWrapper.addEventListener('click', function (e) {
+            // Əgər keçid linkinə (AZ, EN, RU) kliklənibsə, menyunu toggle eləmə (qoy keçid etsin)
+            if (e.target.tagName === 'A') return;
 
-    if (!wrap || !toggle) {
-        console.error('Language dropdown element tapılmadı');
-        return;
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.toggle('active');
+        });
     }
 
-    // Toggle
-    toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        wrap.classList.toggle('open');
+    // Səhifənin istənilən başqa yerinə klikləyəndə menyunu bağla
+    document.addEventListener('click', function (e) {
+        if (langWrapper && !langWrapper.contains(e.target)) {
+            langWrapper.classList.remove('active');
+        }
     });
-
-    // Kənara klik → bağla
-    document.addEventListener('click', function () {
-        wrap.classList.remove('open');
-    });
-
 });
-

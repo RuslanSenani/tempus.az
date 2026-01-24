@@ -15,21 +15,24 @@ class SiteContentRepository implements SiteContentInterface
         $this->siteContent = $siteContent;
     }
 
-    public function translate(string $key): string
+//    public function translate(string $key): string
+//    {
+//        $locale = app()->getLocale();
+//
+//        $row = $this->siteContent->newQuery()->where('key', $key)->first();
+//
+//        if (!$row) {
+//            return $key;
+//        }
+//
+//        $values = $row->value;
+//
+//
+//
+//        return $values[$locale] ?? $values['en'] ?? $key;
+//    }
+    public function getAllContent()
     {
-        $locale = app()->getLocale();
-
-        $row = $this->siteContent->newQuery()->where('key', $key)->first();
-
-
-        if (!$row) {
-            return $key;
-        }
-
-        $values = $row->value;
-
-
-
-        return $values[$locale] ?? $values['en'] ?? $key;
+        return $this->siteContent->all()->keyBy('key');
     }
 }

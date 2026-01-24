@@ -1,47 +1,37 @@
 <header class="header-main">
     <!-- Top Header -->
-
-
     <div class="top-header container-fluid no-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    Sol tərəf boşdur
+        <!-- Container -->
+
+        <div class="container-fluid p-0 text-right">
+            <div class="row no-gutters">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-end align-items-center py-2 pr-3">
+                        <div class="dropdown custom-lang-dropdown">
+                            <button class="btn btn-link dropdown-toggle lang-btn" type="button" id="langSelector"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-globe mr-1"></i>
+                                <span class="current-lang-text">{{ strtoupper(app()->getLocale()) }}</span>
+                                <i class="fa fa-angle-down ml-1"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right shadow-sm border-0"
+                                 aria-labelledby="langSelector">
+                                @foreach($languages as $lang)
+                                    @if(app()->getLocale() !==$lang->code)
+                                        <a class="dropdown-item @if(app()->getLocale() == $lang->code) active @endif d-flex align-items-center"
+                                           href="{{ route('lang.switch', $lang->code) }}">
+                                            <span class="lang-code">{{ strtoupper($lang->code) }}</span>
+                                        </a>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-
-                <div class="col-md-5 text-right">
-                    <ul class="header-social-and-lang">
-                        <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-
-                <div class="dropdown language-dropdown" id="langDropdownWrap">
-                    <button class="btn btn-light d-flex align-items-center gap-2"
-                            type="button"
-                            id="langToggle">
-                        <i class="fa-solid fa-earth-asia"></i>
-                        <span id="currentLang">English</span>
-                        <i class="fa fa-chevron-down ms-1 small"></i>
-                    </button>
-
-                    <ul class="dropdown-menu" id="langMenu">
-                        <li><a class="dropdown-item" href="#">🇦🇿 Azərbaycan</a></li>
-                        <li><a class="dropdown-item" href="#">🇬🇧 English</a></li>
-                        <li><a class="dropdown-item" href="#">🇷🇺 Русский</a></li>
-                    </ul>
-                </div>
-
             </div>
         </div>
-
     </div>
-
-
     <!-- Top Header /- -->
-
 
     <!-- Logo Block -->
     <div class="middle-header container-fluid no-padding">
@@ -49,16 +39,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 logo-block pull-left">
-                    <a href="#" title="Logo"><img src="" alt="Logo"/></a>
+                    <a href="#" title="Logo"><img src="{{asset("assets")}}/images/logo.png" alt="Logo"/></a>
                 </div>
                 <div class="col-md-9 text-right pull-right">
                     <div class="location">
-                        <h3><img src="{{asset("assets")}}/images/location-ic.png" alt="Location"/> Our Location</h3>
-                        <p>E44 - Web Corner, Melbourne - 18</p>
+                        <h3><img src="{{asset("assets")}}/images/location-ic.png"
+                                 alt="Location"/> {{$siteContent['home_our_location']->value??''}}</h3>
+                        <p>{{$setting->address??''}}</p>
                     </div>
                     <div class="phone">
-                        <h3><img src="{{asset("assets")}}/images/phone-ic.png" alt="phone"/> (+1)800 433 633</h3>
-                        <p>Call Us Now- 24/7 Customer Support</p>
+                        <h3><img src="{{asset("assets")}}/images/phone-ic.png" alt="phone"/> {{$setting->phone_1??''}}
+                        </h3>
+                        <p>{{$siteContent['home_call_us']->value??''}}</p>
                     </div>
                 </div>
             </div>
@@ -77,23 +69,57 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
+
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="team.html">Our Team</a></li>
-                        <li><a href="departments.html">departments</a></li>
-                        <li><a href="gallery.html">Gallery </a></li>
-                        <li class="dropdown">
-                            <a href="blog.html" class="dropdown-toggle" role="button" aria-haspopup="true"
-                               aria-expanded="false">Blog</a>
-                            <i class="ddl-switch fa fa-angle-down"></i>
+                    <ul class="nav navbar-nav d-flex justify-content-between w-100">
+                        <li class="active px-1"><a
+                                href="index.html">{{$siteContent['home_home']->value??'Əsas Səhifə'}}</a></li>
+                        <li class="px-1"><a href="about.html">{{$siteContent['home_about_us']->value??'Hakkımızda'}}</a>
+                        </li>
+                        <li class="px-1"><a
+                                href="departments.html">{{$siteContent['home_preparations']->value??'Preparatlar'}}</a>
+                        </li>
+                        <li class="px-1"><a
+                                href="gallery.html">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
+                        </li>
+
+                        <li class="dropdown px-1">
+                            <a href="#" class="dropdown-toggle"
+                               data-toggle="dropdown">{{$siteContent['home_other']->value??'Digər'}} <i
+                                    class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="blog-post.html">Blog Post</a></li>
+                                <li><a href="#">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}</a>
+                                </li>
                             </ul>
                         </li>
-                        <li><a href="contact-us.html">Contact</a></li>
+
+                        <li class="px-1"><a href="gallery.html">{{$siteContent['home_contact']->value??'Əlaqə'}} </a>
+                        </li>
+
+
+                        <li class="px-1 search-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-search"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" style="min-width: 250px; padding: 10px;">
+                                <li>
+                                    <form action="#" method="POST">
+                                        @csrf
+                                        <div class="input-group">
+                                            <input type="text" name="query" class="form-control"
+                                                   placeholder="{{$siteContent['home_search']->value??'Axtarış edin...'}}">
+                                            <span class="input-group-btn">
+                                              <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>

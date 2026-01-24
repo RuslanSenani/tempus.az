@@ -57,7 +57,6 @@ class SiteSetings extends Resource
     {
         return [
             ID::make()->sortable(),
-
             Tabs::make('Ayarlar', [
                 Tab::make('Sayt Məlumatları', [
                     Text::make('Telefon 1', 'phone_1')
@@ -98,17 +97,20 @@ class SiteSetings extends Resource
                         Text::make('Company Name', 'company_name')
                             ->rules('required')
                             ->onlyOnForms(),
-                    ])
+                        Text::make('Address', 'address')
+                            ->rules('required')
+                    ]),
+                ]),
+                Tab::make('Social Media', [
+                    Text::make('E-mail', 'email'),
+                    Text::make('Facebook', 'facebook'),
+                    Text::make('Instagram', 'instagram'),
+                    Text::make('Tik Tok', 'tik_tok'),
+                    Text::make('Youtube', 'youtube'),
                 ]),
                 Tab::make('About Us', [
                     NovaTabTranslatable::make([
                         Trix::make('About Us', 'about_us')
-                            ->rules('required')
-                    ])
-                ]),
-                Tab::make('Address', [
-                    NovaTabTranslatable::make([
-                        Trix::make('Address', 'address')
                             ->rules('required')
                     ])
                 ]),
@@ -123,15 +125,7 @@ class SiteSetings extends Resource
                         Trix::make('Vision', 'vision')
                             ->rules('required')
                     ])
-                ]),
-                Tab::make('Social Media', [
-                    Text::make('E-mail', 'email'),
-                    Text::make('Facebook', 'facebook'),
-                    Text::make('Instagram', 'instagram'),
-                    Text::make('Tik Tok', 'tik_tok'),
-                    Text::make('Youtube', 'youtube'),
                 ])
-
             ])
 
 

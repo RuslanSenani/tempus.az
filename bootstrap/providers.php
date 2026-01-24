@@ -7,4 +7,6 @@ return [
     App\Providers\NovaServiceProvider::class,
     App\Providers\PreparationCategoryProvider::class,
     App\Providers\SettingProvider::class,
+    App\Providers\SiteContentProvider::class,
+    App\Providers\SiteContentRepository::class,
 ];

@@ -1,9 +1,5 @@
-
-<script src="{{asset("assets")}}/js/custom.js"></script>
 <!-- JQuery v1.11.3 -->
 <script src="{{asset("assets")}}/js/jquery.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Library - Modernizer -->
 <script src="{{asset("assets")}}/libraries/modernizr/modernizr.js"></script>
@@ -35,4 +31,5 @@
 <!-- Library - Theme JS -->
 <script src="{{asset("assets")}}/js/functions.js"></script>
 
+<script src="{{asset("assets")}}/js/custom.js"></script>
 

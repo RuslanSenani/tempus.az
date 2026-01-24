@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Contracts\AboutRepositoryInterface;
 use App\Contracts\LanguageRepositoryInterface;
 use App\Contracts\SettingsRepositoryInterface;
+use App\Contracts\SiteContentInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,12 +15,14 @@ class FrontHomeController extends Controller
     private AboutRepositoryInterface $aboutRepository;
     private LanguageRepositoryInterface $languageRepository;
     private SettingsRepositoryInterface $settingsRepository;
+    private SiteContentInterface $siteContent;
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository)
+    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent)
     {
         $this->aboutRepository = $aboutRepository;
         $this->languageRepository = $languageRepository;
         $this->settingsRepository = $settingsRepository;
+        $this->siteContent = $siteContent;
         $this->viewFolder = 'Front/';
     }
 
@@ -28,11 +31,15 @@ class FrontHomeController extends Controller
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+
+
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
             'abouts' => $abouts,
             'languages' => $languages,
-            'setting' => $setting
+            'setting' => $setting,
+            'siteContent' => $siteContent
         ];
         return view("{$viewData['viewFolder']}.index")->with($viewData);
 

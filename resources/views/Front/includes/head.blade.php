@@ -10,7 +10,7 @@
     <title>Maxi Health</title>
 
     <!-- Standard Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset("assets")}}/images/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="../../../../../assets/images/favicon.ico"/>
 
     <!-- For iPhone 4 Retina display: -->
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -39,7 +39,6 @@
         href='{{asset("assets")}}/fonts.googleapis.com/css0733.css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
         rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/custom.css">
     <!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/bootstrap/bootstrap.min.css">
 
@@ -61,11 +60,19 @@
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/plugins.css">
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/navigation-menu.css">
 
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/all-ie-only.css"/>
+    <![endif]-->
 
     <!-- Custom - Theme CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/style.css">
-
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/shortcodes.css">
 
+    <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/custom.css">
+
+
+    <!--[if lt IE 9]>
+    <script src="{{asset("assets")}}/js/html5/respond.min.js"></script>
+    <![endif]-->
 
 </head>
