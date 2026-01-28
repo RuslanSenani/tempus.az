@@ -10,9 +10,13 @@
             <div class="row">
                 <div class="col-md-3 logo-block pull-left">
                     @if($setting && $setting->logo)
-                        <img src="{{ asset('storage/Logo/' . $setting->logo) }}" alt="Logo"/>
+                        <a href="{{route('home')}}">
+                            <img src="{{ asset('storage/Logo/' . $setting->logo) }}" class="img-responsive main-logo"
+                                 alt="Logo"/>
+                        </a>
                     @else
-                        <img src="{{ asset('assets/images/default-logo.png') }}" alt="Logo"/>
+                        <img src="{{ asset('assets/images/default-logo.png') }}" class="img-responsive main-logo"
+                             alt="Logo"/>
                     @endif
                 </div>
                 <div class="col-md-9 text-right pull-right">
@@ -96,7 +100,7 @@
                             <a href="{{route('preparation')}}">{{$siteContent['home_preparation']->value??'Preparatlar'}} </a>
                         </li>
                         <li class="px-1">
-                            <a href="#">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
+                            <a href="{{route('partners')}}">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
                         </li>
 
                         <li class="dropdown px-1">

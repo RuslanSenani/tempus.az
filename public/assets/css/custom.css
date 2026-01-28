@@ -1,3 +1,86 @@
+.main-logo {
+    max-height: 73px; /* Sənin header-in hündürlüyünə uyğun olaraq (60px-100px arası) dəyişə bilərsən */
+    width: auto;      /* Eni avtomatik nizamlanacaq ki, şəkil dartılmasın */
+    display: inline-block;
+    transition: transform 0.3s ease; /* User-friendly: üzərinə gələndə kiçik effekt */
+}
+
+.main-logo:hover {
+    transform: scale(1.05); /* Üzərinə gələndə 5% böyüyür */
+}
+
+/* Mobil cihazlar üçün tənzimləmə */
+@media (max-width: 768px) {
+    .main-logo {
+        max-height: 50px; /* Mobildə ekran balaca olduğu üçün loqonu bir az kiçiltmək lazımdır */
+        margin: 10px 0;
+    }
+    .logo-block {
+        text-align: center; /* Mobildə loqonu mərkəzə alaq */
+    }
+}
+
+.partner-card {
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.partner-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+    border-color: #4C70B5; /* Wix kodundakı rəng */
+}
+
+.partner-logo-wrapper {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.partner-logo {
+    max-height: 100%;
+    object-fit: contain;
+    /* Əgər loqoların rəngi çox fərqlidirsə ağ-qara edib hover-də rəngləyə bilərsən */
+    /* filter: grayscale(100%); */
+}
+
+/* .partner-card:hover .partner-logo { filter: grayscale(0%); } */
+
+.partner-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4C70B5;
+    margin: 0;
+    text-align: center;
+    font-family: 'Mark Pro', sans-serif; /* Wix-dəki font */
+}
+
+/* Mobil tənzimləmə */
+@media (max-width: 576px) {
+    .partner-card {
+        padding: 10px;
+    }
+    .partner-logo-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+    .partner-title {
+        font-size: 12px;
+    }
+}
+
 /* Məhsul qutusu */
 .product-box {
     background: #ffffff;

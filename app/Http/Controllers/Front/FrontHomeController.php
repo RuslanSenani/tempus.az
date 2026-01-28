@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Contracts\AboutRepositoryInterface;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\LanguageRepositoryInterface;
+use App\Contracts\PartnersRepositoryInterface;
 use App\Contracts\PreparationRepositoryInterface;
 use App\Contracts\SettingsRepositoryInterface;
 use App\Contracts\SiteContentInterface;
@@ -21,8 +22,9 @@ class FrontHomeController extends Controller
     private SiteContentInterface $siteContent;
     private CategoryRepositoryInterface $categoryRepository;
     private PreparationRepositoryInterface $preparationRepository;
+    private PartnersRepositoryInterface $partnersRepository;
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository)
+    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository)
     {
         $this->aboutRepository = $aboutRepository;
         $this->languageRepository = $languageRepository;
@@ -30,6 +32,7 @@ class FrontHomeController extends Controller
         $this->siteContent = $siteContent;
         $this->categoryRepository = $categoryRepository;
         $this->preparationRepository = $preparationRepository;
+        $this->partnersRepository = $partnersRepository;
         $this->viewFolder = 'Front/';
     }
 
@@ -75,14 +78,15 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
-    public function preparation(): View
+    public function preparation(Request $request, $page = 1): View
     {
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getAllActiveCategory();
-        $preparations = $this->preparationRepository->getAllPreparations();
+        $preparations = $this->preparationRepository->getPartnersByLimit(3, (int)$page);
+        $preparations->setPath(url('preparations/page'));
 
 
         $viewData = [
@@ -162,6 +166,27 @@ class FrontHomeController extends Controller
             'allCategories' => $allCategories,
             'preparations' => $preparations,
             'preparationCategory' => $preparationCategory
+
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
+    public function partners(Request $request, $page = 1): View
+    {
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $partners = $this->partnersRepository->getPartnersByLimit(16, (int)$page);
+        $partners->setPath(url('partners/page'));
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "Partners_v",
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+            'partners' => $partners,
 
         ];
 

@@ -5,6 +5,7 @@ return [
     App\Providers\AppServiceProvider::class,
     App\Providers\LanguageServiceProvider::class,
     App\Providers\NovaServiceProvider::class,
+    App\Providers\PartnersServicesProviders::class,
     App\Providers\PreparationCategoryProvider::class,
     App\Providers\PreparationProvider::class,
     App\Providers\PreparationProviders::class,

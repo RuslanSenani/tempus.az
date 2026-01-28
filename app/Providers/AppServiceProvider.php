@@ -8,6 +8,7 @@ use App\Models\SiteContent;
 use App\Models\User;
 use App\Observers\LanguageObserver;
 use App\Observers\SiteContentObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
@@ -30,9 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(LanguageRepositoryInterface $languageRepository): void
     {
 
-        if (config('app.env') === 'production' || config('app.env') === 'staging') {
-            URL::forceScheme('https');
-        }
+        Paginator::useBootstrap();
         Language::observe(LanguageObserver::class);
         SiteContent::observe(SiteContentObserver::class);
 

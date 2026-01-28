@@ -52,8 +52,18 @@
     <!-- What We Do Best Left -->
 
     <!-- What We Do Best Right -->
+
     @foreach($preparations as $preparation)
-        <div class="col-md-3 col-sm-4 col-6 mb-4">
+        @php
+            $count = $preparations->count();
+            $col = match($count) {
+                1 => 12,
+                2 => 6,
+                3 => 4,
+                default => 3,
+            };
+        @endphp
+        <div class="col-md-{{$col}} col-sm-4 col-6 mb-4">
             <div class="product-box">
                 <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">
                     <div class="product-img-wrapper">
@@ -71,8 +81,15 @@
                 </a>
             </div>
         </div>
-    @endforeach;
 
+    @endforeach
+
+
+    <!-- Pagination -->
+    <nav class="ow-pagination">
+        {{ $preparations->links('partials.pagination', ['routeName'=>'preparation.page','pages' => $preparations]) }}
+    </nav>
+    <!-- Pagination /- -->
     <!-- What We Do Best Right /- -->
 </div>
 <!-- What We Do Best /- -->

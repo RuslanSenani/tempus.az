@@ -15,7 +15,12 @@ Route::get('/all-categories', [FrontHomeController::class, 'allCategories'])->na
 Route::get('/category-details/{id}', [FrontHomeController::class, 'categoryDetails'])->name('category-details');
 
 Route::get('/preparation', [FrontHomeController::class, 'preparation'])->name('preparation');
+Route::get('/preparation/page/{page}', [FrontHomeController::class, 'preparation'])->name('preparation.page');
 Route::get('/preparation-detail/{id}', [FrontHomeController::class, 'preparationDetail'])->name('preparation-detail');
+
+Route::get('/partners', [FrontHomeController::class, 'partners'])->name('partners');
+Route::get('partners/page/{page}', [FrontHomeController::class, 'partners'])->name('partners.page');
+
 
 
 

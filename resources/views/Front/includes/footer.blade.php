@@ -17,7 +17,7 @@
             <div class="col-md-4 col-sm-4 mail-box detail-box">
                 <i><img src="{{asset("assets")}}/images/ftr-email.png" alt="Email"/></i>
                 <h4>{{$siteContent['home_electron_address']->value??''}}</h4>
-                <p><a href="mailto:info@maxihealth.com">{{$setting->email??''}}</a></p>
+                <p><a href="mailto:{{$setting->email??''}}">{{$setting->email??''}}</a></p>
             </div>
         </diV><!-- Contact Detail /- -->
 
@@ -26,9 +26,9 @@
                 <aside class="widget widget-about">
                     <h3>
                         @if($setting && $setting->logo)
-                            <img src="{{ asset('storage/Logo/' . $setting->logo) }}" alt="Logo"/>
+                            <img src="{{ asset('storage/Logo/' . $setting->logo) }}" class="img-responsive main-logo" alt="Logo"/>
                         @else
-                            <img src="{{ asset('assets/images/default-logo.png') }}" alt="Logo"/>
+                            <img src="{{ asset('assets/images/default-logo.png') }}" class="img-responsive main-logo" alt="Logo"/>
                         @endif
                     </h3>
                 </aside>
