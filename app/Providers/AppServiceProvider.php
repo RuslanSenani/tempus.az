@@ -11,6 +11,7 @@ use App\Observers\SiteContentObserver;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(LanguageRepositoryInterface $languageRepository): void
     {
 
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
         Language::observe(LanguageObserver::class);
         SiteContent::observe(SiteContentObserver::class);
 
