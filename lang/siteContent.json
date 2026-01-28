@@ -69,5 +69,10 @@
         "az": "Addresimiz",
         "en": "Our address",
         "ru": "Наш адрес"
+    },
+    "home_electron_address": {
+        "az": "Elektron Adres",
+        "en": "Email address",
+        "ru": "Адрес электронной почты"
     }
 }
