@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (Schema::hasTable((new Language())->getTable())) {
             User::firstOrCreate(
-                ['email' => 'admin@admin.ru'],
+                ['email' => 'admin@admin.com'],
                 [
                     'name' => 'admin',
                     'password' => Hash::make('12345678'),
