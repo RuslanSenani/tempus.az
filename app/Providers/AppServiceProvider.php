@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(LanguageRepositoryInterface $languageRepository): void
     {
 
-        if (app()->environment('production')) {
+        if (config('app.env') === 'production' || config('app.env') === 'staging') {
             URL::forceScheme('https');
         }
         Language::observe(LanguageObserver::class);
