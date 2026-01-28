@@ -9,6 +9,8 @@ interface LanguageRepositoryInterface
 
     public function getActiveLanguages(): array;
 
+    public function  getDefaultLanguage();
+
     public function updateOrCreateByCode(string $code, array $name, bool $isActive = false);
 
     public function count(): int;

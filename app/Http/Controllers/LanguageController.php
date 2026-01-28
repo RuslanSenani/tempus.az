@@ -16,13 +16,18 @@ class LanguageController extends Controller
 
     public function switch($lang): RedirectResponse
     {
+
         $activeLanguages = $this->languageRepository->getAllLanguages();
 
-
         if ($activeLanguages->contains('code', $lang)) {
-            session(['locale' => $lang]);
+            session()->put('locale', $lang);
+            session()->put('active_languages', true);
+            session()->save();
+
+            app()->setLocale($lang);
         }
 
         return redirect()->back();
+
     }
 }

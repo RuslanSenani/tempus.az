@@ -6,6 +6,7 @@ use App\Contracts\LanguageRepositoryInterface;
 use App\Models\Language;
 use App\Models\SiteContent;
 use App\Models\User;
+use App\Observers\LanguageObserver;
 use App\Observers\SiteContentObserver;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(LanguageRepositoryInterface $languageRepository): void
     {
 
+        Language::observe(LanguageObserver::class);
         SiteContent::observe(SiteContentObserver::class);
 
         if (!app()->runningInConsole()) {

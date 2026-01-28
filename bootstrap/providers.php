@@ -6,7 +6,8 @@ return [
     App\Providers\LanguageServiceProvider::class,
     App\Providers\NovaServiceProvider::class,
     App\Providers\PreparationCategoryProvider::class,
+    App\Providers\PreparationProvider::class,
+    App\Providers\PreparationProviders::class,
     App\Providers\SettingProvider::class,
     App\Providers\SiteContentProvider::class,
-    App\Providers\SiteContentRepository::class,
 ];

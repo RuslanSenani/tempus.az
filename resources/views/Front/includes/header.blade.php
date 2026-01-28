@@ -1,36 +1,6 @@
 <header class="header-main">
     <!-- Top Header -->
-    <div class="top-header container-fluid no-padding">
-        <!-- Container -->
 
-        <div class="container-fluid p-0 text-right">
-            <div class="row no-gutters">
-                <div class="col-md-12">
-                    <div class="d-flex justify-content-end align-items-center py-2 pr-3">
-                        <div class="dropdown custom-lang-dropdown">
-                            <button class="btn btn-link dropdown-toggle lang-btn" type="button" id="langSelector"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-globe mr-1"></i>
-                                <span class="current-lang-text">{{ strtoupper(app()->getLocale()) }}</span>
-                                <i class="fa fa-angle-down ml-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right shadow-sm border-0"
-                                 aria-labelledby="langSelector">
-                                @foreach($languages as $lang)
-                                    @if(app()->getLocale() !==$lang->code)
-                                        <a class="dropdown-item @if(app()->getLocale() == $lang->code) active @endif d-flex align-items-center"
-                                           href="{{ route('lang.switch', $lang->code) }}">
-                                            <span class="lang-code">{{ strtoupper($lang->code) }}</span>
-                                        </a>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Top Header /- -->
 
     <!-- Logo Block -->
@@ -68,35 +38,80 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav d-flex justify-content-between w-100">
-                        <li class="active px-1"><a
-                                href="#">{{$siteContent['home_home']->value??'Əsas Səhifə'}}</a></li>
-                        <li class="px-1"><a href="#">{{$siteContent['home_about_us']->value??'Hakkımızda'}}</a>
+                    <ul class="nav navbar-nav d-flex align-items-center w-100">
+
+                        <li class="{{ request()->routeIs('home') ? 'active' : '' }} px-1">
+                            <a href="{{route('home')}}">{{$siteContent['home_home']->value??'Əsas Səhifə'}}</a>
                         </li>
-                        <li class="px-1"><a
-                                href="#">{{$siteContent['home_preparations']->value??'Preparatlar'}}</a>
+
+                        <li class="{{ request()->routeIs('about-us') ? 'active' : '' }} px-1">
+                            <a href="{{route('about-us')}}">{{$siteContent['home_about_us']->value??'Hakkımızda'}}</a>
                         </li>
-                        <li class="px-1"><a
-                                href="#">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
+
+
+                        <li class="dropdown px-1 custom-hover-dropdown">
+                            <a href="{{ route('all-categories') }}" class="dropdown-toggle">
+                                {{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                @foreach($allCategories as $category)
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                           href="{{route('category-details',$category->id)}}">
+                                            {{ $category->name }}
+                                            @if($category->preparations->count() > 0)
+                                                <i class="fa fa-angle-right d-none d-md-block"></i>
+                                                <i class="fa fa-angle-down d-md-none"></i>
+                                            @endif
+                                        </a>
+
+                                        @if($category->preparations->count() > 0)
+                                            <ul class="dropdown-menu submenu">
+                                                @foreach($category->preparations as $preparation)
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                           href="{{route('preparation-detail',$preparation->id)}}">
+                                                            {{ $preparation->name }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+
+                        <li class="px-1">
+                            <a href="{{route('preparation')}}">{{$siteContent['home_preparation']->value??'Preparatlar'}} </a>
+                        </li>
+                        <li class="px-1">
+                            <a href="#">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
                         </li>
 
                         <li class="dropdown px-1">
                             <a href="#" class="dropdown-toggle"
-                               data-toggle="dropdown">{{$siteContent['home_other']->value??'Digər'}} <i
-                                    class="fa fa-angle-down"></i></a>
+                               data-toggle="dropdown">{{$siteContent['home_other']->value??'Digər'}}
+                                <i class="fa fa-angle-down"></i>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
+                                <li>
+                                    <a href="#">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
                                 </li>
                                 <li>
-                                    <a href="#">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}</a>
+                                    <a href="#">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}
+                                    </a>
+                                </li>
+                                <li class="px-1">
+                                    <a href="#">{{$siteContent['home_contact']->value??'Əlaqə'}} </a>
                                 </li>
                             </ul>
-                        </li>
-
-                        <li class="px-1"><a href="#">{{$siteContent['home_contact']->value??'Əlaqə'}} </a>
                         </li>
 
 
@@ -120,8 +135,34 @@
                             </ul>
                         </li>
 
+                        <li class="ml-auto d-flex align-items-center fixed-right-item">
+                            <div class="dropdown language-switcher px-6 custom-hover-dropdown">
+                                @php $displayCode = app()->getLocale(); @endphp
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe mr-1"></i>
+                                    <span class="font-weight-bold">{{ strtoupper($displayCode) }}</span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                @if($languages->count() > 1)
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        @foreach($languages as $lang)
+                                            @if($displayCode !== $lang->code)
+                                                <li>
+                                                    <a href="{{ route('lang.switch', $lang->code) }}"
+                                                       class="dropdown-item">
+                                                        {{ strtoupper($lang->code) }}
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        </li>
                     </ul>
                 </div>
+
+
             </div>
         </div>
     </nav>

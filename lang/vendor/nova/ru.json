@@ -471,5 +471,6 @@
     "Remove": "Удалить",
     "Uploading": "Загрузка",
     "The image could not be loaded.": "Изображение не удалось загрузить.",
-    "User Actions": "Действия пользователя"
+    "User Actions": "Действия пользователя",
+    "image": "Изображение"
 }

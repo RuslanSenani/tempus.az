@@ -2,18 +2,19 @@
 
 namespace App\Providers;
 
-use App\Contracts\CategoryRepositoryInterface;
-use App\Repository\CategoryRepository;
+use App\Contracts\PreparationRepositoryInterface;
+use App\Repository\PreparationRepository;
 use Illuminate\Support\ServiceProvider;
 
-class PreparationCategoryProvider extends ServiceProvider
+class PreparationProvider extends ServiceProvider
 {
     /**
      * Register services.
      */
     public function register(): void
     {
-        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+
+        $this->app->bind(PreparationRepositoryInterface::class, PreparationRepository::class);
     }
 
     /**

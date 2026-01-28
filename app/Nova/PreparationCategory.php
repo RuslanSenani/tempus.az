@@ -2,10 +2,11 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -51,7 +52,17 @@ class PreparationCategory extends Resource
                 ->trueValue(1)
                 ->falseValue(0)
                 ->withMeta(['width' => 'w-1/4']),
-
+            Image::make('Image', 'image')
+                ->disk('public')
+                ->path('preparation_categories')
+                ->preview(function ($value, $disk) {
+                    return $value ? Storage::disk($disk)->url($value) : null;
+                })
+                ->thumbnail(function ($value, $disk) {
+                    return $value ? Storage::disk($disk)->url($value) : null;
+                })
+                ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
+                ->prunable(),
             NovaTabTranslatable::make([
                 Text::make('Name', 'name')->rules('required'),
                 Slug::make('Slug')

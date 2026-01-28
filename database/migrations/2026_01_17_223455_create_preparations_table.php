@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('preparations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('preparation_categories');
+            $table->foreignId('category_id')->constrained('preparation_categories')->onDelete('cascade');
             $table->json('name');
             $table->json('title');
             $table->json('image_alt_text');

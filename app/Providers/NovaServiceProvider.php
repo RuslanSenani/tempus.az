@@ -4,10 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
-use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use Spatie\NovaTranslatable\Translatable;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -20,13 +18,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
 
         parent::boot();
+
         // Footer-i özəlləşdiririk
         Nova::footer(function ($request) {
             return Blade::render('
                 <div class="flex justify-center gap-1 text-xs">
                     <p class="text-center">
                         &copy; {{ date("Y") }}
-                        <a href="#" class="link-default">Sizin Şirkət</a>.
+                        <a href="#" class="link-default">Tempus</a>.
                         Bütün hüquqlar qorunur.
                     </p>
                     <span class="px-1">&middot;</span>

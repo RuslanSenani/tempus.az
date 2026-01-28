@@ -49,4 +49,16 @@ class LanguageRepository implements LanguageRepositoryInterface
         // Bazadan yalnız kodları (az, en, ru) massiv şəklində qaytarır
         return $this->languageModel->newQuery()->where('is_active', true)->pluck('code')->toArray();
     }
+
+    public function getDefaultLanguage()
+    {
+        return cache()->rememberForever('default_language_data', function () {
+            $lang = $this->languageModel->newQuery()->where('is_default', true)->first();
+            return $lang ?? null;
+        });
+//        return $this->languageModel->newQuery()
+//            ->where('is_active', true)
+//            ->where('is_default', true)
+//            ->first();
+    }
 }

@@ -45,6 +45,8 @@ class MedicalInfo extends Resource
      * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
+
+
     public function fields(NovaRequest $request)
     {
         return [
@@ -63,7 +65,7 @@ class MedicalInfo extends Resource
             NovaTabTranslatable::make([
                 Text::make('Title', 'title')->rules('required', 'max:100'),
                 Text::make('Image Alt Text', 'image_alt_text')->rules('required', 'max:100'),
-                Trix::make('Content', 'content')->rules('required','max:255')
+                Trix::make('Content', 'content')->rules('required', 'max:255')
                     ->withMeta([
                         'extraAttributes' => [
                             'style' => 'min-height:200px'

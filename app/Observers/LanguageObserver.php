@@ -11,7 +11,8 @@ class LanguageObserver
      */
     public function created(Language $language): void
     {
-        cache()->forget('locales');
+        cache()->forget('active_languages');
+
     }
 
     /**
@@ -19,7 +20,8 @@ class LanguageObserver
      */
     public function updated(Language $language): void
     {
-        cache()->forget('locales');
+        cache()->forget('active_languages');
+        cache()->forget('default_language_data');
     }
 
     /**
@@ -27,7 +29,8 @@ class LanguageObserver
      */
     public function deleted(Language $language): void
     {
-        cache()->forget('locales');
+        cache()->forget('active_languages');
+
     }
 
     /**
@@ -35,7 +38,7 @@ class LanguageObserver
      */
     public function restored(Language $language): void
     {
-        cache()->forget('locales');
+        cache()->forget('active_languages');
     }
 
     /**
@@ -43,6 +46,6 @@ class LanguageObserver
      */
     public function forceDeleted(Language $language): void
     {
-        //
+        cache()->forget('active_languages');
     }
 }

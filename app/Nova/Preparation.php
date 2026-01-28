@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use App\Repository\PreparationCategoryRepository;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -47,7 +46,6 @@ class Preparation extends Resource
      */
     public function fields(NovaRequest $request)
     {
-        $preparationCategoryRepository = app(PreparationCategoryRepository::class);
 
         return [
             ID::make()->sortable(),

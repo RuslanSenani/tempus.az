@@ -53,5 +53,10 @@
         "az": "Axtarış edin...",
         "en": "Search for...",
         "ru": "Искать..."
+    },
+    "home_preparation_category": {
+        "az": "Kateqoriya",
+        "en": "Category",
+        "ru": "Категория"
     }
 }
