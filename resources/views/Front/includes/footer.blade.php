@@ -11,8 +11,8 @@
             <div class="col-md-4 col-sm-4 phone-box detail-box">
                 <i><img src="{{asset("assets")}}/images/ftr-phone.png" alt="Phone"/></i>
                 <h4>{{$siteContent['home_contact']->value??'Əlaqə'}}</h4>
-                <p><a href="tel:{{$setting->phone_1}}">{{$setting->phone_1}}</a></p>
-                <p><a href="tel:{{$setting->fax_1}}">{{$setting->fax_1}}</a></p>
+                <p><a href="tel:{{$setting->phone_1??''}}">{{$setting->phone_1??''}}</a></p>
+                <p><a href="tel:{{$setting->fax_1??''}}">{{$setting->fax_1??''}}</a></p>
             </div>
             <div class="col-md-4 col-sm-4 mail-box detail-box">
                 <i><img src="{{asset("assets")}}/images/ftr-email.png" alt="Email"/></i>
