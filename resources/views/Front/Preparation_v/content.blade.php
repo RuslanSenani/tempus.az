@@ -65,7 +65,8 @@
                         <h1 class="product-title mt-2"
                             style="display: inline-block; border-bottom: 2px solid #007bff; padding-bottom: 5px; font-size: 20px;">
                             {{$preparation->category->name}}
-                        </h1>                        <h6 class="product-title mt-2">{{$preparation->name}}</h6>
+                        </h1>
+                        <h6 class="product-title mt-2">{{$preparation->name}}</h6>
                     </div>
                 </a>
             </div>

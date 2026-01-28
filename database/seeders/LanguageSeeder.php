@@ -20,11 +20,30 @@ class LanguageSeeder extends Seeder
      */
     public function run(): void
     {
+        $languagesData = [
+            'az' => [
+                'az' => 'Azərbaycan',
+                'en' => 'Azerbaijani',
+                'ru' => 'Азербайджанский'
+            ],
+            'en' => [
+                'az' => 'İngilis',
+                'en' => 'English',
+                'ru' => 'Английский'
+            ],
+            'ru' => [
+                'az' => 'Rus',
+                'en' => 'Russian',
+                'ru' => 'Русский'
+            ],
+        ];
 
-        $this->languageRepository->updateOrCreateByCode(
-            code: 'AZ',
-            name: array('AZ' => 'Azərbaycan'),
-            isActive: true
-        );
+        foreach ($languagesData as $code => $translations) {
+            $this->languageRepository->updateOrCreateByCode(
+                code: $code,
+                name: $translations,
+                isActive: true
+            );
+        }
     }
 }

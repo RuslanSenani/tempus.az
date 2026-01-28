@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="entry-content">
-{{--                        {!! $preparation->description !!}--}}
+                        {!! $preparation->description !!}
                     </div>
                 </article>
 

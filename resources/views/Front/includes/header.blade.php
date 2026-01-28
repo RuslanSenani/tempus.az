@@ -9,7 +9,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 logo-block pull-left">
-                    <a href="#" title="Logo"><img src="{{asset('storage/Logo/'.$setting->logo??'')}}" alt="Logo"/></a>
+                    @if($setting && $setting->logo)
+                        <img src="{{ asset('storage/Logo/' . $setting->logo) }}" alt="Logo"/>
+                    @else
+                        <img src="{{ asset('assets/images/default-logo.png') }}" alt="Logo"/>
+                    @endif
                 </div>
                 <div class="col-md-9 text-right pull-right">
                     <div class="location">

@@ -58,5 +58,16 @@
         "az": "Kateqoriya",
         "en": "Category",
         "ru": "Категория"
+    },
+    "home_social_media": {
+        "AZ": "Sosial Mediya",
+        "en": "Social Media",
+        "az": "Sosyal Medya",
+        "ru": "Социальные сети"
+    },
+    "home_tempus_adrress": {
+        "az": "Addresimiz",
+        "en": "Our address",
+        "ru": "Наш адрес"
     }
 }
