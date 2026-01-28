@@ -17,7 +17,7 @@
             <div class="col-md-4 col-sm-4 mail-box detail-box">
                 <i><img src="{{asset("assets")}}/images/ftr-email.png" alt="Email"/></i>
                 <h4>hospital address</h4>
-                <p><a href="mailto:info@maxihealth.com">{{$setting->email}}</a></p>
+                <p><a href="mailto:info@maxihealth.com">{{$setting->email??''}}</a></p>
             </div>
         </diV><!-- Contact Detail /- -->
 
