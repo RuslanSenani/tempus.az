@@ -6,7 +6,7 @@
             <div class="col-md-4 col-sm-4 address-box detail-box">
                 <i><img src="{{asset("assets")}}/images/ftr-location.png" alt="Loactaion"/></i>
                 <h4>{{$siteContent['home_tempus_adrress']->value??'Addresimiz'}}</h4>
-                <p>{{$setting->address}}</p>
+                <p>{{$setting->address??''}}</p>
             </div>
             <div class="col-md-4 col-sm-4 phone-box detail-box">
                 <i><img src="{{asset("assets")}}/images/ftr-phone.png" alt="Phone"/></i>
