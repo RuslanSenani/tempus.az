@@ -324,7 +324,6 @@ class FrontHomeController extends Controller
             'contact_phone' => 'required|numeric|digits:10',
             'contact_message' => 'required|string|regex:/^[\p{L}\s]+$/u',
         ]);
-        Mail::to('abbasov3232@inbox.ru')->send(new ContactFormMail($validation));
 
         //dd($validation['contact_name']);
 

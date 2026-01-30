@@ -2,24 +2,21 @@
 
 namespace App\Nova;
 
-use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
-use Laravel\Nova\Fields\FormData;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Stack;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Media extends Resource
+class ContactMessage extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Media>
+     * @var class-string<\App\Models\ContactMessage>
      */
-    public static $model = \App\Models\Media::class;
+    public static $model = \App\Models\ContactMessage::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -47,38 +44,15 @@ class Media extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Name')->sortable(),
+            Text::make('Email')->sortable(),
+            Text::make('Phone'),
+            Text::make('Subject'),
+            Trix::make('Message'),
 
-            Select::make('Type', 'type')->options([
-                'image' => 'Image',
-                'video' => 'Video',
-            ])->rules('required')
-                ->displayUsingLabels(), // Index-də kiçik hərflə yox, 'Image' kimi göstərir
+            Boolean::make('Is Read'),
 
-            // Şəkil Sahəsi
-            Image::make('Image', 'image_url')
-                ->disk('public')
-                ->path('Media_Path')
-                ->prunable() // Fayl silinəndə diskdən də silinsin
-                ->dependsOn(['type'], function (Image $field, NovaRequest $request, FormData $formData) {
-                    if ($formData->type !== 'image') {
-                        $field->hide();
-                    }
-                }),
-
-            // Video URL Sahəsi
-            Text::make('Video URL', 'video_url')
-                ->help('YouTube, TikTok və ya Instagram linki əlavə edin')
-                ->dependsOn(['type'], function (Text $field, NovaRequest $request, FormData $formData) {
-                    if ($formData->type !== 'video') {
-                        $field->hide();
-                    }
-                }),
-
-            NovaTabTranslatable::make([
-                Text::make('Title', 'title'),
-                Trix::make('Description', 'description')
-            ])
-
+            DateTime::make('Created At')->exceptOnForms(),
         ];
     }
 

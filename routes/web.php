@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\FrontHomeController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
@@ -28,11 +29,12 @@ Route::get('/contact', [FrontHomeController::class, 'contact'])->name('contact')
 Route::post('/contact-us', [FrontHomeController::class, 'contactUs'])->name('contact-us');
 
 Route::get('/vacancy', [FrontHomeController::class, 'vacancy'])->name('vacancy');
-Route::post('/send-vacancy', [FrontHomeController::class, 'sendVacancy'])->name('send-vacancy');
+//Route::post('/send-vacancy', [FrontHomeController::class, 'sendVacancy'])->name('send-vacancy');
 
 Route::get('/media', [FrontHomeController::class, 'media'])->name('media');
 Route::get('/media-details/{id}', [FrontHomeController::class, 'mediaDetails'])->name('media-details');
 Route::get('/media/page/{page}', [FrontHomeController::class, 'media'])->name('media.page');
 
 
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 

@@ -3,6 +3,7 @@
 return [
     App\Providers\AboutServiceProvider::class,
     App\Providers\AppServiceProvider::class,
+    App\Providers\ContactMessageProviders::class,
     App\Providers\LanguageServiceProvider::class,
     App\Providers\MediaServicesProviders::class,
     App\Providers\MedicalInfoServicesProviders::class,

@@ -90,28 +90,28 @@
     <!-- Enquiry Us -->
     <div class="leave-comment enquiry-us">
         <h3 class="section-heading">{{$siteContent['home_contact_us']->value??''}}</h3>
-        <form id="contact-form" class="comment-form enquiry-form" method="POST" action="{{route('contact-us')}}">
+        <form id="contact-form" class="comment-form enquiry-form" method="POST" action="{{route('contact.store')}}">
             @csrf
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="form-group">
                         <label for="name">Name*</label>
-                        <input type="text" name="contact_name" class="form-control" value="{{old('name')}}" id="name"
+                        <input type="text" name="name" class="form-control" value="{{old('name')}}" id="name"
                                required/>
                     </div>
                     <div class="form-group">
                         <label for="email">E-Mail*</label>
-                        <input type="email" name="contact_email" class="form-control" value="{{old('email')}}"
+                        <input type="email" name="email" class="form-control" value="{{old('email')}}"
                                id="email" required/>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number*</label>
-                        <input type="text" name="contact_phone" class="form-control" value="{{old('phone')}}" id="phone"
+                        <input type="text" name="phone" class="form-control" value="{{old('phone')}}" id="phone"
                                required/>
                     </div>
                     <div class="form-group">
                         <label for="message">Details</label>
-                        <textarea class="form-control" name="contact_message" id="message">
+                        <textarea class="form-control" name="message" id="message">
                             {{old('message')}}
                         </textarea>
 

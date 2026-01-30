@@ -11,6 +11,6 @@ class Media extends Model
 
     public array $translatable = ['title', 'description'];
 
-    protected $fillable = ['title', 'description', 'type', 'url_path'];
+    protected $fillable = ['title', 'description', 'type', 'image_url','video_url'];
 
 }
