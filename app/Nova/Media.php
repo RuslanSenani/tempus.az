@@ -7,10 +7,9 @@ use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Stack;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mostafaznv\NovaCkEditor\CkEditor;
 
 class Media extends Resource
 {
@@ -76,7 +75,7 @@ class Media extends Resource
 
             NovaTabTranslatable::make([
                 Text::make('Title', 'title'),
-                Trix::make('Description', 'description')
+                CkEditor::make('Description', 'description')
             ])
 
         ];

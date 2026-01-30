@@ -6,8 +6,8 @@ use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mostafaznv\NovaCkEditor\CkEditor;
 
 class Vacancy extends Resource
 {
@@ -59,8 +59,8 @@ class Vacancy extends Resource
                 Text::make('Title', 'title')
                     ->rules('required', 'unique:vacancies,title,{{resourceId}}'),
                 Text::make('Location', 'location'),
-                Trix::make('Description', 'description'),
-                Trix::make('Experience', 'experience'),
+                CkEditor::make('Description', 'description'),
+                CkEditor::make('Experience', 'experience'),
                 Text::make('Education', 'education'),
             ])->setTitle('Title, Location, Description, Experience, Education'),
         ];

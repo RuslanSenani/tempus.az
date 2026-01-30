@@ -11,9 +11,8 @@ use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
-
+use Mostafaznv\NovaCkEditor\CkEditor;
 
 class SiteSetings extends Resource
 {
@@ -110,19 +109,19 @@ class SiteSetings extends Resource
                 ]),
                 Tab::make('About Us', [
                     NovaTabTranslatable::make([
-                        Trix::make('About Us', 'about_us')
-                            ->rules('required')
+                        CkEditor::make('About Us', 'about_us')
+                            ->rules('required')->fullWidth()
                     ])
                 ]),
                 Tab::make('Mission', [
                     NovaTabTranslatable::make([
-                        Trix::make('Mission', 'mission')
+                        CkEditor::make('Mission', 'mission')
                             ->rules('required')
                     ])
                 ]),
                 Tab::make('Vision', [
                     NovaTabTranslatable::make([
-                        Trix::make('Vision', 'vision')
+                        CkEditor::make('Vision', 'vision')
                             ->rules('required')
                     ])
                 ])

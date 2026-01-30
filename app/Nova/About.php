@@ -2,14 +2,12 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mostafaznv\NovaCkEditor\CkEditor;
 
 class About extends Resource
 {
@@ -56,7 +54,7 @@ class About extends Resource
                 ->prunable(),
             NovaTabTranslatable::make([
                 Text::make('Title', 'title')->rules('required'),
-                Trix::make('Description', 'description')
+                CkEditor::make('Description', 'description')
                     ->rules('required')
                     ->withMeta([
                         'extraAttributes' => [

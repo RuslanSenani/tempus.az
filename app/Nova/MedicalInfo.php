@@ -2,15 +2,14 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mostafaznv\NovaCkEditor\CkEditor;
 
 class MedicalInfo extends Resource
 {
@@ -66,7 +65,7 @@ class MedicalInfo extends Resource
             NovaTabTranslatable::make([
                 Text::make('Title', 'title')->rules('required', 'max:100'),
                 Text::make('Image Alt Text', 'image_alt_text')->rules('required', 'max:100'),
-                Trix::make('Content', 'content')->rules('required')
+                CkEditor::make('Content', 'content')->rules('required')
                     ->withMeta([
                         'extraAttributes' => [
                             'style' => 'min-height:200px'

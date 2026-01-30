@@ -8,8 +8,8 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mostafaznv\NovaCkEditor\CkEditor;
 
 class Preparation extends Resource
 {
@@ -69,7 +69,7 @@ class Preparation extends Resource
                     ->rules('required', 'max:255'),
                 Text::make('Title', 'title')
                     ->rules('required', 'max:255'),
-                Trix::make('Description', 'description'),
+                CkEditor::make('Description', 'description'),
                 Slug::make('Slug', 'slug')
                     ->from('Name')
                     ->separator('-')
