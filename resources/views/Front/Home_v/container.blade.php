@@ -1,68 +1,142 @@
-<!-- Banner Section -->
-<div id="home-banner" class="container-fluid no-padding banner-section home-banner">
-    <!-- Container -->
-    <div class="container">
-        <div id="main-carousel" class="carousel slide" data-ride="carousel" data-interval="10000">
-            <div class="carousel-inner" role="listbox">
-                @foreach($abouts as $about)
-                    <div class="item active">
-                        <div class="col-md-6 col-sm-6 no-padding">
-                            <div class="banner-left">
-                                <h3>{{$about->title??''}}</h3>
-                                <p>
-                                    {!!  $about->description??''!!}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6 no-padding">
-                            <div class="banner-right">
-                                <img src="{{asset("storage/".$about->image??'')}}"
-                                     alt="{{$about->image_alt_text??''}}"/>
-                            </div>
+<!-- Page Banner -->
+
+<div class="page-banner services-banner container-fluid no-padding img-trieangle">
+    <div id="banner-slider" class="carousel slide" data-ride="carousel" data-interval="10000">
+        <div class="carousel-inner" role="listbox">
+            @foreach($abouts as $key => $about)
+                <div class="item {{ $key == 0 ? 'active' : '' }}">
+                    <div class="banner-img">
+                        <img src="{{ asset('storage/'.$about->image) }}" alt="banner">
+                    </div>
+
+                    <div class="banner-overlay-text">
+                        <div class="container">
+                            <h3>{{$siteContent['home_medical_information']->value ?? ''}}</h3>
+                            <ol class="breadcrumb">
+                                <li><a href="{{route('home')}}">{{$siteContent['home_home']->value ?? ''}}</a></li>
+                                <li class="active">{{$siteContent['home_medical_information']->value ?? ''}}</li>
+                            </ol>
                         </div>
                     </div>
-                @endforeach
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
 
-            </div>
-        </div>
-    </div><!-- Container /- -->
+{{--<div class="page-banner services-banner container-fluid no-padding img-trieangle">--}}
 
-    <!-- Shape -->
-    <div class="banner-shape container-fluid no-padding">
-        <div class="col-md-6 col-sm-6 col-xs-6 shape-left no-padding">
-            <div class="left-shape-blue">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon2" clipPathUnits="objectBoundingBox">
-                        <polygon points="0 0, 0 100, 120 100, 0 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-            <div class="left-shape">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon1" clipPathUnits="objectBoundingBox">
-                        <polygon points="0 0, 0 100, 100 100, 0 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-6 shape-right no-padding">
-            <div class="right-shape-blue">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon3" clipPathUnits="objectBoundingBox">
-                        <polygon points="1 0.2, 0 1, 0 0.835, 1 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-            <div class="right-shape">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon4" clipPathUnits="objectBoundingBox">
-                        <polygon points="1 0, 0 1, 100 100, 100 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-        </div>
-    </div><!-- Shape /- -->
-</div><!-- Banner Section /- -->
+{{--    <div id="banner-slider" class="carousel slide" data-ride="carousel" data-interval="10000">--}}
+{{--        <div class="carousel-inner" role="listbox">--}}
+{{--            @foreach($abouts as $key => $about)--}}
+{{--                <div class="item {{ $key == 0 ? 'active' : '' }}">--}}
+{{--                    <div class="banner-img">--}}
+{{--                        <img src="{{ asset('storage/'.$about->image) }}"--}}
+{{--                             alt="{{ $about->image_alt_text ?? '' }}"--}}
+{{--                             style="width: 100%; height: 450px; object-fit: cover;">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--                <div class="container banner-overlay-text">--}}
+{{--                    <div class="position-relative">--}}
+{{--                        <h3>{{$siteContent['home_medical_information']->value ?? ''}}</h3>--}}
+{{--                        <ol class="breadcrumb">--}}
+{{--                            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value ?? ''}}</a></li>--}}
+{{--                            <li class="active">{{$siteContent['home_medical_information']->value ?? ''}}</li>--}}
+{{--                        </ol>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--            @endforeach--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+
+{{--<div class="page-banner services-banner container-fluid no-padding img-trieangle">--}}
+
+{{--    @foreach($abouts as $about)--}}
+{{--        <div class="banner-img">--}}
+{{--            <img src="{{asset("storage/".$about->image??'')}}"--}}
+{{--                 alt="{{$about->image_alt_text??''}}"/>--}}
+{{--        </div>--}}
+{{--    @endforeach--}}
+{{--    <div class="container position-relative">--}}
+{{--        <h3>{{$siteContent['home_medical_information']->value??''}}</h3>--}}
+{{--        <ol class="breadcrumb">--}}
+{{--            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??''}}</a></li>--}}
+{{--            <li class="active">{{$siteContent['home_medical_information']->value??''}}</li>--}}
+{{--        </ol>--}}
+{{--    </div>--}}
+
+{{--</div>--}}
+
+
+{{--<!-- Banner Section -->--}}
+{{--<div id="home-banner" class="container-fluid no-padding banner-section home-banner">--}}
+{{--    <!-- Container -->--}}
+{{--    <div class="container">--}}
+{{--        <div id="main-carousel" class="carousel slide" data-ride="carousel" data-interval="10000">--}}
+{{--            <div class="carousel-inner" role="listbox">--}}
+{{--                @foreach($abouts as $about)--}}
+{{--                    <div class="item active">--}}
+{{--                        <div class="col-md-6 col-sm-6 no-padding">--}}
+{{--                            <div class="banner-left">--}}
+{{--                                <h3>{{$about->title??''}}</h3>--}}
+{{--                                <p>--}}
+{{--                                    {!!  $about->description??''!!}--}}
+{{--                                </p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-6 col-sm-6 no-padding">--}}
+{{--                            <div class="banner-right">--}}
+{{--                                <img src="{{asset("storage/".$about->image??'')}}"--}}
+{{--                                     alt="{{$about->image_alt_text??''}}"/>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div><!-- Container /- -->--}}
+
+{{--    <!-- Shape -->--}}
+{{--    <div class="banner-shape container-fluid no-padding">--}}
+{{--        <div class="col-md-6 col-sm-6 col-xs-6 shape-left no-padding">--}}
+{{--            <div class="left-shape-blue">--}}
+{{--                <svg width="100%" height="100%">--}}
+{{--                    <clipPath id="clipPolygon2" clipPathUnits="objectBoundingBox">--}}
+{{--                        <polygon points="0 0, 0 100, 120 100, 0 0"></polygon>--}}
+{{--                    </clipPath>--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--            <div class="left-shape">--}}
+{{--                <svg width="100%" height="100%">--}}
+{{--                    <clipPath id="clipPolygon1" clipPathUnits="objectBoundingBox">--}}
+{{--                        <polygon points="0 0, 0 100, 100 100, 0 0"></polygon>--}}
+{{--                    </clipPath>--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-6 col-sm-6 col-xs-6 shape-right no-padding">--}}
+{{--            <div class="right-shape-blue">--}}
+{{--                <svg width="100%" height="100%">--}}
+{{--                    <clipPath id="clipPolygon3" clipPathUnits="objectBoundingBox">--}}
+{{--                        <polygon points="1 0.2, 0 1, 0 0.835, 1 0"></polygon>--}}
+{{--                    </clipPath>--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--            <div class="right-shape">--}}
+{{--                <svg width="100%" height="100%">--}}
+{{--                    <clipPath id="clipPolygon4" clipPathUnits="objectBoundingBox">--}}
+{{--                        <polygon points="1 0, 0 1, 100 100, 100 0"></polygon>--}}
+{{--                    </clipPath>--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div><!-- Shape /- -->--}}
+{{--</div><!-- Banner Section /- -->--}}
 
 <!-- Message Borad -->
 <div id="message-borad" class="container-fluid no-padding message-borad">
@@ -80,7 +154,7 @@
                 <div class="col-md-6 message-block no-right-padding">
                     <h3>{{$siteContent['home_medical_information']->value??'Tibbi Məlumatlar'}}</h3>
                     <a href="{{route('medical-info')}}">{{$siteContent['home_more_details']->value??'Daha Ətraflı'}}<i
-                                class="fa fa-caret-right"></i></a>
+                            class="fa fa-caret-right"></i></a>
                 </div>
             </div><!-- Emargency Case /- -->
             <!-- Opening Hours -->
@@ -90,7 +164,7 @@
                     <h3>{{$siteContent['home_online_sales']->value??'Onlayn Satış'}}</h3>
                     <a href="{{route('contact')}}">{{$siteContent['home_contact_us']->value??'Bizimlə əlaqə saxlayın'}}
                         <i
-                                class="fa fa-caret-right"></i></a>
+                            class="fa fa-caret-right"></i></a>
                 </div>
                 <div class="col-md-6 message-block no-padding">
                     <h3>{{$siteContent['home_opening_hours']->value??'Açılış saatları'}}</h3>
