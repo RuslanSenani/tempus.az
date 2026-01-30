@@ -76,7 +76,7 @@
 
                 <!-- Widget Categories -->
                 <aside class="widget widget-categories">
-                    <h3 class="widget-title">{{$siteContent['home_preparation_categories']->value??'Kateqoriya'}}</h3>
+                    <h3 class="widget-title">{{$siteContent['home_preparation_category']->value??'Kateqoriya'}}</h3>
                     <ul class="categories-type">
                         @foreach($allCategories as $category)
                             <li><a href="{{route('category-details',$category->id)}}"
