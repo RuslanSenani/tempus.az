@@ -1,12 +1,12 @@
 /* ==========================================================================
-   BANNER & CAROUSEL INTEGRATION (Az öncəki kodlara əlavə)
+   BANNER & CAROUSEL INTEGRATION
    ========================================================================== */
 
 /* Ən üst divin ölçüsünü idarə edən hissə */
 .page-banner.services-banner {
     position: relative;
     width: 100%;
-    height: 450px; /* Sənin HTML-də verdiyin hündürlük */
+    height: 450px;
     overflow: hidden;
     padding: 0;
     margin: 0;
@@ -20,17 +20,17 @@
     height: 100% !important;
 }
 
-/* Şəkli saxlayan div - valideynin (item) 100%-ni alsın */
+/* Şəkli saxlayan div */
 .banner-img {
     width: 100%;
     height: 100%;
 }
 
-/* Şəklin özü - Boşluq qoymadan tam otursun */
+/* Şəklin özü */
 .banner-img img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover; /* Şəkli əzmir, sahəni doldurur */
+    object-fit: cover;
     object-position: center;
     display: block;
 }
@@ -44,46 +44,36 @@
     z-index: 2;
     width: 100%;
     text-align: center;
-    pointer-events: none; /* Mausun şəklin üzərində hərəkətinə mane olmur */
-}
-
-.banner-overlay-text .position-relative {
-    pointer-events: auto; /* Linklərə klikləməyə icazə verir */
-}
-
-/* Üçbucaq kəsimi (img-trieangle) üçün əlavə */
-.img-trieangle::after {
-    /* Əgər dizaynda mütləq üçbucaq kəsimi lazımdırsa */
     pointer-events: none;
 }
 
-/* Mobildə hündürlüyü avtomatik tənzimləmək üçün */
-@media (max-width: 767px) {
-    .page-banner.services-banner,
-    .banner-img img {
-        height: 300px !important; /* Mobildə daha kompakt görünüş */
-    }
+.banner-overlay-text .position-relative {
+    pointer-events: auto;
+}
+
+/* Üçbucaq kəsimi */
+.img-trieangle::after {
+    pointer-events: none;
 }
 
 /* ==========================================================================
-   1. GLOBAL & REUSABLE STYLES (Dizayn Sistemləri)
+   1. GLOBAL & REUSABLE STYLES
    ========================================================================== */
 :root {
     --primary-color: #4C70B5;
     --text-dark: #333333;
-    --text-light: #666666; /* Bir az daha tünd oxunaqlı rəng */
+    --text-light: #666666;
     --border-color: #f1f1f1;
-    --transition-speed: 0.2s ease-in-out; /* Daha çevik keçid */
+    --transition-speed: 0.2s ease-in-out;
     --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-/* Kartların və qutuların ümumi keçid effekti */
 .card, .partner-card, .product-box, .main-logo, .language-switcher .dropdown-toggle {
     transition: all var(--transition-speed);
 }
 
 /* ==========================================================================
-   2. HEADER & NAVIGATION (Menyu, Loqo, Dil Seçimi)
+   2. HEADER & NAVIGATION
    ========================================================================== */
 .main-logo {
     max-height: 73px;
@@ -103,19 +93,13 @@
 
 .navbar-nav > li a {
     white-space: nowrap;
-    padding: 18px 10px !important; /* Navbarı daha da incəltdik */
+    padding: 18px 10px !important;
     color: var(--text-dark);
     font-size: 13.5px;
     font-weight: 500;
     display: block;
 }
 
-/*.navbar-nav > li a {*/
-/*    white-space: nowrap;*/
-/*    padding: 0 5px !important;*/
-/*}*/
-
-/* Dil seçici və Sağa sabit elementlər */
 .fixed-right-item, .ml-auto {
     margin-left: auto !important;
     flex-shrink: 0;
@@ -137,7 +121,6 @@
     transform: rotate(180deg);
 }
 
-/* Submenu (Alt menyu) Məntiqi */
 @media (min-width: 768px) {
     .custom-hover-dropdown:hover > .dropdown-menu,
     .dropdown-submenu:hover > .submenu {
@@ -152,50 +135,7 @@
 }
 
 /* ==========================================================================
-   3. BANNER & CAROUSEL (Responsive & 30s Slide)
-   ========================================================================== */
-.services-banner {
-    position: relative;
-    width: 100%;
-    height: 60vh; /* Ekranın 60%-i */
-    min-height: 350px;
-    overflow: hidden;
-    background: #f8f9fa;
-}
-
-/* Carousel daxili şəkillər */
-.carousel-inner, .carousel-item, .item {
-    height: 100%;
-}
-
-.banner-img img {
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-    object-position: center;
-}
-
-/* Şəklin üzərindəki mətn */
-.banner-overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    text-align: center;
-    width: 100%;
-    padding: 0 15px;
-}
-
-.banner-overlay-text h3 {
-    color: #fff;
-    font-size: calc(20px + 1.5vw);
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
-    font-weight: 700;
-}
-
-/* ==========================================================================
-   4. COMPONENTS (Kartlar, Formlar, Vakansiya)
+   3. COMPONENTS
    ========================================================================== */
 .partner-card, .product-box {
     background: #fff;
@@ -234,7 +174,6 @@
     transform: scale(1.05);
 }
 
-/* Formlar */
 .form-control {
     border: 1px solid var(--border-color);
     padding: 12px;
@@ -247,13 +186,33 @@
 }
 
 /* ==========================================================================
-   5. MOBILE RESPONSIVE (Media Queries)
+   4. MOBILE & RESPONSIVE FIX (Əsas Düzəliş Buradadır)
    ========================================================================== */
 @media (max-width: 767px) {
-    .services-banner, .banner-img img {
-        height: 300px;
+    /* Bannerin aşağıdan kəsilməməsi üçün hündürlüyü məcburi təyin edirik */
+    .services-banner,
+    .page-banner.services-banner,
+    #banner-slider,
+    .carousel-inner,
+    .carousel-item,
+    .item {
+        height: 250px !important; /* Mobildə ideal hündürlük */
+        min-height: 250px !important;
     }
 
+    .banner-img img {
+        height: 100% !important;
+        width: 100% !important;
+        object-fit: cover !important; /* Divi tam doldurur */
+    }
+
+    /* Mətnin ölçüsünü mobilə uyğunlaşdırırıq */
+    .banner-overlay-text h3 {
+        font-size: 20px !important;
+        padding: 0 10px;
+    }
+
+    /* Navbar Mobil Ayarları */
     .navbar-nav {
         flex-direction: column;
     }
@@ -282,5 +241,292 @@
         z-index: 1000;
     }
 }
+
+/*!* ==========================================================================*/
+/*   BANNER & CAROUSEL INTEGRATION (Az öncəki kodlara əlavə)*/
+/*   ========================================================================== *!*/
+
+/*!* Ən üst divin ölçüsünü idarə edən hissə *!*/
+/*.page-banner.services-banner {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    height: 450px; !* Sənin HTML-də verdiyin hündürlük *!*/
+/*    overflow: hidden;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
+
+/*!* Karuselin bütün sahəni tutması üçün *!*/
+/*#banner-slider,*/
+/*#banner-slider .carousel-inner,*/
+/*#banner-slider .item {*/
+/*    width: 100%;*/
+/*    height: 100% !important;*/
+/*}*/
+
+/*!* Şəkli saxlayan div - valideynin (item) 100%-ni alsın *!*/
+/*.banner-img {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+/*!* Şəklin özü - Boşluq qoymadan tam otursun *!*/
+/*.banner-img img {*/
+/*    width: 100% !important;*/
+/*    height: 100% !important;*/
+/*    object-fit: cover; !* Şəkli əzmir, sahəni doldurur *!*/
+/*    object-position: center;*/
+/*    display: block;*/
+/*}*/
+
+/*!* Mətnin şəklin üzərindəki mövqeyi *!*/
+/*.banner-overlay-text {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    z-index: 2;*/
+/*    width: 100%;*/
+/*    text-align: center;*/
+/*    pointer-events: none; !* Mausun şəklin üzərində hərəkətinə mane olmur *!*/
+/*}*/
+
+/*.banner-overlay-text .position-relative {*/
+/*    pointer-events: auto; !* Linklərə klikləməyə icazə verir *!*/
+/*}*/
+
+/*!* Üçbucaq kəsimi (img-trieangle) üçün əlavə *!*/
+/*.img-trieangle::after {*/
+/*    !* Əgər dizaynda mütləq üçbucaq kəsimi lazımdırsa *!*/
+/*    pointer-events: none;*/
+/*}*/
+
+/*!* Mobildə hündürlüyü avtomatik tənzimləmək üçün *!*/
+/*@media (max-width: 767px) {*/
+/*    .page-banner.services-banner,*/
+/*    .banner-img img {*/
+/*        height: 300px !important; !* Mobildə daha kompakt görünüş *!*/
+/*    }*/
+/*}*/
+
+/*!* ==========================================================================*/
+/*   1. GLOBAL & REUSABLE STYLES (Dizayn Sistemləri)*/
+/*   ========================================================================== *!*/
+/*:root {*/
+/*    --primary-color: #4C70B5;*/
+/*    --text-dark: #333333;*/
+/*    --text-light: #666666; !* Bir az daha tünd oxunaqlı rəng *!*/
+/*    --border-color: #f1f1f1;*/
+/*    --transition-speed: 0.2s ease-in-out; !* Daha çevik keçid *!*/
+/*    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.06);*/
+/*}*/
+
+/*!* Kartların və qutuların ümumi keçid effekti *!*/
+/*.card, .partner-card, .product-box, .main-logo, .language-switcher .dropdown-toggle {*/
+/*    transition: all var(--transition-speed);*/
+/*}*/
+
+/*!* ==========================================================================*/
+/*   2. HEADER & NAVIGATION (Menyu, Loqo, Dil Seçimi)*/
+/*   ========================================================================== *!*/
+/*.main-logo {*/
+/*    max-height: 73px;*/
+/*    width: auto;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.main-logo:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+/*.navbar-nav {*/
+/*    display: flex !important;*/
+/*    align-items: center;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.navbar-nav > li a {*/
+/*    white-space: nowrap;*/
+/*    padding: 18px 10px !important; !* Navbarı daha da incəltdik *!*/
+/*    color: var(--text-dark);*/
+/*    font-size: 13.5px;*/
+/*    font-weight: 500;*/
+/*    display: block;*/
+/*}*/
+
+/*!*.navbar-nav > li a {*!*/
+/*!*    white-space: nowrap;*!*/
+/*!*    padding: 0 5px !important;*!*/
+/*!*}*!*/
+
+/*!* Dil seçici və Sağa sabit elementlər *!*/
+/*.fixed-right-item, .ml-auto {*/
+/*    margin-left: auto !important;*/
+/*    flex-shrink: 0;*/
+/*}*/
+
+/*.language-switcher .dropdown-toggle {*/
+/*    color: var(--text-dark);*/
+/*    text-decoration: none;*/
+/*    padding: 8px 12px;*/
+/*    border-radius: 6px;*/
+/*}*/
+
+/*.language-switcher:hover .dropdown-toggle {*/
+/*    background-color: rgba(0, 0, 0, 0.05);*/
+/*    color: var(--primary-color);*/
+/*}*/
+
+/*.language-switcher:hover .fa-angle-down {*/
+/*    transform: rotate(180deg);*/
+/*}*/
+
+/*!* Submenu (Alt menyu) Məntiqi *!*/
+/*@media (min-width: 768px) {*/
+/*    .custom-hover-dropdown:hover > .dropdown-menu,*/
+/*    .dropdown-submenu:hover > .submenu {*/
+/*        display: block;*/
+/*    }*/
+
+/*    .dropdown-submenu > .submenu {*/
+/*        top: 0;*/
+/*        left: 100%;*/
+/*        position: absolute;*/
+/*    }*/
+/*}*/
+
+/*!* ==========================================================================*/
+/*   3. BANNER & CAROUSEL (Responsive & 30s Slide)*/
+/*   ========================================================================== *!*/
+/*.services-banner {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    height: 60vh; !* Ekranın 60%-i *!*/
+/*    min-height: 350px;*/
+/*    overflow: hidden;*/
+/*    background: #f8f9fa;*/
+/*}*/
+
+/*!* Carousel daxili şəkillər *!*/
+/*.carousel-inner, .carousel-item, .item {*/
+/*    height: 100%;*/
+/*}*/
+
+/*.banner-img img {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover;*/
+/*    object-position: center;*/
+/*}*/
+
+/*!* Şəklin üzərindəki mətn *!*/
+/*.banner-overlay-text {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    z-index: 10;*/
+/*    text-align: center;*/
+/*    width: 100%;*/
+/*    padding: 0 15px;*/
+/*}*/
+
+/*.banner-overlay-text h3 {*/
+/*    color: #fff;*/
+/*    font-size: calc(20px + 1.5vw);*/
+/*    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);*/
+/*    font-weight: 700;*/
+/*}*/
+
+/*!* ==========================================================================*/
+/*   4. COMPONENTS (Kartlar, Formlar, Vakansiya)*/
+/*   ========================================================================== *!*/
+/*.partner-card, .product-box {*/
+/*    background: #fff;*/
+/*    border: 1px solid #eee;*/
+/*    border-radius: 12px;*/
+/*    padding: 20px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    height: 100%;*/
+/*}*/
+
+/*.partner-card:hover, .product-box:hover {*/
+/*    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);*/
+/*    transform: translateY(-5px);*/
+/*    border-color: var(--primary-color);*/
+/*}*/
+
+/*.product-img-wrapper {*/
+/*    width: 100%;*/
+/*    height: 150px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.product-img-wrapper img {*/
+/*    max-height: 100%;*/
+/*    object-fit: contain;*/
+/*    transition: transform 0.3s;*/
+/*}*/
+
+/*.product-box:hover img {*/
+/*    transform: scale(1.05);*/
+/*}*/
+
+/*!* Formlar *!*/
+/*.form-control {*/
+/*    border: 1px solid var(--border-color);*/
+/*    padding: 12px;*/
+/*}*/
+
+/*.form-control:focus {*/
+/*    background-color: #fff !important;*/
+/*    border-color: var(--primary-color);*/
+/*    box-shadow: none;*/
+/*}*/
+
+/*!* ==========================================================================*/
+/*   5. MOBILE RESPONSIVE (Media Queries)*/
+/*   ========================================================================== *!*/
+/*@media (max-width: 767px) {*/
+/*    .services-banner, .banner-img img {*/
+/*        height: 100%;*/
+/*    }*/
+
+/*    .navbar-nav {*/
+/*        flex-direction: column;*/
+/*    }*/
+
+/*    .ml-auto, .fixed-right-item {*/
+/*        margin-left: 0 !important;*/
+/*        width: 100%;*/
+/*        padding: 10px 0;*/
+/*    }*/
+
+/*    .main-logo {*/
+/*        max-height: 50px;*/
+/*    }*/
+
+/*    .dropdown-submenu .submenu {*/
+/*        position: static !important;*/
+/*        padding-left: 20px;*/
+/*        background: #f9f9f9;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 992px) {*/
+/*    .sticky-top {*/
+/*        position: sticky;*/
+/*        top: 30px;*/
+/*        z-index: 1000;*/
+/*    }*/
+/*}*/
+
+
 
 
