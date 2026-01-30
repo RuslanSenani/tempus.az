@@ -13,6 +13,6 @@ interface PreparationRepositoryInterface
     public function getPreparationById($id);
 
     public function getPreparationsByCategoryId($id);
-    public function getPartnersByLimit(int $limit, int $page = 1): LengthAwarePaginator;
+    public function getPreparationsByLimit(int $limit, int $page = 1): LengthAwarePaginator;
 
 }

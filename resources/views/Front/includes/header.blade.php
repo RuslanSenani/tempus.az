@@ -66,34 +66,35 @@
                                 {{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}
                                 <i class="fa fa-angle-down"></i>
                             </a>
+                            @if($allCategories->count()>0)
+                                <ul class="dropdown-menu">
+                                    @foreach($allCategories as $category)
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                               href="{{route('category-details',$category->id)}}">
+                                                {{ $category->name }}
+                                                @if($category->preparations->count() > 0)
+                                                    <i class="fa fa-angle-right d-none d-md-block"></i>
+                                                    <i class="fa fa-angle-down d-md-none"></i>
+                                                @endif
+                                            </a>
 
-                            <ul class="dropdown-menu">
-                                @foreach($allCategories as $category)
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center"
-                                           href="{{route('category-details',$category->id)}}">
-                                            {{ $category->name }}
                                             @if($category->preparations->count() > 0)
-                                                <i class="fa fa-angle-right d-none d-md-block"></i>
-                                                <i class="fa fa-angle-down d-md-none"></i>
+                                                <ul class="dropdown-menu submenu">
+                                                    @foreach($category->preparations as $preparation)
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               href="{{route('preparation-detail',$preparation->id)}}">
+                                                                {{ $preparation->name }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                             @endif
-                                        </a>
-
-                                        @if($category->preparations->count() > 0)
-                                            <ul class="dropdown-menu submenu">
-                                                @foreach($category->preparations as $preparation)
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           href="{{route('preparation-detail',$preparation->id)}}">
-                                                            {{ $preparation->name }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </li>
-                                @endforeach
-                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </li>
 
                         <li class="px-1">
@@ -101,7 +102,7 @@
                         </li>
 
                         <li class="px-1">
-                            <a href="#">{{$siteContent['home_media']->value??'Media'}} </a>
+                            <a href="{{route('media')}}">{{$siteContent['home_media']->value??'Media'}} </a>
                         </li>
 
                         <li class="px-1">

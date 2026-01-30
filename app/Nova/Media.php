@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
-use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
@@ -47,14 +47,46 @@ class Media extends Resource
     {
         return [
             ID::make()->sortable(),
+
             Select::make('Type', 'type')->options([
                 'image' => 'Image',
                 'video' => 'Video',
             ])->rules('required'),
 
-            File::make('File', 'url_path')
+            Text::make('Preview', 'url_path')
+                ->onlyOnIndex()
+                ->asHtml() // Text sahəsində bu metod var!
+                ->displayUsing(function ($value, $resource) {
+                    if (!$value) return null;
+
+                    if ($resource->type === 'image') {
+                        $url = Storage::disk('public')->url($value);
+                        return '<img src="' . $url . '" style="width: 50px; height: 50px; border-radius: 4px; object-fit: cover;">';
+                    }
+
+                    return '<span style="color: #3b82f6;">📹 Video Link</span>';
+                }),
+
+            File::make('Image File', 'url_path')
                 ->disk('public')
-                ->path('Media_Path'),
+                ->path('Media_Path')
+                ->onlyOnForms()
+                ->dependsOn(['type'], function (File $field, NovaRequest $request, FormData $formData) {
+                    if ($formData->type !== 'image') {
+                        $field->hide();
+                    }
+                }),
+
+            Text::make('Video URL', 'url_path')
+                ->onlyOnForms()
+                ->dependsOn(['type'], function (Text $field, NovaRequest $request, FormData $formData) {
+                    if ($formData->type !== 'video') {
+                        $field->hide();
+                    }
+                }),
+//            File::make('File', 'url_path')
+//                ->disk('public')
+//                ->path('Media_Path'),
 
             NovaTabTranslatable::make([
                 Text::make('Title', 'title'),

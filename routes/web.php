@@ -30,4 +30,9 @@ Route::post('/contact-us', [FrontHomeController::class, 'contactUs'])->name('con
 Route::get('/vacancy', [FrontHomeController::class, 'vacancy'])->name('vacancy');
 Route::post('/send-vacancy', [FrontHomeController::class, 'sendVacancy'])->name('send-vacancy');
 
+Route::get('/media', [FrontHomeController::class, 'media'])->name('media');
+Route::get('/media-details/{id}', [FrontHomeController::class, 'mediaDetails'])->name('media-details');
+Route::get('/media/page/{page}', [FrontHomeController::class, 'media'])->name('media.page');
+
+
 

@@ -54,6 +54,8 @@ class SiteContent extends Resource
                 Text::make('Value', 'value')
                     ->rules('required')
             ])->setTitle('Value'),
+
+
         ];
     }
 

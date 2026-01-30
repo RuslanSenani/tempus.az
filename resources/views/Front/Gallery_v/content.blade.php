@@ -1,15 +1,12 @@
 <!-- Page Banner -->
-<div class="page-banner about-banner container-fluid no-padding">
+<div class="page-banner contact-banner container-fluid no-padding">
     <!-- Container -->
     <div class="container">
-        <h3>{{$siteContent['home_preparation_category']->value ?? ''}}</h3>
-        <p>
-
-        </p>
+        <h3>{{$siteContent['home_media']->value??''}}</h3>
 
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Home</a></li>
-            <li class="active">About Us</li>
+            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??''}}</a></li>
+            <li class="active">{{$siteContent['home_media']->value??''}}</li>
         </ol>
     </div><!-- Container /- -->
     <!-- Shape -->
@@ -47,34 +44,36 @@
             </div>
         </div>
     </div><!-- Shape -->
-</div><!-- Page Banner /- -->
+</div>
+<!-- Page Banner /- -->
 
 
-<!-- What We Do Best -->
-<div id="what-we-do-best" class="container-fluid no-padding what-we-do-best">
-    <!-- What We Do Best Left -->
-
-    <!-- What We Do Best Right -->
-    <div class="col-md-12  no-padding">
-        @foreach($categories as $category)
-
-            <div class="col-md-3 col-sm-4 col-6 mb-4">
-                <div class="product-box">
-                    <a href="{{route('category-details',$category->id)}}" class="product-link">
-                        <div class="product-img-wrapper">
-                            <img src="{{asset('storage/'.$category->image)}}"
-                                 alt="Urifar"
-                                 class="img-fluid">
+<!-- Portfolio Section -->
+<div class="portfolio-section container-fluid no-padding">
+    <div class="section-padding"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div id="portfolio" class="">
+                    @foreach($media as $med)
+                        <div class="portfolio-item facilities col-md-4 col-sm-6">
+                            <img src="../../../../../assets/images/portfolio-1.jpg" alt="Portfolio"/>
+                            {{--                            <a href="../../../../../assets/images/portfolio-1.jpg" title=""><img--}}
+                            {{--                                    src="../../../../../assets/images/plus.png" alt="portfolio-arrow"/></a>--}}
+                            <div class="portfolio-item-hover">
+                                <h3><a href="">{{$siteContent['home_more_details']->value??''}}</a></h3>
+                            </div>
                         </div>
-                        <div class="product-info text-center mt-2">
-                            <h5 class="product-title">{{$category->name}}</h5>
-                        </div>
-                    </a>
+                    @endforeach
                 </div>
             </div>
-
-        @endforeach
+        </div>
+        <!-- Pagination -->
+        <nav class="ow-pagination">
+            {{ $media->links('partials.pagination', ['routeName'=>'media.page','pages' => $media]) }}
+        </nav>
+        <!-- Pagination /- -->
     </div>
-    <!-- What We Do Best Right /- -->
+    <div class="section-padding"></div>
 </div>
-<!-- What We Do Best /- -->
+<!-- Portfolio Section /- -->

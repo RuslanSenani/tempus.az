@@ -144,5 +144,25 @@
         "az": "Onlayn Satış",
         "en": "Online Sales",
         "ru": "Интернет-продажи"
+    },
+    "home_how_we_are": {
+        "az": "BizBiz kimik",
+        "en": "Who we are",
+        "ru": "Кто мы"
+    },
+    "home_our_vision": {
+        "az": "Vizion",
+        "en": "Vision",
+        "ru": "Зрение"
+    },
+    "home_our_mission": {
+        "az": "Missiya",
+        "en": "Mission",
+        "ru": "Миссия"
+    },
+    "home_fast_links": {
+        "az": "Sürətli keçid",
+        "en": "Fast Links",
+        "ru": "Быстрые ссылки"
     }
 }

@@ -1,4 +1,3 @@
-
 <footer class="footer-main container-fluid no-padding">
     <!-- Container -->
     <div class="container">
@@ -34,10 +33,45 @@
                                  alt="Logo"/>
                         @endif
                     </h3>
+                    <p>{{$siteContent['home_opening_hours']->value??''}}</p>
+                    <div class="time-schedule">
+                        <p>{{$siteContent['home_opening_mon_fri']->value??'Bazar ertəsi - cümə'}}
+                            <span>{{$siteContent['home_opening_mon_fri_time']->value??''}}</span></p>
+                        <p>{{$siteContent['home_opening_sat']->value??'Şənbə'}}
+                            <span>{{$siteContent['home_opening_sat_time']->value??''}}</span></p>
+                        <p>{{$siteContent['home_opening_sun']->value??'Bazar Günü'}}
+                            <span>{{$siteContent['home_opening_sun_time']->value??''}}</span></p>
+                    </div>
                 </aside>
+
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
+                <aside class="widget widget-links">
+                    <h3 class="widget-title">{{$siteContent['home_easy_links']->value??'Sürətli keçid'}}</h3>
+                    <ul>
+                        <li>
+                            <a href="{{route('all-categories')}}">{{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('preparation')}}">{{ $siteContent['home_preparation']->value ?? 'Preparatlar' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('media')}}">{{ $siteContent['home_media']->value ?? 'Media' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('partners')}}">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
+                        </li>
+                        <li>
+                            <a href="{{route('vacancy')}}">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('medical-info')}}">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}
+                            </a>
+                        </li>
 
+
+                    </ul>
+                </aside>
             </div>
 
             <div class="col-md-4 col-sm-6 col-xs-12">

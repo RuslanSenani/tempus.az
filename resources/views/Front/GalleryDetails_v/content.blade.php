@@ -2,14 +2,10 @@
 <div class="page-banner about-banner container-fluid no-padding">
     <!-- Container -->
     <div class="container">
-        <h3>{{$siteContent['home_preparation_category']->value ?? ''}}</h3>
-        <p>
-
-        </p>
-
+        <h3>{{$categoryName}} </h3>
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Home</a></li>
-            <li class="active">About Us</li>
+            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value ?? 'Esas Səhifə'}}</a></li>
+            <li class="active">{{$siteContent['home_about_us']->value ?? 'Hakkımızda'}}</li>
         </ol>
     </div><!-- Container /- -->
     <!-- Shape -->
@@ -56,23 +52,22 @@
 
     <!-- What We Do Best Right -->
     <div class="col-md-12  no-padding">
-        @foreach($categories as $category)
+        @foreach($preparationCategory as $preparation)
 
             <div class="col-md-3 col-sm-4 col-6 mb-4">
                 <div class="product-box">
-                    <a href="{{route('category-details',$category->id)}}" class="product-link">
+                    <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">
                         <div class="product-img-wrapper">
-                            <img src="{{asset('storage/'.$category->image)}}"
+                            <img src="{{asset('storage/'.$preparation->image)}}"
                                  alt="Urifar"
                                  class="img-fluid">
                         </div>
                         <div class="product-info text-center mt-2">
-                            <h5 class="product-title">{{$category->name}}</h5>
+                            <h5 class="product-title">{{$preparation->name}}</h5>
                         </div>
                     </a>
                 </div>
             </div>
-
         @endforeach
     </div>
     <!-- What We Do Best Right /- -->

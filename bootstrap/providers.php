@@ -4,6 +4,7 @@ return [
     App\Providers\AboutServiceProvider::class,
     App\Providers\AppServiceProvider::class,
     App\Providers\LanguageServiceProvider::class,
+    App\Providers\MediaServicesProviders::class,
     App\Providers\MedicalInfoServicesProviders::class,
     App\Providers\NovaServiceProvider::class,
     App\Providers\PartnersServicesProviders::class,

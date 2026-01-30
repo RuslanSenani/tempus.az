@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Contracts\AboutRepositoryInterface;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\LanguageRepositoryInterface;
+use App\Contracts\MediaRepositoryInterface;
 use App\Contracts\MedicalInfoRepositoryInterface;
 use App\Contracts\PartnersRepositoryInterface;
 use App\Contracts\PreparationRepositoryInterface;
@@ -27,8 +28,9 @@ class FrontHomeController extends Controller
     private PreparationRepositoryInterface $preparationRepository;
     private PartnersRepositoryInterface $partnersRepository;
     private MedicalInfoRepositoryInterface $medicalInfoRepository;
+    private MediaRepositoryInterface $mediaRepository;
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository)
+    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository)
     {
         $this->aboutRepository = $aboutRepository;
         $this->languageRepository = $languageRepository;
@@ -38,6 +40,7 @@ class FrontHomeController extends Controller
         $this->preparationRepository = $preparationRepository;
         $this->partnersRepository = $partnersRepository;
         $this->medicalInfoRepository = $medicalInfoRepository;
+        $this->mediaRepository = $mediaRepository;
         $this->viewFolder = 'Front/';
     }
 
@@ -49,7 +52,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
             'abouts' => $abouts,
@@ -68,7 +71,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
 
 
         $viewData = [
@@ -89,8 +92,8 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
-        $preparations = $this->preparationRepository->getPartnersByLimit(16, (int)$page);
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
+        $preparations = $this->preparationRepository->getPreparationsByLimit(16, (int)$page);
         $preparations->setPath(url('preparations/page'));
 
 
@@ -107,13 +110,61 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
+    public function media(Request $request, $page = 1): View
+    {
+        $abouts = $this->aboutRepository->getAll();
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
+        $media = $this->mediaRepository->getMediaByLimit(12, (int)$page);
+        $media->setPath(url('media/page'));
+
+
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "Gallery_v",
+            'abouts' => $abouts,
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+            'media' => $media
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
+    public function mediaDetails(int $id): View
+    {
+        $abouts = $this->aboutRepository->getAll();
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
+        $media = $this->mediaRepository->getMediaByLimit(12, (int)$page);
+        $media->setPath(url('media/page'));
+
+
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "GalleryDetails_v",
+            'abouts' => $abouts,
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+            'media' => $media
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
     public function medicalInfo(): View
     {
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
         $medicalInfos = $this->medicalInfoRepository->getAllMedicalInfo();
 
         $viewData = [
@@ -135,7 +186,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
         $medicalInfo = $this->medicalInfoRepository->getMedicalInfoById($id);
 
         $viewData = [
@@ -157,7 +208,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
         $preparation = $this->preparationRepository->getPreparationById($id);
 
         $viewData = [
@@ -179,7 +230,8 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $categories = $this->categoryRepository->getAllActiveCategory();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();
 
 
         $viewData = [
@@ -188,6 +240,7 @@ class FrontHomeController extends Controller
             'languages' => $languages,
             'setting' => $setting,
             'siteContent' => $siteContent,
+            'categories' => $categories,
             'allCategories' => $allCategories,
         ];
 
@@ -200,7 +253,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
         $categoryName = $this->categoryRepository->getCategoryById($id)->name;
         $preparations = $this->preparationRepository->getPreparationById($id);
         $preparationCategory = $this->preparationRepository->getPreparationsByCategoryId($id);
@@ -226,7 +279,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
         $partners = $this->partnersRepository->getPartnersByLimit(16, (int)$page);
         $partners->setPath(url('partners/page'));
         $viewData = [
@@ -244,7 +297,7 @@ class FrontHomeController extends Controller
 
     public function contact(): View
     {
-        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
@@ -295,7 +348,7 @@ class FrontHomeController extends Controller
 
     public function vacancy(): View
     {
-        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();

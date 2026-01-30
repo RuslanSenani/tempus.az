@@ -32,13 +32,12 @@ class PreparationRepository implements PreparationRepositoryInterface
         return $this->preparation->newQuery()->with('category')->where('category_id', $id)->get();
     }
 
-    public function getPartnersByLimit(int $limit, int $page = 1): LengthAwarePaginator
+
+    public function getPreparationsByLimit(int $limit, int $page = 1): LengthAwarePaginator
     {
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
         return $this->preparation->newQuery()->latest()->paginate($limit);
     }
-
-
 }
