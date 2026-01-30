@@ -56,13 +56,9 @@
                     <a href="#" title="25th sep 2015" class="post-date">25th sep 2015</a> by
                     <a href="#" title="Mathov" class="post-admin">Mathov</a> in Hospital
                 </div>
-                <p>Voluptatem accusantium dolormque laudantium sa tota rem aperiam, eaque ipsa dicta sunt explicabo
-                    nemo enim ipsam [...]Voluptatem accusantium dolormque laudantium sa tota rem aperiam, eaque ipsa dicta sunt explicabo
-                    nemo enim ipsam [...]Voluptatem accusantium dolormque laudantium sa tota rem aperiam, eaque ipsa dicta sunt explicabo
-                    nemo enim ipsam [...]Voluptatem accusantium dolormque laudantium sa tota rem aperiam, eaque ipsa dicta sunt explicabo
-                    nemo enim ipsam [...]Voluptatem accusantium dolormque laudantium sa tota rem aperiam, eaque ipsa dicta sunt explicabo
-                    nemo enim ipsam [...]Voluptatem accusantium dolormque laudantium sa tota rem aperiam, eaque ipsa dicta sunt explicabo
-                    nemo enim ipsam [...] </p>
+                <p>
+
+                </p>
             </div>
         </article>
 
