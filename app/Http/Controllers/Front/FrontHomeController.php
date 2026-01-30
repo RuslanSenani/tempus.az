@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Front;
 use App\Contracts\AboutRepositoryInterface;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\LanguageRepositoryInterface;
+use App\Contracts\MedicalInfoRepositoryInterface;
 use App\Contracts\PartnersRepositoryInterface;
 use App\Contracts\PreparationRepositoryInterface;
 use App\Contracts\SettingsRepositoryInterface;
 use App\Contracts\SiteContentInterface;
 use App\Http\Controllers\Controller;
+use App\Mail\ContactFormMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class FrontHomeController extends Controller
@@ -23,8 +26,9 @@ class FrontHomeController extends Controller
     private CategoryRepositoryInterface $categoryRepository;
     private PreparationRepositoryInterface $preparationRepository;
     private PartnersRepositoryInterface $partnersRepository;
+    private MedicalInfoRepositoryInterface $medicalInfoRepository;
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository)
+    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository)
     {
         $this->aboutRepository = $aboutRepository;
         $this->languageRepository = $languageRepository;
@@ -33,6 +37,7 @@ class FrontHomeController extends Controller
         $this->categoryRepository = $categoryRepository;
         $this->preparationRepository = $preparationRepository;
         $this->partnersRepository = $partnersRepository;
+        $this->medicalInfoRepository = $medicalInfoRepository;
         $this->viewFolder = 'Front/';
     }
 
@@ -85,7 +90,7 @@ class FrontHomeController extends Controller
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getAllActiveCategory();
-        $preparations = $this->preparationRepository->getPartnersByLimit(3, (int)$page);
+        $preparations = $this->preparationRepository->getPartnersByLimit(16, (int)$page);
         $preparations->setPath(url('preparations/page'));
 
 
@@ -97,6 +102,50 @@ class FrontHomeController extends Controller
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
             'preparations' => $preparations
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
+    public function medicalInfo(): View
+    {
+        $abouts = $this->aboutRepository->getAll();
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $medicalInfos = $this->medicalInfoRepository->getAllMedicalInfo();
+
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "MedicalInfo_v",
+            'abouts' => $abouts,
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+            'medicalInfos' => $medicalInfos
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
+    public function medicalInfoDetails(int $id): View
+    {
+        $abouts = $this->aboutRepository->getAll();
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $allCategories = $this->categoryRepository->getAllActiveCategory();
+        $medicalInfo = $this->medicalInfoRepository->getMedicalInfoById($id);
+
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "MedicalInfoDetails_v",
+            'abouts' => $abouts,
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+            'medicalInfo' => $medicalInfo
         ];
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
@@ -187,6 +236,76 @@ class FrontHomeController extends Controller
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
             'partners' => $partners,
+
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
+    public function contact(): View
+    {
+        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "Contact_v",
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+
+
+        ];
+
+        return view("{$viewData['viewFolder']}.index")->with($viewData);
+    }
+
+    public function contactUs(Request $request)
+    {
+
+
+        $validation = $request->validate([
+            'contact_name' => 'required|string|regex:/^[\p{L}\s]+$/u|max:100',
+            'contact_email' => 'required|string|email|max:100',
+            'contact_phone' => 'required|numeric|digits:10',
+            'contact_message' => 'required|string|regex:/^[\p{L}\s]+$/u',
+        ]);
+        Mail::to('abbasov3232@inbox.ru')->send(new ContactFormMail($validation));
+
+        //dd($validation['contact_name']);
+
+//        try {
+//            $validatedData = $request->validate(
+//                [
+//                    'categoryName' => 'required|string|regex:/^[\p{L}\s]+$/u|max:100',
+//                ]
+//            );
+//            $validatedData['name'] = $validatedData['categoryName'];
+//            $this->categoryServices->saveOrRestore([['name', '=', $validatedData['categoryName']]], $validatedData);
+//            return redirect()->route('categories.index');
+//
+//        } catch (\Exception $exception) {
+//
+//            $this->alertServices->error("Xəta", $exception->getMessage());
+//
+//            return redirect()->route('categories.create')->withInput();
+//        }
+    }
+
+    public function vacancy(): View
+    {
+        $allCategories = $this->categoryRepository->getAllActiveCategory();// Menu-da gorunmesi ucun
+        $languages = $this->languageRepository->getAllLanguages();
+        $setting = $this->settingsRepository->getSettings();
+        $siteContent = $this->siteContent->getAllContent();
+        $viewData = [
+            'viewFolder' => $this->viewFolder . "Vacancy_v",
+            'languages' => $languages,
+            'setting' => $setting,
+            'siteContent' => $siteContent,
+            'allCategories' => $allCategories,
+
 
         ];
 

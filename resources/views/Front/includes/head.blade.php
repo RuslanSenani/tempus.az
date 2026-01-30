@@ -3,12 +3,17 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-{{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
+    {{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>{{$setting->company_name??'Tempus'}}</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- Standard Favicon -->
     <link rel="icon" type="image/x-icon" href="{{asset('storage/Logo/'.$setting->logo??'')}}"/>
@@ -37,8 +42,8 @@
     <link href='{{asset("assets")}}/fonts.googleapis.com/cssf60f.css?family=Philosopher:400,400italic,700,700italic'
           rel='stylesheet' type='text/css'>
     <link
-            href='{{asset("assets")}}/fonts.googleapis.com/css0733.css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
-            rel='stylesheet' type='text/css'>
+        href='{{asset("assets")}}/fonts.googleapis.com/css0733.css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
 
     <!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/bootstrap/bootstrap.min.css">

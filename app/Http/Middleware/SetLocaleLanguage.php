@@ -48,19 +48,7 @@ class SetLocaleLanguage
         session()->put('locale', $locale);
 
         return $next($request);
-//        // 1. Əgər istifadəçi özü seçibsə
-//        if (session()->has('active_languages')) {
-//            $locale = session()->get('locale');
-//        } else {
-//            // 2. Seçməyibsə, bazadakı default dili götür
-//            $defaultLang = $this->languageRepository->getDefaultLanguage();
-//            $locale = $defaultLang ? $defaultLang->code : config('app.locale');
-//        }
-//
-//        app()->setLocale($locale);
-//        session()->put('locale', $locale);
-//
-//        return $next($request);
+
 
     }
 }

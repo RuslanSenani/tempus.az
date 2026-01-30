@@ -519,7 +519,7 @@ ul {
 .page-banner {
 	max-height: 400px;
 	min-height: 400px;
-	background-image: url("../../../../../assets/images/error-banner.jpg");
+	/*background-image: url("../../../../../assets/images/error-banner.jpg");*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding: 100px 0 135px;
@@ -687,7 +687,7 @@ ul {
     clip-path: polygon(0% 84%, 0% 100%, 100% 100%, 100% 0%);
 }
 .services-banner {
-	background-image: url("../../../../../assets/images/services-banner.jpg");
+	/*background-image: url("../../../../../assets/images/services-banner.jpg");*/
 	background-position: center center;
 }
 .services-banner .left-shape {

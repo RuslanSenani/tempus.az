@@ -2,7 +2,6 @@
 <html lang="en">
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
 
-{{--@include('Front.includes.loader')--}}
 
 <a id="top"></a>
 
@@ -16,7 +15,7 @@
     @include('Front.includes.header')
 
 
-    @include('Front.Home_v.container')
+    @include('Front.Vacancy_v.content')
 
     @include('Front.includes.footer')
 

@@ -1,3 +1,4 @@
+
 <footer class="footer-main container-fluid no-padding">
     <!-- Container -->
     <div class="container">
@@ -26,9 +27,11 @@
                 <aside class="widget widget-about">
                     <h3>
                         @if($setting && $setting->logo)
-                            <img src="{{ asset('storage/Logo/' . $setting->logo) }}" class="img-responsive main-logo" alt="Logo"/>
+                            <img src="{{ asset('storage/Logo/' . $setting->logo) }}" class="img-responsive main-logo"
+                                 alt="Logo"/>
                         @else
-                            <img src="{{ asset('assets/images/default-logo.png') }}" class="img-responsive main-logo" alt="Logo"/>
+                            <img src="{{ asset('assets/images/default-logo.png') }}" class="img-responsive main-logo"
+                                 alt="Logo"/>
                         @endif
                     </h3>
                 </aside>

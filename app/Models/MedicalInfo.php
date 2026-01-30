@@ -10,5 +10,5 @@ class MedicalInfo extends Model
     use HasTranslations;
 
     protected $fillable = ['title', 'content', 'image','image_alt_text', 'slug'];
-    public array $translatable = ['title', 'content','image','image_alt_text','slug'];
+    public array $translatable = ['title', 'content','image_alt_text','slug'];
 }

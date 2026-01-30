@@ -99,6 +99,11 @@
                         <li class="px-1">
                             <a href="{{route('preparation')}}">{{$siteContent['home_preparation']->value??'Preparatlar'}} </a>
                         </li>
+
+                        <li class="px-1">
+                            <a href="#">{{$siteContent['home_media']->value??'Media'}} </a>
+                        </li>
+
                         <li class="px-1">
                             <a href="{{route('partners')}}">{{$siteContent['home_partners']->value??'Partnyorlar'}} </a>
                         </li>
@@ -110,14 +115,14 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
+                                    <a href="{{route('vacancy')}}">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
                                 </li>
                                 <li>
-                                    <a href="#">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}
+                                    <a href="{{route('medical-info')}}">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}
                                     </a>
                                 </li>
                                 <li class="px-1">
-                                    <a href="#">{{$siteContent['home_contact']->value??'Əlaqə'}} </a>
+                                    <a href="{{route('contact')}}">{{$siteContent['home_contact']->value??'Əlaqə'}} </a>
                                 </li>
                             </ul>
                         </li>

@@ -1,6 +1,86 @@
+
+
+
+
+
+/* Vakansiya detalları */
+.vacancy-details p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.vacancy-details .badge {
+    font-size: 0.9rem;
+}
+
+/* Form Kartı */
+.card {
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.form-control {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+}
+
+.form-control:focus {
+    background-color: #fff !important;
+    border-color: #4C70B5;
+    box-shadow: none;
+}
+
+/* Sticky effekt - ekran böyük olanda sağ tərəf sabit qalsın */
+@media (min-width: 992px) {
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 30px;
+        z-index: 1000;
+    }
+}
+
+/* Checkbox düymələri */
+.btn-outline-primary {
+    border-color: #4C70B5;
+    color: #4C70B5;
+}
+
+.btn-check:checked + .btn-outline-primary {
+    background-color: #4C70B5;
+    border-color: #4C70B5;
+}
+
+
+
+
+
+.img-trieangle {
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
+
+.banner-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.img-trieangle .container {
+    position: relative;
+    z-index: 2;
+}
+
+
+
 .main-logo {
     max-height: 73px; /* Sənin header-in hündürlüyünə uyğun olaraq (60px-100px arası) dəyişə bilərsən */
-    width: auto;      /* Eni avtomatik nizamlanacaq ki, şəkil dartılmasın */
+    width: auto; /* Eni avtomatik nizamlanacaq ki, şəkil dartılmasın */
     display: inline-block;
     transition: transform 0.3s ease; /* User-friendly: üzərinə gələndə kiçik effekt */
 }
@@ -15,6 +95,7 @@
         max-height: 50px; /* Mobildə ekran balaca olduğu üçün loqonu bir az kiçiltmək lazımdır */
         margin: 10px 0;
     }
+
     .logo-block {
         text-align: center; /* Mobildə loqonu mərkəzə alaq */
     }
@@ -35,7 +116,7 @@
 }
 
 .partner-card:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
     transform: translateY(-5px);
     border-color: #4C70B5; /* Wix kodundakı rəng */
 }
@@ -72,10 +153,12 @@
     .partner-card {
         padding: 10px;
     }
+
     .partner-logo-wrapper {
         width: 60px;
         height: 60px;
     }
+
     .partner-title {
         font-size: 12px;
     }

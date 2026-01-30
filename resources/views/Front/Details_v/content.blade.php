@@ -2,7 +2,7 @@
 <div class="page-banner about-banner container-fluid no-padding">
     <!-- Container -->
     <div class="container">
-        <h3>{{$categoryName}}  {{$viewFolder}}</h3>
+        <h3>{{$categoryName}} </h3>
         <ol class="breadcrumb">
             <li><a href="{{route('home')}}">{{$siteContent['home_home']->value ?? 'Esas Səhifə'}}</a></li>
             <li class="active">{{$siteContent['home_about_us']->value ?? 'Hakkımızda'}}</li>

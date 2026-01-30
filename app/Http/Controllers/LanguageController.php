@@ -27,6 +27,7 @@ class LanguageController extends Controller
             app()->setLocale($lang);
         }
 
+
         return redirect()->back();
 
     }

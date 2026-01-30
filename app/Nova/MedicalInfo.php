@@ -62,16 +62,20 @@ class MedicalInfo extends Resource
                 })
                 ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
                 ->prunable(),
+
             NovaTabTranslatable::make([
                 Text::make('Title', 'title')->rules('required', 'max:100'),
                 Text::make('Image Alt Text', 'image_alt_text')->rules('required', 'max:100'),
-                Trix::make('Content', 'content')->rules('required', 'max:255')
+                Trix::make('Content', 'content')->rules('required')
                     ->withMeta([
                         'extraAttributes' => [
                             'style' => 'min-height:200px'
                         ]
                     ]),
-                Slug::make('Slug', 'slug')->rules('required'),
+                Slug::make('Slug', 'slug')
+                    ->from('title')
+                    ->separator('-')
+                    ->readonly(),
             ])->setTitle('Title, Content, Slug'),
         ];
     }

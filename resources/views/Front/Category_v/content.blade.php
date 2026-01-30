@@ -4,7 +4,7 @@
     <div class="container">
         <h3>{{$siteContent['home_preparation_category']->value ?? ''}}</h3>
         <p>
-            {{$viewFolder}}
+
         </p>
 
         <ol class="breadcrumb">

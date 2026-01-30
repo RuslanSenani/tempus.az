@@ -5,8 +5,8 @@
         <h3>{{$siteContent['home_preparations']->value ?? ''}}</h3>
 
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Home</a></li>
-            <li class="active">{{$viewFolder}}</li>
+            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??''}}</a></li>
+            <li class="active">{{$siteContent['home_preparations_details']->value??''}}</li>
         </ol>
     </div><!-- Container /- -->
     <!-- Shape -->
