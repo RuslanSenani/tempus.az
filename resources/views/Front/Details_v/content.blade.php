@@ -57,37 +57,37 @@
                 <div class="product-box w-100 d-flex flex-column">
                     <a href="{{route('preparation-detail',$preparation->id)}}"
                        class="product-link d-flex flex-column h-100">
-
-                        <div class="product-img-fixed"
-                             style="background-image: url('{{asset('storage/'.$preparation->image)}}');"></div>
-
-                        <div class="product-info text-center mt-auto">
-                            <h5 class="product-title">{{$preparation->name}}</h5>
+                        <div class="product-img-wrapper">
+                            <img src="{{asset('storage/'.$preparation->image)}}"
+                                 alt="{{$preparation->name}}">
+                        </div>
+                        <div class="product-info text-center mt-auto"><h5
+                                class="product-title">{{$preparation->name}}</h5>
                         </div>
                     </a>
                 </div>
             </div>
         @endforeach
     </div>
-{{--    <div class="col-md-12  no-padding">--}}
-{{--        @foreach($preparationCategory as $preparation)--}}
+    {{--    <div class="col-md-12  no-padding">--}}
+    {{--        @foreach($preparationCategory as $preparation)--}}
 
-{{--            <div class="col-md-3 col-sm-4 col-6 mb-4">--}}
-{{--                <div class="product-box">--}}
-{{--                    <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">--}}
-{{--                        <div class="product-img-wrapper">--}}
-{{--                            <img src="{{asset('storage/'.$preparation->image)}}"--}}
-{{--                                 alt="Urifar"--}}
-{{--                                 class="img-fluid">--}}
-{{--                        </div>--}}
-{{--                        <div class="product-info text-center mt-2">--}}
-{{--                            <h5 class="product-title">{{$preparation->name}}</h5>--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endforeach--}}
-{{--    </div>--}}
+    {{--            <div class="col-md-3 col-sm-4 col-6 mb-4">--}}
+    {{--                <div class="product-box">--}}
+    {{--                    <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">--}}
+    {{--                        <div class="product-img-wrapper">--}}
+    {{--                            <img src="{{asset('storage/'.$preparation->image)}}"--}}
+    {{--                                 alt="Urifar"--}}
+    {{--                                 class="img-fluid">--}}
+    {{--                        </div>--}}
+    {{--                        <div class="product-info text-center mt-2">--}}
+    {{--                            <h5 class="product-title">{{$preparation->name}}</h5>--}}
+    {{--                        </div>--}}
+    {{--                    </a>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        @endforeach--}}
+    {{--    </div>--}}
     <!-- What We Do Best Right /- -->
 </div>
 <!-- What We Do Best /- -->
