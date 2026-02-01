@@ -16,7 +16,6 @@ use Mostafaznv\NovaCkEditor\CkEditor;
 use Intervention\Image\ImageManager;
 
 
-
 class Preparation extends Resource
 {
     /**
@@ -76,7 +75,7 @@ class Preparation extends Resource
 
                     // Şəkli oxuyuruq və ölçüləndiririk
                     $image = $manager->read($file)
-                        ->cover(800, 600); // v2-dəki 'fit' metodu burada 'cover' adlanır
+                        ->pad(800, 600, 'ffffff'); // v2-dəki 'fit' metodu burada 'cover' adlanır
 
                     // Şəkli formatlayıb Storage-a yazırıq
                     Storage::disk('public')->put($path, $image->toJpeg(80));
