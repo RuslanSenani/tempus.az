@@ -51,11 +51,11 @@
     <!-- What We Do Best Left -->
 
     <!-- What We Do Best Right -->
-    <div class="col-md-12  no-padding">
+    <div class="col-md-12  no-padding row">
         @foreach($preparationCategory as $preparation)
 
-            <div class="col-md-3 col-sm-4 col-6 mb-4">
-                <div class="product-box">
+            <div class="col-md-3 col-sm-4 col-6 mb-4 d-flex align-items-stretch">
+                <div class="product-box w-100">
                     <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">
                         <div class="product-img-wrapper">
                             <img src="{{asset('storage/'.$preparation->image)}}"
