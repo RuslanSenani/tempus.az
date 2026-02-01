@@ -63,53 +63,27 @@ class Preparation extends Resource
                 }),
             Image::make('Image', 'image')
                 ->disk('public')
-                ->rules('nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp,avif') // avif bura əlavə olundu
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
 
-                    // Bütün şəkilləri daha yaxşı sıxılma üçün .avif formatında saxlamaq tövsiyə olunur
-                    // Əgər orijinal uzantını saxlamaq istəyirsənsə: $file->getClientOriginalExtension()
-                    $filename = Str::uuid() . '.avif';
+                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "preparation/$filename";
 
+                    // Version 3-də yeni Manager yaradılır
                     $manager = new ImageManager(new Driver());
 
+                    // Şəkli oxuyuruq və ölçüləndiririk
                     $image = $manager->read($file)
-                        ->pad(800, 600, 'ffffff');
+                        ->pad(800, 600, 'ffffff'); // v2-dəki 'fit' metodu burada 'cover' adlanır
 
-                    // toAvif(80) həm ölçünü kiçik saxlayır, həm də keyfiyyəti qoruyur
-                    // Əgər mütləq Jpeg istəyirsənsə, toJpeg(80) saxlaya bilərsən,
-                    // amma AVIF yükləyib Jpeg yadda saxlamaq məntiqsiz olar.
-                    Storage::disk('public')->put($path, $image->toAvif(80));
+                    // Şəkli formatlayıb Storage-a yazırıq
+                    Storage::disk('public')->put($path, $image->toJpeg(80));
 
                     return [
                         $attribute => $path,
                     ];
                 }),
-//            Image::make('Image', 'image')
-//                ->disk('public')
-//                ->store(function ($request, $model, $attribute, $requestAttribute) {
-//                    $file = $request->file($requestAttribute);
-//                    if (!$file) return null;
-//
-//                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-//                    $path = "preparation/$filename";
-//
-//                    // Version 3-də yeni Manager yaradılır
-//                    $manager = new ImageManager(new Driver());
-//
-//                    // Şəkli oxuyuruq və ölçüləndiririk
-//                    $image = $manager->read($file)
-//                        ->pad(800, 600, 'ffffff'); // v2-dəki 'fit' metodu burada 'cover' adlanır
-//
-//                    // Şəkli formatlayıb Storage-a yazırıq
-//                    Storage::disk('public')->put($path, $image->toJpeg(80));
-//
-//                    return [
-//                        $attribute => $path,
-//                    ];
-//                }),
 
 
             NovaTabTranslatable::make([
