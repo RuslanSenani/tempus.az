@@ -85,26 +85,21 @@ class Preparation extends Resource
                     ];
                 }),
 
-//            Image::make('Image', 'image')
-//                ->disk('public')
-//                ->path('preparation')
-//                ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
-//                ->prunable(),
 
             NovaTabTranslatable::make([
                 Text::make('Name', 'name')
-                    ->rules('required', 'max:255'),
+                    ->rules('max:255'),
                 Text::make('Title', 'title')
-                    ->rules('required', 'max:255'),
+                    ->rules('max:255'),
                 CkEditor::make('Description', 'description'),
                 Slug::make('Slug', 'slug')
                     ->from('Name')
                     ->separator('-')
-                    ->rules('required', 'max:255')
+                    ->rules('max:255')
                     ->creationRules('unique:preparations,Slug')
                     ->updateRules('unique:preparations,Slug,{{resourceId}}')
                     ->readonly(),
-                Text::make('Image Alt Text', 'image_alt_text')->rules('required'),
+                Text::make('Image Alt Text', 'image_alt_text'),
             ])->setTitle('Name, Title, Description, Slug, Image Alt Text'),
 
         ];
