@@ -242,6 +242,53 @@
     }
 }
 
+/* Bütün qutuların eyni hündürlükdə olması üçün */
+.product-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Sütun daxilində tam hündürlük */
+    background: #fff;
+}
+
+/* Şəkli saxlayan konteyner - ƏSAS HİSSƏ */
+.product-img-wrapper {
+    width: 100%;
+    height: 180px; /* Bütün şəkillər üçün sabit hündürlük təyin edirik */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Artıq qalan hissələri gizləyir */
+    background-color: #f9f9f9; /* Şəkil şəffafdırsa, arxa fonu təmiz saxlayır */
+}
+
+/* Şəklin özünün davranışı */
+.product-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto !important; /* Enini nisbətə görə nizamlayır */
+    height: auto !important; /* Hündürlüyü nisbətə görə nizamlayır */
+    object-fit: contain; /* Şəkli kəsmir, qutunun içinə sığdırır */
+    padding: 10px; /* Şəkil divin divarına yapışmasın deyə */
+}
+
+/* Başlıqların eyni hizada olması üçün */
+.product-info {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-title {
+    font-size: 16px;
+    margin: 0;
+    /* Uzun başlıqlar olanda sətir sayını məhdudlaşdırmaq üçün: */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 /*!* ==========================================================================*/
 /*   BANNER & CAROUSEL INTEGRATION (Az öncəki kodlara əlavə)*/
 /*   ========================================================================== *!*/
