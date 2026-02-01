@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -12,6 +13,9 @@ use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Mostafaznv\NovaCkEditor\CkEditor;
+use Intervention\Image\ImageManager;
+
+
 
 class Preparation extends Resource
 {
@@ -60,19 +64,26 @@ class Preparation extends Resource
                 }),
             Image::make('Image', 'image')
                 ->disk('public')
-                ->store(function ($request, $model) {
-
-                    $file = $request->file('image');
+                ->store(function ($request, $model, $attribute, $requestAttribute) {
+                    $file = $request->file($requestAttribute);
+                    if (!$file) return null;
 
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $path = "preparation/$filename";
 
-                    $image = Image::make($file)
-                        ->fit(800, 600) // standart ölçü
-                        ->encode();
+                    // Version 3-də yeni Manager yaradılır
+                    $manager = new ImageManager(new Driver());
 
-                    Storage::disk('public')->put("preparation/$filename", (string)$image);
+                    // Şəkli oxuyuruq və ölçüləndiririk
+                    $image = $manager->read($file)
+                        ->cover(800, 600); // v2-dəki 'fit' metodu burada 'cover' adlanır
 
-                    return "uploads/$filename";
+                    // Şəkli formatlayıb Storage-a yazırıq
+                    Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                    return [
+                        $attribute => $path,
+                    ];
                 }),
 
 //            Image::make('Image', 'image')
