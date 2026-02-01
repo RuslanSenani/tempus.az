@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -56,13 +58,28 @@ class Preparation extends Resource
                 ->displayUsing(function ($category) {
                     return $category->getTranslation('name', app()->getLocale());
                 }),
-
-
             Image::make('Image', 'image')
                 ->disk('public')
-                ->path('preparation')
-                ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
-                ->prunable(),
+                ->store(function ($request, $model) {
+
+                    $file = $request->file('image');
+
+                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+                    $image = Image::make($file)
+                        ->fit(800, 600) // standart ölçü
+                        ->encode();
+
+                    Storage::disk('public')->put("preparation/$filename", (string)$image);
+
+                    return "uploads/$filename";
+                }),
+
+//            Image::make('Image', 'image')
+//                ->disk('public')
+//                ->path('preparation')
+//                ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
+//                ->prunable(),
 
             NovaTabTranslatable::make([
                 Text::make('Name', 'name')
