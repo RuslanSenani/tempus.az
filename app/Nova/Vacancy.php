@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use http\Encoding\Stream;
+use Illuminate\Http\Request;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
@@ -11,6 +13,22 @@ use Mostafaznv\NovaCkEditor\CkEditor;
 
 class Vacancy extends Resource
 {
+
+    public static function authorizedToCreate(Request $request)
+    {
+        return static::newModel()->count() === 0;
+    }
+
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
+
+    public function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
+
     /**
      * The model the resource corresponds to.
      *
@@ -44,9 +62,11 @@ class Vacancy extends Resource
      */
     public function fields(NovaRequest $request)
     {
+
+
         return [
             ID::make()->sortable(),
-            Currency::make('Salary', 'salary')->currency('AZN'),
+            Text::make('Salary', 'salary')->rules('required'),
             Text::make('Email', 'email')
                 ->rules('required', 'email', 'max:255'),
             Text::make('Phone', 'phone')
@@ -58,11 +78,14 @@ class Vacancy extends Resource
             NovaTabTranslatable::make([
                 Text::make('Title', 'title')
                     ->rules('required', 'unique:vacancies,title,{{resourceId}}'),
-                Text::make('Location', 'location'),
-                CkEditor::make('Description', 'description'),
-                CkEditor::make('Experience', 'experience'),
-                Text::make('Education', 'education'),
-            ])->setTitle('Title, Location, Description, Experience, Education'),
+                Text::make('City', 'city')->rules('required', 'max:255'),
+                Text::make('Age', 'age')
+                    ->rules('required', 'max:20'),
+                Text::make('Company', 'company')->rules('required', 'max:255'),
+                Text::make('Experience', 'experience')->rules('required', 'max:255'),
+                Text::make('Education', 'education')->rules('required', 'max:255'),
+                CkEditor::make('Description', 'description')->rules('required'),
+            ])->setTitle('Title, City, Company, Experience, Education'),
         ];
     }
 

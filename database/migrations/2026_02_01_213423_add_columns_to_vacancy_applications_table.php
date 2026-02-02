@@ -11,15 +11,15 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('vacancy_applications', function (Blueprint $table) {
-            $table->string('name');
-            $table->string('surname');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('vacancy_name');
-            $table->string('available_days')->nullable();
-            $table->string('work_experience');
-            $table->text('message')->nullable();
-            $table->boolean('is_read')->default(false);
+            $table->string('name')->after('id');
+            $table->string('surname')->after('name');
+            $table->string('email')->after('surname');
+            $table->string('phone')->after('email');
+            $table->string('vacancy_name')->after('phone');
+            $table->string('available_days')->nullable()->after('vacancy_name');
+            $table->string('work_experience')->nullable()->after('available_days');
+            $table->text('message')->nullable()->after('work_experience');
+            $table->boolean('is_read')->default(false)->after('message');
         });
     }
 

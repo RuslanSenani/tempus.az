@@ -10,11 +10,11 @@ class Vacancy extends Model
     use  HasTranslations;
 
     protected $fillable = [
-        'title', 'description', 'location', 'salary',
-        'experience', 'education', 'email', 'phone', 'is_active'
+        'title', 'salary', 'company', 'city',
+        'age', 'education', 'experience', 'phone', 'email', 'description', 'is_active'
     ];
 
-    public array $translatable = ['title', 'description', 'location', 'experience', 'education'];
+    public array $translatable = ['title', 'description', 'age', 'city', 'company', 'experience', 'education'];
 
 
 }

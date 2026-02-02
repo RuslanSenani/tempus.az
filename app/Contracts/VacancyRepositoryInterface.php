@@ -2,12 +2,12 @@
 
 namespace App\Contracts;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 interface VacancyRepositoryInterface
 {
 
-    public function getVacancies(): Collection;
+    public function getVacancies(): Model;
 
 
 }

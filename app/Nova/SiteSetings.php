@@ -53,6 +53,15 @@ class SiteSetings extends Resource
         return static::newModel()->count() === 0;
     }
 
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
+    public function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
+
 
     public function fields(NovaRequest $request)
     {
@@ -94,29 +103,6 @@ class SiteSetings extends Resource
                                 $attribute => $path,
                             ];
                         }),
-//                    Image::make('Logo', 'logo')
-//                        ->disk('public')
-//                        ->path('Logo')
-//                        ->store(function (Request $request) {
-//                            $file = $request->file('logo');
-//
-//                            $filename = Str::uuid()->toString() . '.' . $file->getClientOriginalExtension();
-//
-//                            $file->storeAs('Logo', $filename, 'public');
-//
-//                            return $filename;
-//                        })
-//                        ->preview(function ($value, $disk) {
-//                            return $value
-//                                ? Storage::disk($disk)->url('Logo/' . $value)
-//                                : null;
-//                        })
-//                        ->thumbnail(function ($value, $disk) {
-//                            return $value
-//                                ? Storage::disk($disk)->url('Logo/' . $value)
-//                                : null;
-//                        })
-//                        ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'),
 
                     NovaTabTranslatable::make([
                         Text::make('Company Name', 'company_name')

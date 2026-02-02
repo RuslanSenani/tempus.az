@@ -16,9 +16,9 @@ class VacancyRepository implements VacancyRepositoryInterface
     }
 
 
-    public function getVacancies(): Collection
+    public function getVacancies(): Vacancy
     {
-        return $this->vacancyModel->newQuery()->get();
+        return $this->vacancyModel->newQuery()->first();
     }
 
 

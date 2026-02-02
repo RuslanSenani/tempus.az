@@ -54,8 +54,58 @@
         <!-- Row -->
         <div class="row">
             <!-- Blog Area -->
-            <div class="col-md-6 blog-area">
-                {{--               burrda vakansiya olacaq--}}
+
+
+            <div class="col-md-6 mb-4">
+                <div class="card custom-job-card">
+                    <div class="custom-header text-start">
+                        <h2 class="text-uppercase mb-4">{{$vacancy->title ?? 'TİBBİ NÜMAYƏNDƏ'}}</h2>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="badge-salary">{{$vacancy->salary ?? '500 - 2000 AZN'}}</span>
+                            <span class="fw-bold fs-5">{{$vacancy->company ?? 'Tempus MMC'}} </span>
+                        </div>
+                    </div>
+
+                    <div class="info-table-section">
+                        <div class="info-row">
+                            <div class="info-label">{{$siteContent['home_vacancy_city']->value??'Şəhər'}}</div>
+                            <div class="info-text">{{$vacancy->city ?? 'Bakı və digər regionlar'}}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">{{$siteContent['home_vacancy_age']->value??'Yaş'}}</div>
+                            <div class="info-text">{{$vacancy->age ?? '24-45 yaş'}}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">{{$siteContent['home_vacancy_edu']->value??'Təhsil'}}</div>
+                            <div
+                                class="info-text">{{$vacancy->education ?? 'Ali tibbi vəya orta xüsusi (tibbi) təhsil'}}</div>
+                        </div>
+                        <div class="info-row">
+                            <div
+                                class="info-label">{{$siteContent['home_vacancy_work_experience']->value??'İş təcrübəsi'}}</div>
+                            <div
+                                class="info-text">{{$vacancy->experience ?? 'Dərman satışı sahəsində 1 ildən yuxarı'}}</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div
+                                class="info-label">{{$siteContent['home_vacancy_phone']->value??'Telefon nömrəsi'}}</div>
+                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->phone??''}}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">{{$siteContent['home_vacancy_email']->value??'E-mail'}}</div>
+                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->email??''}}</div>
+                        </div>
+                    </div>
+
+                    <div class="description-section">
+                        <div
+                            class="section-blue-mark">{{$siteContent['home_vacancy_work_info']->value??'İş barədə məlumat'}}</div>
+                        <div class="vacancy-details">
+                            {!! $vacancy->description ?? 'Bura iş barədə məlumatlar daxil olacaq...' !!}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-6  blog-area">
@@ -77,7 +127,7 @@
                                 <div class="col-md-6 col-sm-6 form-group">
                                     <input type="text" name="surname" id="surname" value="{{old('surname')}}"
                                            placeholder="{{$siteContent['home_vacancy_form_surname']->value??''}}"
-                                           class="form-control @error('surname') is-invalid @enderror" >
+                                           class="form-control @error('surname') is-invalid @enderror">
                                     @error('surname')
                                     <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
@@ -86,7 +136,7 @@
                                     <input type="email" name="email" value="{{old('email')}}"
                                            placeholder="{{$siteContent['home_vacancy_form_email']->value??''}}"
                                            class="form-control @error('email') is-invalid @enderror"
-                                           >
+                                    >
                                     @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
@@ -94,7 +144,7 @@
                                 <div class="col-md-6 col-sm-6 form-group">
                                     <input type="text" name="phone" value="{{old('phone')}}"
                                            placeholder="{{$siteContent['home_vacancy_form_phone']->value??''}}"
-                                           class="form-control  @error('phone') is-invalid @enderror" >
+                                           class="form-control  @error('phone') is-invalid @enderror">
                                     @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
@@ -181,3 +231,9 @@
         </div><!-- Row /- -->
     </div><!-- Container /- -->
 </div><!-- Page Content /- -->
+
+
+
+
+
+

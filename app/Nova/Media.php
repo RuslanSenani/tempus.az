@@ -87,18 +87,6 @@ class Media extends Resource
                     ];
                 }),
 
-
-//            // Şəkil Sahəsi
-//            Image::make('Image', 'image_url')
-//                ->disk('public')
-//                ->path('Media_Path')
-//                ->prunable() // Fayl silinəndə diskdən də silinsin
-//                ->dependsOn(['type'], function (Image $field, NovaRequest $request, FormData $formData) {
-//                    if ($formData->type !== 'image') {
-//                        $field->hide();
-//                    }
-//                }),
-
             // Video URL Sahəsi
             Text::make('Video URL', 'video_url')
                 ->help('YouTube, TikTok və ya Instagram linki əlavə edin')

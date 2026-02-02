@@ -354,14 +354,14 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $vacancies = $this->vacancyRepository->getVacancies();
+        $vacancy = $this->vacancyRepository->getVacancies();
         $viewData = [
             'viewFolder' => $this->viewFolder . "Vacancy_v",
             'languages' => $languages,
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
-            'vacancies' => $vacancies,
+            'vacancy' => $vacancy,
 
 
         ];

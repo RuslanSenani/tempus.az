@@ -239,5 +239,40 @@
         "az": "Mesaj",
         "en": "Message",
         "ru": "Сообщение"
+    },
+    "home_vacancy_city": {
+        "az": "Şəhər",
+        "en": "City",
+        "ru": "Город"
+    },
+    "home_vacancy_age": {
+        "az": "Yaş",
+        "en": "Age",
+        "ru": "Возраст"
+    },
+    "home_vacancy_edu": {
+        "az": "Təhsil",
+        "en": "Education",
+        "ru": "Образование"
+    },
+    "home_vacancy_work_experience": {
+        "az": "İş təcrübəsi",
+        "en": "Work Experience",
+        "ru": "Опыт работы"
+    },
+    "home_vacancy_phone": {
+        "az": "Telefon nömrəsi",
+        "en": "Phone Number",
+        "ru": "Номер телефона"
+    },
+    "home_vacancy_email": {
+        "az": "E-poçt",
+        "en": "Email",
+        "ru": "Электронная почта"
+    },
+    "home_vacancy_work_info": {
+        "az": "İş barədə məlumat",
+        "en": "Job Information",
+        "ru": "Информация о вакансии"
     }
 }
