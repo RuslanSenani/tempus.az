@@ -15,7 +15,7 @@
         "ru": "Дом"
     },
     "home_about_us": {
-        "az": "Hakkımızda",
+        "az": "Haqqımızda",
         "en": "About Us",
         "ru": "О нас"
     },
@@ -164,5 +164,80 @@
         "az": "Sürətli keçid",
         "en": "Fast Links",
         "ru": "Быстрые ссылки"
+    },
+    "home_mon": {
+        "az": "Bazar ertəsi",
+        "en": "Monday",
+        "ru": "Понедельник"
+    },
+    "home_tue": {
+        "az": "Çərşənbə axşamı",
+        "en": "Tuesday",
+        "ru": "Вторник"
+    },
+    "home_wed": {
+        "az": "Çərşənbə",
+        "en": "Wednesday",
+        "ru": "Среда"
+    },
+    "home_thu": {
+        "az": "Cümə axşamı",
+        "en": "Thursday",
+        "ru": "Четверг"
+    },
+    "home_fri": {
+        "az": "Cümə",
+        "en": "Friday",
+        "ru": "Пятница"
+    },
+    "home_vacancy_form": {
+        "az": "Sizinlə əlaqə saxlamağımız üçün forumu doldurun",
+        "en": "Fill out the form so we can contact you.",
+        "ru": "Заполните форму, чтобы мы могли с вами связаться."
+    },
+    "home_vacancy_interview": {
+        "az": "Müsahibə üçün uyğun günü  seçin:",
+        "en": "Choose a suitable day for the interview:",
+        "ru": "Выберите подходящий день для собеседования:"
+    },
+    "home_vacancy_form_name": {
+        "az": "Ad",
+        "en": "Name",
+        "ru": "Имя"
+    },
+    "home_vacancy_form_surname": {
+        "az": "Soyad",
+        "en": "Surname",
+        "ru": "Фамилия"
+    },
+    "home_vacancy_form_email": {
+        "az": "E-poçt",
+        "en": "E-mail",
+        "ru": "Электронная почта"
+    },
+    "home_vacancy_form_phone": {
+        "az": "Telefon",
+        "en": "Phone",
+        "ru": "Телефон"
+    },
+    "home_vacancy_form_medical_represtative": {
+        "az": "Tibbi Nümayəndə",
+        "en": "Medical Representative",
+        "ru": "Медицинский представитель"
+    },
+    "home_vacancy_form_work_experience": {
+        "az": "İş Təcrübə",
+        "en": "Work Experience",
+        "ru": "Опыт работы"
+    },
+    "home_vacancy_send": {
+        "az": "Müraciəti Göndər",
+        "en": "Submit Application",
+        "ru": "Подать заявку"
+    },
+    "home_vacancy_message": {
+        "az": "Mesaj",
+        "en": "Message",
+        "ru": "Сообщение"
     }
 }

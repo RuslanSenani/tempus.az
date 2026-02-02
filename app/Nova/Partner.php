@@ -4,6 +4,9 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -47,11 +50,30 @@ class Partner extends Resource
     {
         return [
             ID::make()->sortable(),
-            Image::make('Logo', 'logo')
+            Image::make('Image', 'loogo')
                 ->disk('public')
-                ->path('partner')
-                ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024')
-                ->prunable(),
+                ->prunable()
+                ->store(function ($request, $model, $attribute, $requestAttribute) {
+                    $file = $request->file($requestAttribute);
+                    if (!$file) return null;
+
+                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $path = "partner/$filename";
+
+                    // Version 3-də yeni Manager yaradılır
+                    $manager = new ImageManager(new Driver());
+
+                    // Şəkli oxuyuruq və ölçüləndiririk
+                    $image = $manager->read($file)
+                        ->pad(800, 600, 'ffffff');
+
+                    // Şəkli formatlayıb Storage-a yazırıq
+                    Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                    return [
+                        $attribute => $path,
+                    ];
+                }),
             Text::make('Web Site', 'website')
                 ->help('')
                 ->displayUsing(function ($value) {

@@ -47,79 +47,137 @@
 </div><!-- Page Banner /- -->
 
 
-<div class="container my-5">
-    <div class="row">
-        <article class="col-lg-6 ">
-            <div class="entry-content">
-                <h3 class="entry-title"><a href="#">Latest Blog new Slider Image Post</a></h3>
-                <div class="post-meta">
-                    <a href="#" title="25th sep 2015" class="post-date">25th sep 2015</a> by
-                    <a href="#" title="Mathov" class="post-admin">Mathov</a> in Hospital
-                </div>
-                <p>
-
-                </p>
+<!-- Page Content -->
+<div class="container-fluid no-padding page-content">
+    <!-- Container -->
+    <div class="container">
+        <!-- Row -->
+        <div class="row">
+            <!-- Blog Area -->
+            <div class="col-md-6 blog-area">
+                {{--               burrda vakansiya olacaq--}}
             </div>
-        </article>
 
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-lg sticky-top" style="top: 20px;">
-                <div class="card-header text-white p-4" style="background-color: #045184;">
-                    <h4 class="mb-0 fw-bold">Müraciət Formu</h4>
-                    <small>Sizinlə əlaqə saxlamağımız üçün doldurun</small>
-                </div>
-                <div class="card-body p-4">
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold small">Adınız</label>
-                                <input type="text" name="adınız" class="form-control bg-light" required>
+            <div class="col-md-6  blog-area">
+                <div class="col-md-12">
+                    <div class="leave-comment">
+                        <h3 class="section-heading">{{$siteContent['home_vacancy_form']->value??''}}</h3>
+                        <form class="comment-form" method="POST" action="{{route('vacancy.store')}}">
+                            @csrf
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <input type="text" name="name" id="name" value="{{old('name')}}"
+                                           placeholder="{{$siteContent['home_vacancy_form_name']->value??''}}"
+                                           class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <input type="text" name="surname" id="surname" value="{{old('surname')}}"
+                                           placeholder="{{$siteContent['home_vacancy_form_surname']->value??''}}"
+                                           class="form-control @error('surname') is-invalid @enderror" >
+                                    @error('surname')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <input type="email" name="email" value="{{old('email')}}"
+                                           placeholder="{{$siteContent['home_vacancy_form_email']->value??''}}"
+                                           class="form-control @error('email') is-invalid @enderror"
+                                           >
+                                    @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <input type="text" name="phone" value="{{old('phone')}}"
+                                           placeholder="{{$siteContent['home_vacancy_form_phone']->value??''}}"
+                                           class="form-control  @error('phone') is-invalid @enderror" >
+                                    @error('phone')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <input type="text" name="vacancy_name" value="{{old('vacancy_name')}}"
+                                           placeholder="{{$siteContent['home_vacancy_form_medical_represtative']->value??''}}"
+                                           class="form-control  @error('vacancy_name') is-invalid @enderror">
+                                    @error('vacancy_name')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 form-group">
+                                    <input type="text" name="work_experience" value="{{old('work_experience')}}"
+                                           placeholder="{{$siteContent['home_vacancy_form_work_experience']->value??''}}"
+                                           class="form-control @error('work_experience') is-invalid @enderror">
+                                    @error('work_experience')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+                                </div>
+
+
+                                <div class="col-md-12 my-1">
+                                    <label
+                                        class="fw-bold mb-3 d-block text-primary @error('available_day') text-danger @enderror">
+                                        {{ $siteContent['home_vacancy_interview']->value ?? 'Müsahibə üçün uyğun günlər' }}
+                                    </label>
+
+                                    <div class="d-flex flex-row align-items-center gap-3">
+                                        @php
+                                            $days = [
+                                                'B.E' => $siteContent['home_mon']->value,
+                                                'Ç.A' => $siteContent['home_tue']->value,
+                                                'Ç' => $siteContent['home_wed']->value,
+                                                'C.A' => $siteContent['home_thu']->value,
+                                                'C' => $siteContent['home_fri']->value
+                                            ];
+                                        @endphp
+
+                                        @foreach($days as $key => $label)
+                                            <div class="custom-radio-group">
+                                                <input type="radio" name="available_day"
+                                                       id="day_{{ $loop->index }}"
+                                                       value="{{ $key }}"
+                                                       class="d-none custom-radio-input" {{ $loop->first ? 'checked' : '' }}
+                                                    {{ old('available_day') == $key ? 'checked' : '' }}>
+
+                                                <label for="day_{{ $loop->index }}" class="custom-radio-label">
+                                                    <span class="day-text">{{ $label }}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @error('available_day') <small
+                                        class="text-danger d-block mt-1">{{ $message }}</small> @enderror
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <textarea rows="5" name="message" id="message"
+                                              placeholder="{{$siteContent['home_vacancy_message']->value}}"
+                                              class="form-control @error('message') is-invalid @enderror"></textarea>
+                                    @error('message')
+                                    <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+                                @if(session('success'))
+                                    <div class="col-md-12">
+                                        <div class="alert alert-success">{{ session('success') }}</div>
+                                    </div>
+                                @endif
+
+                                <div class="col-md-12 form-group mt-3">
+                                    <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm">
+                                        {{$siteContent['home_vacancy_send']->value ??''}}
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold small">Soyadınız</label>
-                                <input type="text" name="soyadınız" class="form-control bg-light" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">E-mail</label>
-                            <input type="email" name="email" class="form-control bg-light" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">Əlaqə nömrəsi</label>
-                            <input type="tel" name="phone" class="form-control bg-light" placeholder="+994" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">Müraciət etdiyiniz vəzifə</label>
-                            <input type="text" name="position" class="form-control bg-light" value="Tibbi Nümayəndə"
-                                   readonly>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">Həftənin hansı günü yaxınlaşa bilərsiniz?</label>
-                            <div class="d-flex flex-wrap gap-2">
-                                @foreach(['B.E', 'Ç.A', 'Ç', 'C.A', 'C'] as $day)
-                                    <input type="checkbox" class="btn-check" name="days[]" id="day_{{$day}}"
-                                           value="{{$day}}">
-                                    <label class="btn btn-outline-primary btn-sm" for="day_{{$day}}">{{$day}}</label>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label fw-bold small">Özünüz haqda qısa məlumat</label>
-                            <textarea name="message" class="form-control bg-light" rows="3"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold text-uppercase shadow">
-                            GÖNDƏR <i class="fas fa-paper-plane ms-2"></i>
-                        </button>
-                    </form>
+                        </form>
+                    </div><!-- Leave Comment /- -->
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+            <!-- Blog Area /- -->
+
+        </div><!-- Row /- -->
+    </div><!-- Container /- -->
+</div><!-- Page Content /- -->

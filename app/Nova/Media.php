@@ -2,6 +2,10 @@
 
 namespace App\Nova;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\ID;
@@ -56,13 +60,44 @@ class Media extends Resource
             // Şəkil Sahəsi
             Image::make('Image', 'image_url')
                 ->disk('public')
-                ->path('Media_Path')
-                ->prunable() // Fayl silinəndə diskdən də silinsin
                 ->dependsOn(['type'], function (Image $field, NovaRequest $request, FormData $formData) {
                     if ($formData->type !== 'image') {
                         $field->hide();
                     }
+                })
+                ->store(function ($request, $model, $attribute, $requestAttribute) {
+                    $file = $request->file($requestAttribute);
+                    if (!$file) return null;
+
+                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $path = "Media_Path/$filename";
+
+                    // Version 3-də yeni Manager yaradılır
+                    $manager = new ImageManager(new Driver());
+
+                    // Şəkli oxuyuruq və ölçüləndiririk
+                    $image = $manager->read($file)
+                        ->pad(800, 600, 'ffffff');
+
+                    // Şəkli formatlayıb Storage-a yazırıq
+                    Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                    return [
+                        $attribute => $path,
+                    ];
                 }),
+
+
+//            // Şəkil Sahəsi
+//            Image::make('Image', 'image_url')
+//                ->disk('public')
+//                ->path('Media_Path')
+//                ->prunable() // Fayl silinəndə diskdən də silinsin
+//                ->dependsOn(['type'], function (Image $field, NovaRequest $request, FormData $formData) {
+//                    if ($formData->type !== 'image') {
+//                        $field->hide();
+//                    }
+//                }),
 
             // Video URL Sahəsi
             Text::make('Video URL', 'video_url')

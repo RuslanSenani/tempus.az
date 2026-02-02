@@ -63,6 +63,7 @@ class Preparation extends Resource
                 }),
             Image::make('Image', 'image')
                 ->disk('public')
+                ->prunable()
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
@@ -75,7 +76,7 @@ class Preparation extends Resource
 
                     // Şəkli oxuyuruq və ölçüləndiririk
                     $image = $manager->read($file)
-                        ->pad(800, 600, 'ffffff'); // v2-dəki 'fit' metodu burada 'cover' adlanır
+                        ->pad(800, 600, 'ffffff');
 
                     // Şəkli formatlayıb Storage-a yazırıq
                     Storage::disk('public')->put($path, $image->toJpeg(80));

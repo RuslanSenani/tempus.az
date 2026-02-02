@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Badge;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -10,7 +11,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Mostafaznv\NovaCkEditor\CkEditor;
 
-class ContactMessage extends Resource
+class VacancyApplication extends Resource
 {
 
     public function authorizedToReplicate(Request $request)
@@ -36,9 +37,9 @@ class ContactMessage extends Resource
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\ContactMessage>
+     * @var class-string<\App\Models\VacancyApplication>
      */
-    public static $model = \App\Models\ContactMessage::class;
+    public static $model = \App\Models\VacancyApplication::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -53,7 +54,7 @@ class ContactMessage extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'name', 'surname', 'phone', 'email'
     ];
 
     /**
@@ -64,19 +65,28 @@ class ContactMessage extends Resource
      */
     public function fields(NovaRequest $request)
     {
-
         if ($request->isMethod('GET') && $request->route('resourceId')) {
             $this->resource->update([
                 'is_read' => true
             ]);
         }
+
         return [
             ID::make()->sortable(),
-            Text::make('Name')->sortable(),
-            Text::make('Email')->sortable(),
-            Text::make('Phone'),
-            CkEditor::make('Message'),
-
+            Text::make('Name', 'name')->sortable(),
+            Text::make('Surname', 'surname')->sortable(),
+            Text::make('Email', 'email')->sortable(),
+            Text::make('Phone', 'phone')->sortable(),
+            Text::make('Vacancy Name', 'vacancy_name'),
+            Badge::make('Müsahibə Günü', 'available_days')->map([
+                'B.E' => 'info',
+                'Ç.A' => 'warning',
+                'Ç'   => 'warning',
+                'C.A' => 'success',
+                'C'   => 'info',
+            ]),
+            CkEditor::make('Message', 'message'),
+            CkEditor::make('Work Experience', 'work_experience'),
             Boolean::make('Is Read'),
 
             DateTime::make('Created At')->exceptOnForms(),
@@ -126,7 +136,6 @@ class ContactMessage extends Resource
     {
         return [];
     }
-
     public static function group(): string
     {
         return trans('Message');

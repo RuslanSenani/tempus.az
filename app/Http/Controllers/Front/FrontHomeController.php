@@ -11,6 +11,7 @@ use App\Contracts\PartnersRepositoryInterface;
 use App\Contracts\PreparationRepositoryInterface;
 use App\Contracts\SettingsRepositoryInterface;
 use App\Contracts\SiteContentInterface;
+use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactFormMail;
 use Illuminate\Http\Request;
@@ -29,8 +30,9 @@ class FrontHomeController extends Controller
     private PartnersRepositoryInterface $partnersRepository;
     private MedicalInfoRepositoryInterface $medicalInfoRepository;
     private MediaRepositoryInterface $mediaRepository;
+    private VacancyRepositoryInterface $vacancyRepository;
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository)
+    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository)
     {
         $this->aboutRepository = $aboutRepository;
         $this->languageRepository = $languageRepository;
@@ -41,6 +43,7 @@ class FrontHomeController extends Controller
         $this->partnersRepository = $partnersRepository;
         $this->medicalInfoRepository = $medicalInfoRepository;
         $this->mediaRepository = $mediaRepository;
+        $this->vacancyRepository = $vacancyRepository;
         $this->viewFolder = 'Front/';
     }
 
@@ -351,12 +354,14 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
+        $vacancies = $this->vacancyRepository->getVacancies();
         $viewData = [
             'viewFolder' => $this->viewFolder . "Vacancy_v",
             'languages' => $languages,
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
+            'vacancies' => $vacancies,
 
 
         ];

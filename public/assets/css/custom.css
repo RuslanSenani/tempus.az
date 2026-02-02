@@ -279,6 +279,80 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+
+/* Radio qrupunu yan-yana düzən konteyner */
+.custom-radio-group {
+    display: inline-block;
+}
+
+/* Əsas label stili */
+.custom-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+/* Radio dairəsi */
+.radio-dot {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #004a99;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+
+/* Seçiləndə içindəki nöqtə */
+.custom-radio-input:checked + .custom-radio-label .radio-dot::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #004a99;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Yazı stili */
+.day-text {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Üstünə gələndə fon dəyişsin */
+.custom-radio-label:hover {
+    background: rgba(0, 74, 153, 0.05);
+}
+
+/* Bootstrap-ın is-invalid klassını məcburi (force) aktiv edək */
+.form-control.is-invalid {
+    border-color: #dc3545 !important;
+    padding-right: calc(1.5em + 0.75rem) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right calc(0.375em + 0.1875rem) center !important;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) !important;
+}
+
+.invalid-feedback {
+    display: block !important; /* Laravel xətası olanda mütləq görünsün */
+    color: #dc3545 !important;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+{
+}
+
+
 /*!* ==========================================================================*/
 /*   BANNER & CAROUSEL INTEGRATION (Az öncəki kodlara əlavə)*/
 /*   ========================================================================== *!*/

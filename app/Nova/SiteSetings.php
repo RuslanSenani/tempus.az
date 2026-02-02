@@ -7,6 +7,8 @@ use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -68,29 +70,53 @@ class SiteSetings extends Resource
                         ->onlyOnForms(),
                     Text::make('Fax 2', 'fax_2')
                         ->onlyOnForms(),
-                    Image::make('Logo', 'logo')
+                    Image::make('Image', 'logo')
                         ->disk('public')
-                        ->path('Logo')
-                        ->store(function (Request $request) {
-                            $file = $request->file('logo');
+                        ->prunable()
+                        ->store(function ($request, $model, $attribute, $requestAttribute) {
+                            $file = $request->file($requestAttribute);
+                            if (!$file) return null;
 
-                            $filename = Str::uuid()->toString() . '.' . $file->getClientOriginalExtension();
+                            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                            $path = "Logo/$filename";
 
-                            $file->storeAs('Logo', $filename, 'public');
+                            // Version 3-də yeni Manager yaradılır
+                            $manager = new ImageManager(new Driver());
 
-                            return $filename;
-                        })
-                        ->preview(function ($value, $disk) {
-                            return $value
-                                ? Storage::disk($disk)->url('Logo/' . $value)
-                                : null;
-                        })
-                        ->thumbnail(function ($value, $disk) {
-                            return $value
-                                ? Storage::disk($disk)->url('Logo/' . $value)
-                                : null;
-                        })
-                        ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'),
+                            // Şəkli oxuyuruq və ölçüləndiririk
+                            $image = $manager->read($file)
+                                ->pad(800, 600, 'ffffff');
+
+                            // Şəkli formatlayıb Storage-a yazırıq
+                            Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                            return [
+                                $attribute => $path,
+                            ];
+                        }),
+//                    Image::make('Logo', 'logo')
+//                        ->disk('public')
+//                        ->path('Logo')
+//                        ->store(function (Request $request) {
+//                            $file = $request->file('logo');
+//
+//                            $filename = Str::uuid()->toString() . '.' . $file->getClientOriginalExtension();
+//
+//                            $file->storeAs('Logo', $filename, 'public');
+//
+//                            return $filename;
+//                        })
+//                        ->preview(function ($value, $disk) {
+//                            return $value
+//                                ? Storage::disk($disk)->url('Logo/' . $value)
+//                                : null;
+//                        })
+//                        ->thumbnail(function ($value, $disk) {
+//                            return $value
+//                                ? Storage::disk($disk)->url('Logo/' . $value)
+//                                : null;
+//                        })
+//                        ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'),
 
                     NovaTabTranslatable::make([
                         Text::make('Company Name', 'company_name')

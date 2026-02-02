@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\VacancyApplicationController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\VacancyApplicationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,6 +40,9 @@ Route::get('/media/page/{page}', [FrontHomeController::class, 'media'])->name('m
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/vacancy-store', [VacancyApplicationController::class, 'store'])
     ->name('vacancy.store');
+
+
+Route::post('/vacancy-application', [\App\Http\Controllers\Front\VacancyApplicationController::class, 'store'])->name('vacancy.store');
 
 
 

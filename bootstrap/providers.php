@@ -14,4 +14,5 @@ return [
     App\Providers\PreparationProviders::class,
     App\Providers\SettingProvider::class,
     App\Providers\SiteContentProvider::class,
+    App\Providers\VacancyServicesProvider::class,
 ];

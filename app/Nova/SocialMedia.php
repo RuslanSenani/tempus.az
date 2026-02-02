@@ -4,6 +4,9 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -52,11 +55,30 @@ class SocialMedia extends Resource
             ID::make()->sortable(),
             Text::make('Name', 'name')->rules('required'),
             Text::make('Url', 'link')->rules('required'),
-            Image::make('Icon', 'icon')
+            Image::make('Image', 'icon')
                 ->disk('public')
-                ->path('social_media')
-                ->rules('nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048')
-                ->prunable(),
+                ->prunable()
+                ->store(function ($request, $model, $attribute, $requestAttribute) {
+                    $file = $request->file($requestAttribute);
+                    if (!$file) return null;
+
+                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $path = "social_media/$filename";
+
+                    // Version 3-də yeni Manager yaradılır
+                    $manager = new ImageManager(new Driver());
+
+                    // Şəkli oxuyuruq və ölçüləndiririk
+                    $image = $manager->read($file)
+                        ->pad(800, 600, 'ffffff');
+
+                    // Şəkli formatlayıb Storage-a yazırıq
+                    Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                    return [
+                        $attribute => $path,
+                    ];
+                }),
 
             Boolean::make('Default', 'is_active')
                 ->trueValue(1)
