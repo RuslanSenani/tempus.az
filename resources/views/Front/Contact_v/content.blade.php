@@ -96,25 +96,35 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="form-group">
                         <label for="name">Name*</label>
-                        <input type="text" name="name" class="form-control" value="{{old('name')}}" id="name"
-                               required/>
+                        <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror"
+                               value="{{old('name')}}" id="name"/>
+                        @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">E-Mail*</label>
-                        <input type="email" name="email" class="form-control" value="{{old('email')}}"
-                               id="email" required/>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                               value="{{old('email')}}" id="email"/>
+                        @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number*</label>
-                        <input type="text" name="phone" class="form-control" value="{{old('phone')}}" id="phone"
-                               required/>
+                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{old('phone')}}" id="phone"/>
+                        @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="message">Details</label>
-                        <textarea class="form-control" name="message" id="message">
+                        <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message">
                             {{old('message')}}
                         </textarea>
-
+                        @error('message')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <input type="submit" name="post">

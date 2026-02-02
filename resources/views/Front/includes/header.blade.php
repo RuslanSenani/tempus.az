@@ -135,16 +135,30 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right" style="min-width: 250px; padding: 10px;">
                                 <li>
-                                    <form action="#" method="POST">
-                                        @csrf
+                                    <form action="#" method="GET" autocomplete="off"
+                                          class="position-relative">
                                         <div class="input-group">
-                                            <input type="text" name="query" class="form-control"
+                                            <input type="text" id="live-search" name="query" class="form-control"
                                                    placeholder="{{$siteContent['home_search']->value??'Axtarış edin...'}}">
                                             <span class="input-group-btn">
-                                              <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                                <button class="btn btn-primary" type="submit"><i
+                                                        class="fa fa-search"></i></button>
                                             </span>
                                         </div>
+                                        <div id="search-results" class="list-group position-absolute w-100 shadow-lg"
+                                             style="z-index: 1000; display: none;">
+                                        </div>
                                     </form>
+                                    {{--                                    <form action="#" method="POST">--}}
+                                    {{--                                        @csrf--}}
+                                    {{--                                        <div class="input-group">--}}
+                                    {{--                                            <input type="text" name="query" class="form-control"--}}
+                                    {{--                                                   placeholder="{{$siteContent['home_search']->value??'Axtarış edin...'}}">--}}
+                                    {{--                                            <span class="input-group-btn">--}}
+                                    {{--                                              <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>--}}
+                                    {{--                                            </span>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </form>--}}
                                 </li>
                             </ul>
                         </li>

@@ -45,5 +45,7 @@ Route::post('/vacancy-store', [VacancyApplicationController::class, 'store'])
 Route::post('/vacancy-application', [\App\Http\Controllers\Front\VacancyApplicationController::class, 'store'])->name('vacancy.store');
 
 
+//Route::get('/live-search', [\App\Http\Controllers\Front\SearchController::class, 'liveSearch'])->name('live.search');  bu istifade olunacaq tam hazir deyil
+
 
 

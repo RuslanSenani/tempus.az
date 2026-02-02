@@ -11,11 +11,7 @@
 
                     <div class="banner-overlay-text">
                         <div class="container">
-                            <h3>{{$siteContent['home_medical_information']->value ?? ''}}</h3>
-                            <ol class="breadcrumb">
-                                <li><a href="{{route('home')}}">{{$siteContent['home_home']->value ?? ''}}</a></li>
-                                <li class="active">{{$siteContent['home_medical_information']->value ?? ''}}</li>
-                            </ol>
+                            <h1>{{$siteContent['home_about_us']->value ?? ''}}</h1>
                         </div>
                     </div>
                 </div>

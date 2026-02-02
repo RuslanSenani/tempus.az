@@ -419,6 +419,23 @@
     color: #444;
 }
 
+#search-results {
+    top: 100%; /* Inputun tam altında */
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #ddd;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 2px;
+}
+
+.list-group-item-action:hover {
+    background-color: #f8f9fa;
+    color: #4c70b5;
+}
+
 
 
 

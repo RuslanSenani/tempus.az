@@ -13,9 +13,7 @@ use App\Contracts\SettingsRepositoryInterface;
 use App\Contracts\SiteContentInterface;
 use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Mail\ContactFormMail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class FrontHomeController extends Controller
