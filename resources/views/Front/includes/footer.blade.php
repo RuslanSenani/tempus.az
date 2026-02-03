@@ -53,7 +53,7 @@
                             <a href="{{route('all-categories')}}">{{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}</a>
                         </li>
                         <li>
-                            <a href="{{route('preparation')}}">{{ $siteContent['home_preparation']->value ?? 'Preparatlar' }}</a>
+                            <a href="{{route('preparation')}}">{{ $siteContent['home_preparations']->value ?? 'Preparatlar' }}</a>
                         </li>
                         <li>
                             <a href="{{route('media')}}">{{ $siteContent['home_media']->value ?? 'Media' }}</a>

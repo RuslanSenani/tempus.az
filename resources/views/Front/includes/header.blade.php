@@ -98,7 +98,7 @@
                         </li>
 
                         <li class="px-1">
-                            <a href="{{route('preparation')}}">{{$siteContent['home_preparation']->value??'Preparatlar'}} </a>
+                            <a href="{{route('preparation')}}">{{$siteContent['home_preparations']->value??'Preparatlar'}} </a>
                         </li>
 
                         <li class="px-1">
