@@ -78,29 +78,29 @@
                         <div class="info-row">
                             <div class="info-label">{{$siteContent['home_vacancy_edu']->value??'Təhsil'}}</div>
                             <div
-                                class="info-text">{{$vacancy->education ?? 'Ali tibbi vəya orta xüsusi (tibbi) təhsil'}}</div>
+                                    class="info-text">{{$vacancy->education ?? 'Ali tibbi vəya orta xüsusi (tibbi) təhsil'}}</div>
                         </div>
                         <div class="info-row">
                             <div
-                                class="info-label">{{$siteContent['home_vacancy_work_experience']->value??'İş təcrübəsi'}}</div>
+                                    class="info-label">{{$siteContent['home_vacancy_work_experience']->value??'İş təcrübəsi'}}</div>
                             <div
-                                class="info-text">{{$vacancy->experience ?? 'Dərman satışı sahəsində 1 ildən yuxarı'}}</div>
+                                    class="info-text">{{$vacancy->experience ?? 'Dərman satışı sahəsində 1 ildən yuxarı'}}</div>
                         </div>
 
                         <div class="info-row">
                             <div
-                                class="info-label">{{$siteContent['home_vacancy_phone']->value??'Telefon nömrəsi'}}</div>
+                                    class="info-label">{{$siteContent['home_vacancy_phone']->value ?? 'Telefon nömrəsi'}}</div>
                             <div class="info-text text-primary text-decoration-underline">{{$vacancy->phone??''}}</div>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">{{$siteContent['home_vacancy_email']->value??'E-mail'}}</div>
-                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->email??''}}</div>
+                            <div class="info-label">{{$siteContent['home_vacancy_email']->value ?? 'E-mail'}}</div>
+                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->email ?? ''}}</div>
                         </div>
                     </div>
 
                     <div class="description-section">
                         <div
-                            class="section-blue-mark">{{$siteContent['home_vacancy_work_info']->value??'İş barədə məlumat'}}</div>
+                                class="section-blue-mark">{{$siteContent['home_vacancy_work_info']->value??'İş barədə məlumat'}}</div>
                         <div class="vacancy-details">
                             {!! $vacancy->description ?? 'Bura iş barədə məlumatlar daxil olacaq...' !!}
                         </div>
@@ -169,7 +169,7 @@
 
                                 <div class="col-md-12 my-1">
                                     <label
-                                        class="fw-bold mb-3 d-block text-primary @error('available_day') text-danger @enderror">
+                                            class="fw-bold mb-3 d-block text-primary @error('available_day') text-danger @enderror">
                                         {{ $siteContent['home_vacancy_interview']->value ?? 'Müsahibə üçün uyğun günlər' }}
                                     </label>
 
@@ -190,7 +190,7 @@
                                                        id="day_{{ $loop->index }}"
                                                        value="{{ $key }}"
                                                        class="d-none custom-radio-input" {{ $loop->first ? 'checked' : '' }}
-                                                    {{ old('available_day') == $key ? 'checked' : '' }}>
+                                                        {{ old('available_day') == $key ? 'checked' : '' }}>
 
                                                 <label for="day_{{ $loop->index }}" class="custom-radio-label">
                                                     <span class="day-text">{{ $label }}</span>
@@ -199,7 +199,7 @@
                                         @endforeach
                                     </div>
                                     @error('available_day') <small
-                                        class="text-danger d-block mt-1">{{ $message }}</small> @enderror
+                                            class="text-danger d-block mt-1">{{ $message }}</small> @enderror
                                 </div>
 
                                 <div class="col-md-12 form-group">
