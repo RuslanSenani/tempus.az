@@ -274,10 +274,15 @@
         "az": "İş barədə məlumat",
         "en": "Job Information",
         "ru": "Информация о вакансии"
+    },
+    "home_vacancy_salary": {
+        "az": "Əmək haqqı",
+        "en": "Salary",
+        "ru": "Зарплата"
+    },
+    "home_company": {
+        "az": "Şirkət Adı",
+        "en": "Company Name",
+        "ru": "Название компании"
     }
-
-
-
-
-
 }

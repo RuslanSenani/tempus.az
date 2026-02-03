@@ -59,10 +59,10 @@
             <div class="col-md-6 mb-4">
                 <div class="card custom-job-card">
                     <div class="custom-header text-start">
-                        <h2 class="text-uppercase mb-4">{{$vacancy->title ?? 'TİBBİ NÜMAYƏNDƏ'}}</h2>
+                        <h2 class="text-uppercase mb-4">{{$vacancy->title ?? $siteContent['home_vacancy_form_medical_represtative']->value??''}}</h2>
                         <div class="d-flex align-items-center gap-3">
-                            <span class="badge-salary">{{$vacancy->salary ?? '500 - 2000 AZN'}}</span>
-                            <span class="fw-bold fs-5">{{$vacancy->company ?? 'Tempus MMC'}} </span>
+                            <span class="badge-salary">{{$vacancy->salary ?? $siteContent['home_vacancy_salary']->value ??''}}</span>
+                            <span class="fw-bold fs-5">{{$vacancy->company ?? $siteContent['home_company']->value??''}} </span>
                         </div>
                     </div>
 
