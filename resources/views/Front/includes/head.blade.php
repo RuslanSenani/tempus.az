@@ -19,20 +19,29 @@
     @if($setting && $setting->logo)
         <link rel="icon" type="image/x-icon" href="{{ asset('storage/Logo/'.$setting->logo) }}"/>
     @else
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="icon" type="image/x-icon" href="#"/>
     @endif
 
     <!-- For iPhone 4 Retina display: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114"
-          href="{{asset('storage/Logo/'.$setting->logo??'')}}">
+    @if($setting && $setting->logo)
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('storage/Logo/'.$setting->logo??'')}}">
+    @else
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="#">
 
+    @endif
     <!-- For iPad: -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72"
-          href="{{asset('storage/Logo/'.$setting->logo??'')}}">
-
+    @if($setting && $setting->logo)
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('storage/Logo/'.$setting->logo??'')}}">
+    @else
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="#">
+    @endif
     <!-- For iPhone: -->
-    <link rel="apple-touch-icon-precomposed" href="{{asset('storage/Logo/'.$setting->logo??'')}}">
+    @if($setting && $setting->logo)
 
+        <link rel="apple-touch-icon-precomposed" href="{{asset('storage/Logo/'.$setting->logo??'')}}">
+    @else
+        <link rel="apple-touch-icon-precomposed" href="#">
+    @endif
     <!-- Library - Loader CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/loader/loaders.min.css">
 
