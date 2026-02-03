@@ -69,32 +69,32 @@
                     <div class="info-table-section">
                         <div class="info-row">
                             <div class="info-label">{{$siteContent['home_vacancy_city']->value??'Şəhər'}}</div>
-                            <div class="info-text">{{$vacancy->city ?? 'Bakı və digər regionlar'}}</div>
+                            <div class="info-text">{{$vacancy->city ??$siteContent['home_vacancy_city']->value??''}}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">{{$siteContent['home_vacancy_age']->value??'Yaş'}}</div>
-                            <div class="info-text">{{$vacancy->age ?? '24-45 yaş'}}</div>
+                            <div class="info-text">{{$vacancy->age ?? $siteContent['home_vacancy_age']->value ?? ''}}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">{{$siteContent['home_vacancy_edu']->value??'Təhsil'}}</div>
                             <div
-                                    class="info-text">{{$vacancy->education ?? 'Ali tibbi vəya orta xüsusi (tibbi) təhsil'}}</div>
+                                    class="info-text">{{$vacancy->education ?? $siteContent['home_vacancy_edu']->value ??''}}</div>
                         </div>
                         <div class="info-row">
                             <div
                                     class="info-label">{{$siteContent['home_vacancy_work_experience']->value??'İş təcrübəsi'}}</div>
                             <div
-                                    class="info-text">{{$vacancy->experience ?? 'Dərman satışı sahəsində 1 ildən yuxarı'}}</div>
+                                    class="info-text">{{$vacancy->experience ?? $siteContent['home_vacancy_work_experience']->value ??''}}</div>
                         </div>
 
                         <div class="info-row">
                             <div
                                     class="info-label">{{$siteContent['home_vacancy_phone']->value ?? 'Telefon nömrəsi'}}</div>
-                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->phone??''}}</div>
+                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->phone?? $siteContent['home_vacancy_phone']->value ?? ''}}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">{{$siteContent['home_vacancy_email']->value ?? 'E-mail'}}</div>
-                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->email ?? ''}}</div>
+                            <div class="info-text text-primary text-decoration-underline">{{$vacancy->email ?? $siteContent['home_vacancy_email']->value ?? ''}}</div>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@
                         <div
                                 class="section-blue-mark">{{$siteContent['home_vacancy_work_info']->value??'İş barədə məlumat'}}</div>
                         <div class="vacancy-details">
-                            {!! $vacancy->description ?? 'Bura iş barədə məlumatlar daxil olacaq...' !!}
+                            {!! $vacancy->description ?? $siteContent['home_vacancy_work_info']->value??'' !!}
                         </div>
                     </div>
                 </div>
