@@ -16,7 +16,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- Standard Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset('storage/Logo/'.$setting->logo??'')}}"/>
+    @if($setting && $setting->logo)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/Logo/'.$setting->logo) }}"/>
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    @endif
 
     <!-- For iPhone 4 Retina display: -->
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
