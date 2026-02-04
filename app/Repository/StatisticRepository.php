@@ -17,6 +17,6 @@ class StatisticRepository implements StatisticRepositoryInterface
 
     public function getIsActiveStatistics(): ?Model
     {
-        return $this->statistic->newQuery()->where('is_active', '=', 1)->firstOr();
+        return $this->statistic->newQuery()->where('is_active', '=', 1)->first();
     }
 }
