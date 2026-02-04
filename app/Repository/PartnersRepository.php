@@ -24,4 +24,9 @@ class PartnersRepository implements PartnersRepositoryInterface
         });
         return $this->partner->newQuery()->latest()->paginate($limit);
     }
+
+    public function getCount(): int
+    {
+        return $this->partner->newQuery()->count();
+    }
 }

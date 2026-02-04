@@ -40,4 +40,9 @@ class PreparationRepository implements PreparationRepositoryInterface
         });
         return $this->preparation->newQuery()->latest()->paginate($limit);
     }
+
+    public function getCount():int
+    {
+        return $this->preparation->newQuery()->count();
+    }
 }

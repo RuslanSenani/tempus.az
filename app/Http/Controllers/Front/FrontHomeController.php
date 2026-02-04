@@ -11,6 +11,7 @@ use App\Contracts\PartnersRepositoryInterface;
 use App\Contracts\PreparationRepositoryInterface;
 use App\Contracts\SettingsRepositoryInterface;
 use App\Contracts\SiteContentInterface;
+use App\Contracts\StatisticRepositoryInterface;
 use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -30,7 +31,9 @@ class FrontHomeController extends Controller
     private MediaRepositoryInterface $mediaRepository;
     private VacancyRepositoryInterface $vacancyRepository;
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository)
+    private StatisticRepositoryInterface $statisticRepository;
+
+    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository, StatisticRepositoryInterface $statisticRepository)
     {
         $this->aboutRepository = $aboutRepository;
         $this->languageRepository = $languageRepository;
@@ -42,6 +45,7 @@ class FrontHomeController extends Controller
         $this->medicalInfoRepository = $medicalInfoRepository;
         $this->mediaRepository = $mediaRepository;
         $this->vacancyRepository = $vacancyRepository;
+        $this->statisticRepository = $statisticRepository;
         $this->viewFolder = 'Front/';
     }
 
@@ -54,6 +58,12 @@ class FrontHomeController extends Controller
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
+        $categories = $this->categoryRepository->getRandomActiveCategories(9);
+        $preparations = $this->preparationRepository->getPreparationsByLimit(4);
+        $partners = $this->partnersRepository->getPartnersByLimit(4);
+        $medicalInfos = $this->medicalInfoRepository->getAllMedicalInfo();
+        $statistic = $this->statisticRepository->getIsActiveStatistics();
+
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
             'abouts' => $abouts,
@@ -61,6 +71,11 @@ class FrontHomeController extends Controller
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
+            'categories' => $categories,
+            'preparations' => $preparations,
+            'partners' => $partners,
+            'medicalInfos' => $medicalInfos,
+            'statistic' => $statistic,
         ];
         return view("{$viewData['viewFolder']}.index")->with($viewData);
 

@@ -1,94 +1,111 @@
-<!-- Page Banner -->
-<div class="page-banner about-banner container-fluid no-padding">
-    <!-- Container -->
-    <div class="container">
-        <h3>{{$siteContent['home_preparations']->value ?? ''}}</h3>
+<div class="page-banner services-banner container-fluid no-padding img-trieangle">
+    <div id="banner-slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="banner-img custom-banner-height">
+                    <img src="{{ asset('storage/'.$preparation->image) }}"
+                         class="d-block w-100"
+                         alt="{{$preparation->image_alt_text??''}}">
+                </div>
 
-        <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??''}}</a></li>
-            <li class="active">{{$siteContent['home_preparations_details']->value??''}}</li>
-        </ol>
-    </div><!-- Container /- -->
-    <!-- Shape -->
-    <div class="banner-shape container-fluid no-padding">
-        <div class="col-md-6 col-sm-6 col-xs-6 shape-left no-padding">
-            <div class="left-shape-blue">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon2" clipPathUnits="objectBoundingBox">
-                        <polygon points="0 0, 0 100, 120 100, 0 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-            <div class="left-shape">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon1" clipPathUnits="objectBoundingBox">
-                        <polygon points="0 0, 0 100, 100 100, 0 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-6 shape-right no-padding">
-            <div class="right-shape-blue">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon3" clipPathUnits="objectBoundingBox">
-                        <polygon points="1 0.2, 0 1, 0 0.835, 1 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-            <div class="right-shape">
-                <svg width="100%" height="100%">
-                    <clipPath id="clipPolygon4" clipPathUnits="objectBoundingBox">
-                        <polygon points="1 0, 0 1, 100 100, 100 0"></polygon>
-                    </clipPath>
-                </svg>
-            </div>
-        </div>
-    </div><!-- Shape -->
-</div><!-- Page Banner /- -->
+                <div class="banner-overlay-text" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">
+                    <div class="container">
+                        <h1 class="d-none d-md-block" style="color: #fff; margin-bottom: 10px;">
+                        </h1>
 
-
-<!-- Page Content -->
-<div class="container-fluid no-padding page-content">
-    <!-- Container -->
-    <div class="container">
-        <!-- Row -->
-        <div class="row">
-            <!-- Blog Area -->
-            <div class="col-md-9 col-sm-8 col-xs-12 blog-area">
-                <article class="blog-post-list single-post col-md-12 col-sm-12 col-xs-12">
-                    <div class="entry-header">
-                        <div class="entry-cover">
-                            <img src="{{asset('storage/'.$preparation->image)}}"
-                                 alt="{{$preparation->image_alt_text ?? 'Image'}}"/>
+                        <div class="entry-title-area modern-glass-card">
+                            <h2 class="main-title" style="color: #fff;">
+                                {{ $preparation->name }}
+                            </h2>
+                            <div class="post-meta-custom">
+                                <span style="color: #eee;">{{ $preparation->title }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="entry-content">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid no-padding page-content">
+    <div class="container-fluid px-lg-5">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 col-xs-12 blog-area">
+                <article class="blog-post-list single-post">
+
+
+                    <div class="entry-content" style="clear: both; padding-top: 10px; line-height: 0.1;">
                         {!! $preparation->description !!}
                     </div>
+
                 </article>
+            </div>
 
-
-            </div><!-- Blog Area /- -->
-
-            <!-- Widget Area -->
-            <div class="col-md-3 col-sm-4 col-xs-12 widget-area no-left-padding">
-
-
-                <!-- Widget Categories -->
-                <aside class="widget widget-categories">
+            <div class="col-md-3 col-sm-12 col-xs-12 widget-area">
+                <aside class="widget widget-categories" style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
                     <h3 class="widget-title">{{$siteContent['home_preparation_category']->value??'Kateqoriya'}}</h3>
                     <ul class="categories-type">
                         @foreach($allCategories as $category)
-                            <li><a href="{{route('category-details',$category->id)}}"
-                                   title="Ambulance">{{$category->name}}
-                                    <span>( {{$category->preparations_count}} )</span></a>
+                            <li>
+                                <a href="{{route('category-details',$category->id)}}">
+                                    {{$category->name}}
+                                    <span class="pull-right">( {{$category->preparations_count}} )</span>
+                                </a>
                             </li>
                         @endforeach
                     </ul>
-                </aside><!-- Categories /- -->
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
 
-            </div><!-- Widget Area /- -->
-        </div><!-- Row /- -->
-    </div><!-- Container /- -->
-</div><!-- Page Content /- -->
+
+{{--<!-- Page Content -->--}}
+{{--<div class="container-fluid no-padding page-content">--}}
+{{--    <!-- Container -->--}}
+{{--    <div class="container">--}}
+{{--        <!-- Row -->--}}
+{{--        <div class="row">--}}
+{{--            <!-- Blog Area -->--}}
+{{--            <div class="col-md-9 col-sm-8 col-xs-12 blog-area">--}}
+{{--                <article class="blog-post-list single-post col-md-12 col-sm-12 col-xs-12">--}}
+{{--                    <div class="entry-header">--}}
+{{--                        <div class="entry-cover">--}}
+{{--                            <img src="{{asset('storage/'.$preparation->image)}}"--}}
+{{--                                 alt="{{$preparation->image_alt_text ?? 'Image'}}"/>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="entry-content">--}}
+{{--                        {!! $preparation->description !!}--}}
+{{--                    </div>--}}
+{{--                </article>--}}
+
+
+{{--            </div><!-- Blog Area /- -->--}}
+
+{{--            <!-- Widget Area -->--}}
+{{--            <div class="col-md-3 col-sm-4 col-xs-12 widget-area no-left-padding">--}}
+
+
+{{--                <!-- Widget Categories -->--}}
+{{--                <aside class="widget widget-categories">--}}
+{{--                    <h3 class="widget-title">{{$siteContent['home_preparation_category']->value??'Kateqoriya'}}</h3>--}}
+{{--                    <ul class="categories-type">--}}
+{{--                        @foreach($allCategories as $category)--}}
+{{--                            <li><a href="{{route('category-details',$category->id)}}"--}}
+{{--                                   title="Ambulance">{{$category->name}}--}}
+{{--                                    <span>( {{$category->preparations_count}} )</span></a>--}}
+{{--                            </li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </aside><!-- Categories /- -->--}}
+
+{{--            </div>--}}
+{{--            <!-- Widget Area /- -->--}}
+{{--        </div><!-- Row /- -->--}}
+{{--    </div><!-- Container /- -->--}}
+{{--</div><!-- Page Content /- -->--}}
 

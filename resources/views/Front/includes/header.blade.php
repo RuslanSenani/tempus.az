@@ -60,10 +60,11 @@
                             <a href="{{route('about-us')}}">{{$siteContent['home_about_us']->value??'Hakkımızda'}}</a>
                         </li>
 
-
                         <li class="dropdown px-1 custom-hover-dropdown">
-                            <a href="{{ route('all-categories') }}" class="dropdown-toggle">
-                                {{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}
+                            <a href="{{ route('all-categories') }}"
+                               class="dropdown-toggle"
+                               data-bs-toggle="dropdown"
+                               data-bs-auto-close="outside"> {{$siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             @if($allCategories->count()>0)

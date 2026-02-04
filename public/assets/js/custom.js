@@ -77,3 +77,18 @@ document.getElementById('live-search').addEventListener('input', function () {
 });
 
 
+// Mobildə default bootstrap klikini deaktiv edib, öz idarəmizə alırıq
+if (window.innerWidth < 992) {
+    document.querySelectorAll('.custom-hover-dropdown .dropdown-toggle').forEach(el => {
+        el.removeAttribute('data-bs-toggle'); // Bootstrap-ın müdaxiləsini silirik
+
+        el.addEventListener('click', function(e) {
+            const menu = this.nextElementSibling;
+            if (!menu.classList.contains('show')) {
+                e.preventDefault();
+                menu.classList.add('show');
+                this.parentElement.classList.add('show');
+            }
+        });
+    });
+}

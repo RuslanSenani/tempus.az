@@ -15,4 +15,6 @@ interface PreparationRepositoryInterface
     public function getPreparationsByCategoryId($id);
     public function getPreparationsByLimit(int $limit, int $page = 1): LengthAwarePaginator;
 
+    public  function  getCount():int;
+
 }

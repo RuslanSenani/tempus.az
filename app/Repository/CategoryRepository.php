@@ -26,7 +26,9 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getRandomActiveCategories($limit = 5): Collection
     {
         return $this->category->newQuery()
-            ->with('preparations')
+            ->with(['preparations' => function ($query) use ($limit) {
+                $query->limit($limit);
+            }])
             ->withCount('preparations')
             ->where('is_active', 1)
             ->inRandomOrder()

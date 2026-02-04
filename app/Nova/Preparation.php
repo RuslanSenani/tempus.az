@@ -40,7 +40,7 @@ class Preparation extends Resource
      * @var array
      */
     public static $search = [
-        'name',
+        'name','title'
     ];
 
     /**

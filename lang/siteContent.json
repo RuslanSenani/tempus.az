@@ -284,5 +284,15 @@
         "az": "Şirkət Adı",
         "en": "Company Name",
         "ru": "Название компании"
+    },
+    "home_company_name": {
+        "az": "Tempus MMC",
+        "en": "Tempus MMC",
+        "ru": "Темпус ММК"
+    },
+    "home_company_title": {
+        "az": "Azərbaycanda “Şirkətlər Qrupu”nun bir hissəsidir.",
+        "en": "It is part of the \"Group of Companies\" in Azerbaijan.",
+        "ru": "Она входит в состав «Группы компаний» в Азербайджане."
     }
 }

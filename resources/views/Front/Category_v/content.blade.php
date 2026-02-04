@@ -8,8 +8,8 @@
         </p>
 
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Home</a></li>
-            <li class="active">About Us</li>
+            <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??'Home'}}</a></li>
+            <li class="active">{{$siteContent['home_preparation_category']->value??''}}</li>
         </ol>
     </div><!-- Container /- -->
     <!-- Shape -->
