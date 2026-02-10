@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Mostafaznv\NovaCkEditor\CkEditor;
 use Intervention\Image\ImageManager;
+use Outl1ne\MultiselectField\Multiselect;
 
 
 class Preparation extends Resource
@@ -25,6 +26,8 @@ class Preparation extends Resource
      */
     public static $model = \App\Models\Preparation::class;
 
+
+    public static $relatableSearchResults = 1000;
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -43,6 +46,7 @@ class Preparation extends Resource
         'name', 'title'
     ];
 
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -54,13 +58,10 @@ class Preparation extends Resource
 
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Category', 'category', PreparationCategory::class)
-                ->sortable()
-                ->searchable()
-                ->showCreateRelationButton()
-                ->displayUsing(function ($category) {
-                    return $category->getTranslation('name', app()->getLocale());
-                }),
+            Multiselect::make('Category', 'category_id')
+                ->options(\App\Models\PreparationCategory::all()->mapWithKeys(function ($category) {
+                    return [$category->id => $category->getTranslation('name', app()->getLocale())];
+                }))->singleSelect(),
             Image::make('Image', 'image')
                 ->disk('public')
                 ->prunable()
