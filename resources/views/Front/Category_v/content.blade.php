@@ -63,7 +63,7 @@
                     <a href="{{route('category-details',$category->id)}}" class="product-link">
                         <div class="product-img-wrapper">
                             <img src="{{asset('storage/'.$category->image)}}"
-                                 alt="Urifar"
+                                 alt="{{$category->slug??''}}"
                                  class="img-fluid">
                         </div>
                         <div class="product-info text-center mt-2">

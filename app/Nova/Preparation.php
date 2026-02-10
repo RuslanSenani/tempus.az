@@ -40,7 +40,7 @@ class Preparation extends Resource
      * @var array
      */
     public static $search = [
-        'name','title'
+        'name', 'title'
     ];
 
     /**
@@ -100,7 +100,10 @@ class Preparation extends Resource
                     ->creationRules('unique:preparations,Slug')
                     ->updateRules('unique:preparations,Slug,{{resourceId}}')
                     ->readonly(),
-                Text::make('Image Alt Text', 'image_alt_text'),
+                Slug::make('Image Alt Text', 'image_alt_text')
+                    ->from('Name')
+                    ->separator('-')
+                    ->readonly(),
             ])->setTitle('Name, Title, Description, Slug, Image Alt Text'),
 
         ];
