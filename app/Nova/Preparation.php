@@ -58,10 +58,32 @@ class Preparation extends Resource
 
         return [
             ID::make()->sortable(),
-            Multiselect::make('Category', 'category_id')
+            Multiselect::make('Category', 'category_id') // 'category' əvəzinə 'category_id' yazırıq
+            ->sortable()
                 ->options(\App\Models\PreparationCategory::all()->mapWithKeys(function ($category) {
-                    return [$category->id => $category->getTranslation('name', app()->getLocale())];
-                }))->singleSelect(),
+                    return [
+                        $category->id => $category->getTranslation('name', app()->getLocale())
+                    ];
+                }))
+                ->singleSelect()
+                ->displayUsing(function ($value) {
+                    $category = \App\Models\PreparationCategory::find($value);
+                    return $category ? $category->getTranslation('name', app()->getLocale()) : "-";
+                })
+                ->resolveUsing(function ($value) {
+                    return $value;
+                }),
+
+//            Multiselect::make('Category', 'category_id')
+//                ->options(\App\Models\PreparationCategory::all()->mapWithKeys(function ($category) {
+//                    return [$category->id => $category->getTranslation('name', app()->getLocale())];
+//                }))->singleSelect()->belongsTo(PreparationCategory::class, 'category_id'),
+//            BelongsTo::make('Category', 'category', PreparationCategory::class)
+//                ->sortable()
+//                ->showCreateRelationButton()
+//                ->displayUsing(function ($category) {
+//                    return $category->getTranslation('name', app()->getLocale());
+//                }),
             Image::make('Image', 'image')
                 ->disk('public')
                 ->prunable()
