@@ -29,38 +29,6 @@
         </div>
     </div>
 </div>
-</div>
-
-{{--<div class="page-banner services-banner container-fluid no-padding img-trieangle">--}}
-{{--    <div id="banner-slider" class="carousel slide" data-ride="carousel">--}}
-{{--        <div class="carousel-inner" role="listbox">--}}
-{{--            <div class="item active">--}}
-{{--                <div class="banner-img custom-banner-height"--}}
-{{--                     style="display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">--}}
-{{--                    <img src="{{ asset('storage/'.$preparation->image) }}"--}}
-{{--                         alt="{{$preparation->image_alt_text??''}}"--}}
-{{--                         style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;">--}}
-{{--                </div>--}}
-{{--                <div class="banner-overlay-text"--}}
-{{--                     style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">--}}
-{{--                    <div class="container">--}}
-{{--                        <h1 class="d-none d-md-block" style="color: #fff; margin-bottom: 10px;">--}}
-{{--                        </h1>--}}
-
-{{--                        <div class="entry-title-area modern-glass-card">--}}
-{{--                            <h2 class="main-title" style="color: #fff;">--}}
-{{--                                {{ $preparation->name }}--}}
-{{--                            </h2>--}}
-{{--                            <div class="post-meta-custom">--}}
-{{--                                <span style="color: #eee;">{{ $preparation->title }}</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 
 <div class="container-fluid no-padding page-content">
