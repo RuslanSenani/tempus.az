@@ -76,7 +76,6 @@ class Preparation extends Resource
             Image::make('Image', 'image')
                 ->disk('public')
                 ->prunable()
-                ->sortable()
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;

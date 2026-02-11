@@ -36,10 +36,15 @@
     }
 }
 
-/* Bu hissəni həmin faylın aşağısına ata bilərsiniz */
+
 .custom-banner-height {
-    height: 70vh;
+    height: auto !important; /* Məcburi hündürlüyü ləğv edirik */
+    min-height: 300px; /* Mobil üçün minimum bir ölçü */
+    position: relative;
 }
+/*.custom-banner-height {*/
+/*    height: 70vh;*/
+/*}*/
 
 @media (max-width: 768px) {
     .custom-banner-height {
