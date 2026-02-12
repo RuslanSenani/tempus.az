@@ -37,6 +37,25 @@
 }
 
 
+/* CKEditor-dan gələn cədvəlləri səliqəyə salmaq üçün */
+.entry-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.entry-content table th,
+.entry-content table td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+}
+
+.entry-content table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+
 .custom-banner-height {
     height: auto !important; /* Məcburi hündürlüyü ləğv edirik */
     min-height: 300px; /* Mobil üçün minimum bir ölçü */
