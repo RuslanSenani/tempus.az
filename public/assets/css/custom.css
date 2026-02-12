@@ -37,22 +37,36 @@
 }
 
 
-/* CKEditor-dan gələn cədvəlləri səliqəyə salmaq üçün */
-.entry-content table {
+/* CKEditor Table Stilini Bərpa Etmək */
+figure.table {
+    margin: 1.5em 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+figure.table table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    border: 1px solid #d1d1d1;
 }
 
-.entry-content table th,
-.entry-content table td {
-    border: 1px solid #dee2e6;
-    padding: 12px;
-    text-align: left;
+figure.table table td,
+figure.table table th {
+    border: 1px solid #d1d1d1;
+    padding: 8px 12px;
+    min-width: 50px;
+    vertical-align: middle;
 }
 
-.entry-content table tr:nth-child(even) {
-    background-color: #f8f9fa;
+/* Başlıq sətrini fərqləndirmək üçün (istəyə bağlı) */
+figure.table table tr:first-child {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Cədvəlin içindəki mətnlərin bir-birinə yapışmaması üçün */
+figure.table table td {
+    word-break: normal;
 }
 
 
