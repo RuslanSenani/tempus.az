@@ -37,36 +37,40 @@
 }
 
 
-/* CKEditor Table Stilini Bərpa Etmək */
-figure.table {
-    margin: 1.5em 0;
+
+
+/* Məzmun daxilindəki cədvəllərin kənara çıxmasını əngəlləyir */
+.table-responsive-wrapper {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: auto; /* Əsas sirr burdadır: overflow olanda scroll yaradır */
+    -webkit-overflow-scrolling: touch; /* Mobildə daha axıcı sürüşmə üçün */
 }
 
-figure.table table {
-    width: 100%;
+.entry-content table {
+    width: 100% !important;
+    max-width: 100%;
     border-collapse: collapse;
-    border: 1px solid #d1d1d1;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    table-layout: auto; /* Məzmuna görə genişlənir amma wrapper sayəsində dizaynı pozmur */
 }
 
-figure.table table td,
-figure.table table th {
-    border: 1px solid #d1d1d1;
-    padding: 8px 12px;
-    min-width: 50px;
-    vertical-align: middle;
+/* Mobildə cədvəl xanalarının bir-birinə çox sıxılmaması üçün */
+@media screen and (max-width: 768px) {
+    .entry-content table td,
+    .entry-content table th {
+        min-width: 120px; /* Mobildə hər sütun ən az 120px olsun ki, oxunsun */
+        white-space: normal; /* Uzun sözləri aşağı sətirə keçirsin */
+        font-size: 13px; /* Mobildə şrifti bir az kiçildək */
+    }
 }
 
-/* Başlıq sətrini fərqləndirmək üçün (istəyə bağlı) */
-figure.table table tr:first-child {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-/* Cədvəlin içindəki mətnlərin bir-birinə yapışmaması üçün */
-figure.table table td {
-    word-break: normal;
+/* Cədvəl xanalarının ümumi stili */
+.entry-content table td,
+.entry-content table th {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    vertical-align: top;
 }
 
 

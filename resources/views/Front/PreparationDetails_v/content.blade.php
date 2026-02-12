@@ -36,12 +36,9 @@
         <div class="row">
             <div class="col-md-9 col-sm-12 col-xs-12 blog-area">
                 <article class="blog-post-list single-post">
-
-
-                    <div class="entry-content" style="clear: both; padding-top: 10px; line-height: 0.1;">
+                    <div class="entry-content" style="clear: both; padding-top: 10px;">
                         {!! $preparation->description !!}
                     </div>
-
                 </article>
             </div>
 
