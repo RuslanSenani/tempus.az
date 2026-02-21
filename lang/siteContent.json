@@ -121,19 +121,19 @@
         "ru": "Воскресенье"
     },
     "home_opening_mon_fri_time": {
-        "az": "8.00 – 18.00",
-        "en": "8.00 – 18.00",
-        "ru": "8.00 – 18.00"
+        "az": "09:00 – 18:00",
+        "en": "09:00 – 18:00",
+        "ru": "09:00 – 18:00"
     },
     "home_opening_sat_time": {
-        "az": "8.00 – 16.00",
-        "en": "8.00 – 16.00",
-        "ru": "8.00 – 16.00"
+        "az": "Bağlıdır",
+        "en": "Closed",
+        "ru": "Закрыто"
     },
     "home_opening_sun_time": {
-        "az": "8.00 – 13.00",
-        "en": "8.00 – 13.00",
-        "ru": "8.00 – 13.00"
+        "az": "Bağlıdır",
+        "en": "Closed",
+        "ru": "Закрыто"
     },
     "home_more_details": {
         "az": "Daha Ətraflı",
@@ -146,7 +146,7 @@
         "ru": "Интернет-продажи"
     },
     "home_how_we_are": {
-        "az": "BizBiz kimik",
+        "az": "Biz kimik",
         "en": "Who we are",
         "ru": "Кто мы"
     },
@@ -294,5 +294,30 @@
         "az": "Azərbaycanda “Şirkətlər Qrupu”nun bir hissəsidir.",
         "en": "It is part of the \"Group of Companies\" in Azerbaijan.",
         "ru": "Она входит в состав «Группы компаний» в Азербайджане."
+    },
+    "home_download": {
+        "az": "Yüklə",
+        "en": "Download",
+        "ru": "Скачать"
+    },
+    "home_exit_pdf": {
+        "az": "PDF-dən Çıx",
+        "en": "Exit PDF",
+        "ru": "Выйти из PDF-файла"
+    },
+    "home_open_pdf": {
+        "az": "PDF açın",
+        "en": "Open PDF",
+        "ru": "Открыть PDF"
+    },
+    "home_insta_share": {
+        "az": "Instagram Paylaşımları",
+        "en": "Instagram Shares",
+        "ru": "Акции Instagram"
+    },
+    "home_not_insta_share": {
+        "az": "Hələ ki paylaşım yoxdur.",
+        "en": "No sharing yet.",
+        "ru": "Делиться пока нельзя."
     }
 }

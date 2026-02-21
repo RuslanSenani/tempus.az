@@ -19,7 +19,7 @@ class PreparationRepository implements PreparationRepositoryInterface
 
     public function getAllPreparations(): Collection
     {
-        return $this->preparation->newQuery()->get();
+        return $this->preparation->newQuery()->orderBy('name')->get();
     }
 
     public function getPreparationById($id)
@@ -38,7 +38,7 @@ class PreparationRepository implements PreparationRepositoryInterface
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
-        return $this->preparation->newQuery()->latest()->paginate($limit);
+        return $this->preparation->newQuery()->orderBy('name')->latest()->paginate($limit);
     }
 
     public function getCount():int

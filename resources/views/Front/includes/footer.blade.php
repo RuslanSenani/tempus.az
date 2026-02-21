@@ -65,7 +65,7 @@
                             <a href="{{route('vacancy')}}">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
                         </li>
                         <li>
-                            <a href="{{route('medical-info')}}">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}
+                            <a href="{{route('media')}}">{{ $siteContent['home_media']->value ?? 'Media' }}
                             </a>
                         </li>
 

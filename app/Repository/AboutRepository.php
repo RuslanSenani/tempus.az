@@ -18,6 +18,6 @@ class AboutRepository implements AboutRepositoryInterface
 
     public function getAll(): Collection
     {
-        return $this->aboutModel->newQuery()->get();
+        return $this->aboutModel->newQuery()->orderBy('title')->get();
     }
 }

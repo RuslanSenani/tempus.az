@@ -10,9 +10,9 @@ class Preparation extends Model
 {
     use  HasTranslations;
 
-    protected $fillable = ['category_id','title', 'name', 'description', 'image', 'slug'];
+    protected $fillable = ['category_id','title', 'name', 'description', 'image', 'slug','pdf'];
 
-    public  array $translatable = ['name','title','description','image_alt_text','slug'];
+    public  array $translatable = ['name','title','description','image_alt_text','slug','pdf'];
 
     public function category(): BelongsTo
     {

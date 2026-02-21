@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Slug;
@@ -100,6 +100,20 @@ class Preparation extends Resource
 
 
             NovaTabTranslatable::make([
+                File::make('PDF Sənəd', 'pdf')
+                    ->disk('public')
+                    ->path('preparations/pdfs')
+                    ->acceptedTypes('.pdf')
+                    ->preview(function ($value, $disk) {
+                        return $value
+                            ? Storage::disk($disk)->url($value)
+                            : null;
+                    })
+                    ->displayUsing(function ($value) {
+                        return $value ? '📄 PDF-ə bax' : 'Yoxdur';
+                    })
+                    ->rules('nullable', 'mimes:pdf')
+                    ->prunable(),
                 Text::make('Name', 'name')
                     ->rules('max:255'),
                 Text::make('Title', 'title')

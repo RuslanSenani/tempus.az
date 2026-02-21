@@ -37,6 +37,167 @@
 }
 
 
+.instagram-card-img {
+    width: 100%;
+    height: 250px; /* Bütün şəkillər üçün sabit hündürlük */
+    object-fit: cover; /* Şəkli dartmır, sahəni dolduracaq şəkildə kəsir */
+    object-position: center; /* Şəklin mərkəzini fokusda saxlayır */
+}
+
+.card {
+    transition: transform 0.2s;
+    border: none !important;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Siçanla üzərinə gələndə kiçik effekt */
+}
+
+.card-body {
+    padding: 15px;
+    background: #fff;
+}
+
+
+ #about-section {
+     background: transparent;
+ }
+
+.about-title-box h2 {
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.title-line {
+    width: 60px;
+    height: 5px;
+    background-color: #007bff; /* Saytın ana rənginə görə dəyişə bilərsən */
+    margin-top: 15px;
+    border-radius: 2px;
+}
+
+.letter-spacing-2 {
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+.about-content-card {
+    background: #ffffff;
+    border-radius: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Mətnin içindəki P teqlərini və digər elementləri tənzimləmək üçün */
+.about-text-wrapper {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.about-text-wrapper p {
+    margin-bottom: 1.5rem;
+}
+
+/* Sol tərəfdəki başlığın arxasına yüngül bir kölgə/tekstura effekti */
+.about-title-box {
+    position: relative;
+}
+
+/* Mobil tənzimləmə */
+@media (max-width: 991px) {
+    .about-title-box {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .title-line {
+        margin: 15px auto;
+    }
+    .about-content-card {
+        padding: 30px !important;
+    }
+}
+
+
+ .custom-vision-card, .custom-mission-card {
+     border-radius: 20px;
+     transition: all 0.3s ease;
+     background: #ffffff;
+     position: relative;
+     overflow: hidden;
+ }
+
+/* Üzərinə gələndə qalxma effekti */
+.custom-vision-card:hover, .custom-mission-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+/* Sol tərəfə rəngli xətt (Vizion üçün göy, Missiya üçün yaşıl) */
+.custom-vision-card { border-left: 6px solid #007bff !important; }
+.custom-mission-card { border-left: 6px solid #28a745 !important; }
+
+.icon-box i {
+    opacity: 0.8;
+}
+
+.fw-bold {
+    color: #333;
+    letter-spacing: -0.5px;
+}
+
+.description-text {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Mobil telefonlar üçün kiçik tənzimləmə */
+@media (max-width: 768px) {
+    .card-body { padding: 30px !important; }
+}
+
+.pdf-open-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pdf-open-btn:hover {
+    background-color: #0b5ed7;
+}
+
+/* Mobil uyumlu entry-content */
+.entry-content img,
+.entry-content iframe,
+.entry-content video,
+.entry-content table {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    overflow-x: hidden;
+}
+
+/* Main content gizlətmək üçün body class */
+body.pdf-preview-active #mainContent {
+    display: none !important;
+}
+
+/* PDF container full width, mobil uyumlu */
+#pdfViewerContainer {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+
+
+
 
 
 /* Məzmun daxilindəki cədvəllərin kənara çıxmasını əngəlləyir */

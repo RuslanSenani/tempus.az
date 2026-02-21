@@ -31,80 +31,75 @@
 </div>
 
 
-<div class="container-fluid no-padding page-content">
-    <div class="container-fluid px-lg-5">
+
+
+
+<div class="container mt-5">
+
+    <h2>{{ $preparation->title }}</h2>
+
+    @if($preparation->pdf)
+
+        {{-- Tam ekran genişlikdə button --}}
+        <button class="pdf-open-btn mt-4 mb-3" onclick="openPdfViewer()">
+            {{$siteContent['home_open_pdf']->value??''}}
+        </button>
+
+        {{-- PDF viewer canvas --}}
+        <div id="pdfViewerContainer"
+             style="display:none; margin-top:10px; width:100%; max-width:100%; overflow-x:auto;">
+            <div class="mb-3 d-flex gap-2 flex-wrap">
+                <button class="btn btn-success" onclick="zoomIn()">Zoom +</button>
+                <button class="btn btn-warning" onclick="zoomOut()">Zoom -</button>
+                <a href="{{ asset('storage/' . $preparation->pdf) }}" download
+                   class="btn btn-info">{{$siteContent['home_download']->value??''}}</a>
+                <button class="btn btn-secondary"
+                        onclick="closePdfViewer()">{{$siteContent['home_exit_pdf']->value??''}}</button>
+            </div>
+
+            <div style="width:100%;">
+                <canvas id="pdfCanvas" style="border:1px solid #ccc; width:100%; height:auto; display:block;"></canvas>
+            </div>
+        </div>
+
+    @endif
+
+</div>
+
+{{-- Blog + Sidebar container --}}
+<div class="container-fluid no-padding page-content" id="mainContent">
+    <div class="container-fluid px-3 px-lg-5">
         <div class="row">
-            <div class="col-md-9 col-sm-12 col-xs-12 blog-area">
+
+            {{-- Blog content --}}
+            <div class="col-lg-9 col-md-12 col-12 blog-area mb-4">
                 <article class="blog-post-list single-post">
-                    <div class="entry-content" style="clear: both; padding-top: 10px;">
+                    <div class="entry-content pt-2">
                         {!! $preparation->description !!}
                     </div>
                 </article>
             </div>
 
-            <div class="col-md-3 col-sm-12 col-xs-12 widget-area">
-                <aside class="widget widget-categories" style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
-                    <h3 class="widget-title">{{$siteContent['home_preparation_category']->value??'Kateqoriya'}}</h3>
-                    <ul class="categories-type">
+            {{-- Sidebar --}}
+            <div class="col-lg-3 col-md-12 col-12 widget-area mb-4">
+                <aside class="widget widget-categories bg-light p-3 rounded">
+                    <h3 class="widget-title">
+                        {{$siteContent['home_preparation_category']->value??'Kateqoriya'}}
+                    </h3>
+                    <ul class="categories-type list-unstyled">
                         @foreach($allCategories as $category)
-                            <li>
-                                <a href="{{route('category-details',$category->id)}}">
-                                    {{$category->name}}
-                                    <span class="pull-right">( {{$category->preparations_count}} )</span>
+                            <li class="mb-2">
+                                <a href="{{route('category-details',$category->id)}}"
+                                   class="d-flex justify-content-between">
+                                    <span>{{$category->name}}</span>
+                                    <span>({{$category->preparations_count}})</span>
                                 </a>
                             </li>
                         @endforeach
                     </ul>
                 </aside>
             </div>
+
         </div>
     </div>
 </div>
-
-
-{{--<!-- Page Content -->--}}
-{{--<div class="container-fluid no-padding page-content">--}}
-{{--    <!-- Container -->--}}
-{{--    <div class="container">--}}
-{{--        <!-- Row -->--}}
-{{--        <div class="row">--}}
-{{--            <!-- Blog Area -->--}}
-{{--            <div class="col-md-9 col-sm-8 col-xs-12 blog-area">--}}
-{{--                <article class="blog-post-list single-post col-md-12 col-sm-12 col-xs-12">--}}
-{{--                    <div class="entry-header">--}}
-{{--                        <div class="entry-cover">--}}
-{{--                            <img src="{{asset('storage/'.$preparation->image)}}"--}}
-{{--                                 alt="{{$preparation->image_alt_text ?? 'Image'}}"/>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="entry-content">--}}
-{{--                        {!! $preparation->description !!}--}}
-{{--                    </div>--}}
-{{--                </article>--}}
-
-
-{{--            </div><!-- Blog Area /- -->--}}
-
-{{--            <!-- Widget Area -->--}}
-{{--            <div class="col-md-3 col-sm-4 col-xs-12 widget-area no-left-padding">--}}
-
-
-{{--                <!-- Widget Categories -->--}}
-{{--                <aside class="widget widget-categories">--}}
-{{--                    <h3 class="widget-title">{{$siteContent['home_preparation_category']->value??'Kateqoriya'}}</h3>--}}
-{{--                    <ul class="categories-type">--}}
-{{--                        @foreach($allCategories as $category)--}}
-{{--                            <li><a href="{{route('category-details',$category->id)}}"--}}
-{{--                                   title="Ambulance">{{$category->name}}--}}
-{{--                                    <span>( {{$category->preparations_count}} )</span></a>--}}
-{{--                            </li>--}}
-{{--                        @endforeach--}}
-{{--                    </ul>--}}
-{{--                </aside><!-- Categories /- -->--}}
-
-{{--            </div>--}}
-{{--            <!-- Widget Area /- -->--}}
-{{--        </div><!-- Row /- -->--}}
-{{--    </div><!-- Container /- -->--}}
-{{--</div><!-- Page Content /- -->--}}
-

@@ -50,7 +50,7 @@ class Partner extends Resource
     {
         return [
             ID::make()->sortable(),
-            Image::make('Image', 'loogo')
+            Image::make('Image', 'logo')
                 ->disk('public')
                 ->prunable()
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
@@ -81,7 +81,7 @@ class Partner extends Resource
                 })->asHtml(),
             NovaTabTranslatable::make([
                 Text::make('Name', 'name')
-                    ->rules('required', 'max:255'),
+//                    ->rules('required', 'max:255'),
             ])->setTitle('Name')
         ];
     }

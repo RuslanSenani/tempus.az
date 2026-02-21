@@ -119,10 +119,6 @@
                                 <li>
                                     <a href="{{route('vacancy')}}">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
                                 </li>
-                                <li>
-                                    <a href="{{route('medical-info')}}">{{ $siteContent['home_medical_information']->value ?? 'Tibbi Məlumat' }}
-                                    </a>
-                                </li>
                                 <li class="px-1">
                                     <a href="{{route('contact')}}">{{$siteContent['home_contact']->value??'Əlaqə'}} </a>
                                 </li>

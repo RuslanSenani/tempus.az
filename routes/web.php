@@ -20,11 +20,12 @@ Route::get('/preparation', [FrontHomeController::class, 'preparation'])->name('p
 Route::get('/preparation/page/{page}', [FrontHomeController::class, 'preparation'])->name('preparation.page');
 Route::get('/preparation-detail/{id}', [FrontHomeController::class, 'preparationDetail'])->name('preparation-detail');
 
+
 Route::get('/partners', [FrontHomeController::class, 'partners'])->name('partners');
 Route::get('partners/page/{page}', [FrontHomeController::class, 'partners'])->name('partners.page');
 
-Route::get('/medical-info', [FrontHomeController::class, 'medicalInfo'])->name('medical-info');
-Route::get('/medical-info-details/{id}', [FrontHomeController::class, 'medicalInfoDetails'])->name('medical-info-details');
+//Route::get('/medical-info', [FrontHomeController::class, 'medicalInfo'])->name('medical-info');
+//Route::get('/medical-info-details/{id}', [FrontHomeController::class, 'medicalInfoDetails'])->name('medical-info-details');
 
 Route::get('/contact', [FrontHomeController::class, 'contact'])->name('contact');
 Route::post('/contact-us', [FrontHomeController::class, 'contactUs'])->name('contact-us');

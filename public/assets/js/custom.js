@@ -77,18 +77,43 @@ document.getElementById('live-search').addEventListener('input', function () {
 });
 
 
-// Mobildə default bootstrap klikini deaktiv edib, öz idarəmizə alırıq
-if (window.innerWidth < 992) {
-    document.querySelectorAll('.custom-hover-dropdown .dropdown-toggle').forEach(el => {
-        el.removeAttribute('data-bs-toggle'); // Bootstrap-ın müdaxiləsini silirik
+document.querySelectorAll('.custom-hover-dropdown .dropdown-toggle').forEach(el => {
+    // Bootstrap-ın kliklə menyunu avtomatik bağlamasına mane oluruq
+    el.removeAttribute('data-bs-toggle');
 
-        el.addEventListener('click', function(e) {
-            const menu = this.nextElementSibling;
-            if (!menu.classList.contains('show')) {
-                e.preventDefault();
-                menu.classList.add('show');
-                this.parentElement.classList.add('show');
-            }
-        });
+    el.addEventListener('click', function (e) {
+        const parent = this.parentElement;
+        const menu = this.nextElementSibling;
+        const isMenuOpen = menu.classList.contains('show');
+
+        if (!isMenuOpen) {
+            // Əgər menyu açıq deyilsə:
+            e.preventDefault(); // Linkə keçidi dayandır
+
+            // Digər açıq dropdown-ları bağlayaq (opsional, daha səliqəli görünüş üçün)
+            document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
+
+            // Bu menyunu açırıq
+            menu.classList.add('show');
+            parent.classList.add('show');
+            this.setAttribute('aria-expanded', 'true');
+        } else {
+            // Əgər menyu artıq açıqdırsa (2-ci klik):
+            // Default davranış (linkə keçid) baş verəcək.
+            // Heç bir preventDefault() etmirik, ona görə də window.location.href-ə ehtiyac qalmır.
+        }
     });
-}
+});
+
+// Səhifədə boş yerə klikləyəndə menyunun bağlanması üçün (UX üçün vacibdir)
+document.addEventListener('click', function (e) {
+    if (!e.target.closest('.custom-hover-dropdown')) {
+        document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+            menu.parentElement.classList.remove('show');
+        });
+    }
+});
+
+
+

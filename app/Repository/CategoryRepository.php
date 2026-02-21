@@ -19,7 +19,8 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getAllActiveCategory(): Collection
     {
-        return $this->category->newQuery()->with('preparations')->withCount('preparations')->where('is_active', 1)->get();
+
+        return $this->category->newQuery()->with('preparations')->withCount('preparations')->where('is_active', 1)->orderBy('name')->get();
 
     }
 
@@ -33,6 +34,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             ->where('is_active', 1)
             ->inRandomOrder()
             ->limit($limit)
+            ->orderBy('name')
             ->get();
     }
 

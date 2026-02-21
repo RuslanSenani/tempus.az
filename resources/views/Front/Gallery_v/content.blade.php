@@ -48,6 +48,52 @@
 <!-- Page Banner /- -->
 
 
+<div class="container mt-5">
+    <div class="section-header" style="margin-bottom: 10px;">
+
+        <h3 class="text-center mb-5">{{$siteContent['home_insta_share']->value??''}}</h3>
+
+    </div>
+
+
+    <div class="row">
+        @forelse($posts as $post)
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100 shadow-sm overflow-hidden">
+                    <a href="{{ $post['permalink'] }}" target="_blank" class="d-block">
+                        @php
+                            $imageSrc = ($post['media_type'] === 'VIDEO') ? ($post['thumbnail_url'] ?? $post['media_url']) : $post['media_url'];
+                        @endphp
+
+                        <div style="position: relative;">
+                            <img src="{{ $imageSrc }}" class="instagram-card-img" alt="Instagram Post">
+
+                            @if($post['media_type'] === 'VIDEO')
+                                <div
+                                        style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
+                                    <i class="fa fa-play"></i> Video
+                                </div>
+                            @endif
+                        </div>
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-text text-muted flex-grow-1" style="font-size: 14px; line-height: 1.4;">
+                            {{ Str::limit($post['caption'] ?? 'Instagram Post', 80) }}
+                        </p>
+                        <small class="text-primary mt-2"><a target="_blank" class="d-block"
+                                                            href="{{$post['permalink']}}">{{$siteContent['home_more_details']??'Daha Ətraflı..'}}</a></small>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <p class="text-center">{{$siteContent['home_not_insta_share']->value??''}}</p>
+            </div>
+        @endforelse
+    </div>
+</div>
+
+
 <!-- Portfolio Section -->
 <div class="portfolio-section container-fluid no-padding">
     <div class="section-padding"></div>

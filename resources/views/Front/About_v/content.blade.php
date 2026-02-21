@@ -23,123 +23,59 @@
         </div>
     </div>
     <!-- Page Banner -->
-{{--    <div class="page-banner about-banner container-fluid no-padding">--}}
-{{--        <!-- Container -->--}}
-{{--        <div class="container">--}}
-{{--            <h3>{{$siteContent['home_about_us']->value ?? 'Hakkımızda'}}</h3>--}}
-{{--            <p>--}}
-{{--                @foreach($abouts as $about)--}}
-{{--                    {{$about->title}}--}}
-{{--                @endforeach--}}
-{{--            </p>--}}
 
-{{--            <ol class="breadcrumb">--}}
-{{--                <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??'Əsas Səhifə'}}</a></li>--}}
-{{--                <li class="active">{{$siteContent['home_about_us']->value ?? 'Hakkımızda'}}</li>--}}
-{{--            </ol>--}}
-{{--        </div><!-- Container /- -->--}}
-{{--        <!-- Shape -->--}}
-{{--        <div class="banner-shape container-fluid no-padding">--}}
-{{--            <div class="col-md-6 col-sm-6 col-xs-6 shape-left no-padding">--}}
-{{--                <div class="left-shape-blue">--}}
-{{--                    <svg width="100%" height="100%">--}}
-{{--                        <clipPath id="clipPolygon2" clipPathUnits="objectBoundingBox">--}}
-{{--                            <polygon points="0 0, 0 100, 120 100, 0 0"></polygon>--}}
-{{--                        </clipPath>--}}
-{{--                    </svg>--}}
-{{--                </div>--}}
-{{--                <div class="left-shape">--}}
-{{--                    <svg width="100%" height="100%">--}}
-{{--                        <clipPath id="clipPolygon1" clipPathUnits="objectBoundingBox">--}}
-{{--                            <polygon points="0 0, 0 100, 100 100, 0 0"></polygon>--}}
-{{--                        </clipPath>--}}
-{{--                    </svg>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-md-6 col-sm-6 col-xs-6 shape-right no-padding">--}}
-{{--                <div class="right-shape-blue">--}}
-{{--                    <svg width="100%" height="100%">--}}
-{{--                        <clipPath id="clipPolygon3" clipPathUnits="objectBoundingBox">--}}
-{{--                            <polygon points="1 0.2, 0 1, 0 0.835, 1 0"></polygon>--}}
-{{--                        </clipPath>--}}
-{{--                    </svg>--}}
-{{--                </div>--}}
-{{--                <div class="right-shape">--}}
-{{--                    <svg width="100%" height="100%">--}}
-{{--                        <clipPath id="clipPolygon4" clipPathUnits="objectBoundingBox">--}}
-{{--                            <polygon points="1 0, 0 1, 100 100, 100 0"></polygon>--}}
-{{--                        </clipPath>--}}
-{{--                    </svg>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div><!-- Shape -->--}}
-{{--    </div>--}}
-    <!-- Page Banner /- -->
-
-    <!-- Who We Are -->
-    <div class="container-fluid no-paddding who-we-are">
-        <!-- Container -->
-        <div class="container">
-            <div class="who-we-are-block">
-                <!-- Section Header -->
-                <div class="section-header">
-                    <h3>{{$siteContent['home_how_we_are']->value??'Biz Kimik'}}</h3>
-                </div><!-- Section Header /- -->
+    <div id="about-section" class="container py-5 my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="about-title-box">
+                    <h2 class="display-5 fw-bold mt-2">{{$siteContent['home_how_we_are']->value ?? 'Biz Kimik?'}}</h2>
+                    <div class="title-line"></div>
+                </div>
             </div>
-        </div><!-- Container /- -->
-    </div><!-- Who We Are /- -->
 
-    <!-- Service Section -->
-    <div id="service-section" class="container-fluid no-padding service-section service-section2">
-        <!-- Container -->
-        <div class="container">
-            <!-- Row -->
-            <div class="row">
-                <!-- Service -->
-                <div class="col-md-12 col-sm-12 col-xs-12 service">
-                    <div class="section-header">
-                        <p>
-                            {!! $setting->about_us??''!!}
-                        </p>
-                    </div>
-                </div><!-- Service /- -->
-
-            </div>
-        </div><!-- Container /- -->
-    </div><!-- Service Section /- -->
-
-    <!-- Team Section -->
-    <div id="team-section" class="container-fluid no-paddding team-section">
-        <div class="container">
-            <div class="section-header">
-                <h3>{{$siteContent['home_our_vision']->value??'Vizion'}}</h3>
-                <p>
-                    {!! $setting->vision??'' !!}
-                </p>
-            </div>
-        </div>
-    </div><!-- Team Section -->
-
-    <!-- Testimonial Section -->
-    <div id="testimonial-section" class="container-fluid no-padding testimonial-section">
-        <div class="container">
-            <div class="section-header">
-                <h3>{{$siteContent['home_our_mission']->value??'Missya'}}</h3>
-            </div>
-            <!-- Testimonial Carousel -->
-            <div id="testimonial-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <p>
-
-                            {!! $setting->mission??'' !!}
-                        </p>
-
+            <div class="col-lg-8">
+                <div class="about-content-card shadow-sm p-4 p-md-5 border-0">
+                    <div class="about-text-wrapper">
+                        {!! $setting->about_us ?? 'Haqqımızda məlumat tezliklə əlavə olunacaq.' !!}
                     </div>
 
                 </div>
-            </div><!-- Testimonial Carousel /- -->
+            </div>
         </div>
-    </div><!-- Testimonial Section /- -->
+    </div>
+
+    <div class="container my-5 py-5">
+
+        <div class="row g-4 align-items-stretch">
+
+            <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-lg custom-vision-card">
+                    <div class="card-body p-5">
+                        <div class="icon-box mb-4">
+                            <i class="fas fa-eye fa-3x text-primary"></i> </div>
+                        <h1 class="fw-bold mb-3">{{$siteContent['home_our_vision']->value ?? 'Vizionumuz'}}</h1>
+                        <div class="description-text">
+                            {!! $setting->vision ?? '' !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-lg custom-mission-card">
+                    <div class="card-body p-5">
+                        <div class="icon-box mb-4">
+                            <i class="fas fa-bullseye fa-3x text-success"></i> </div>
+                        <h1 class="fw-bold mb-3">{{$siteContent['home_our_mission']->value ?? 'Missiyamız'}}</h1>
+                        <div class="description-text">
+                            {!! $setting->mission ?? '' !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 </div><!-- Main Container -->

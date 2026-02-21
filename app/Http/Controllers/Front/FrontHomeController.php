@@ -15,6 +15,8 @@ use App\Contracts\StatisticRepositoryInterface;
 use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 
 class FrontHomeController extends Controller
@@ -61,8 +63,9 @@ class FrontHomeController extends Controller
         $categories = $this->categoryRepository->getRandomActiveCategories(9);
         $preparations = $this->preparationRepository->getPreparationsByLimit(4);
         $partners = $this->partnersRepository->getPartnersByLimit(4);
-        $medicalInfos = $this->medicalInfoRepository->getAllMedicalInfo();
         $statistic = $this->statisticRepository->getIsActiveStatistics();
+        $media = $this->mediaRepository->getMediaByLimit(12);
+
 
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
@@ -74,7 +77,7 @@ class FrontHomeController extends Controller
             'categories' => $categories,
             'preparations' => $preparations,
             'partners' => $partners,
-            'medicalInfos' => $medicalInfos,
+            'media' => $media,
             'statistic' => $statistic,
         ];
         return view("{$viewData['viewFolder']}.index")->with($viewData);
@@ -126,8 +129,29 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
+
+    public function instagram()
+    {
+        $token = env('INSTAGRAM_ACCESS_TOKEN');
+
+        $posts = Cache::remember('instagram_feed', 3600, function () use ($token) {
+            $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&access_token={$token}";
+
+            $response = Http::get($url);
+
+            if ($response->successful()) {
+                return $response->json()['data'] ?? [];
+            }
+
+            return [];
+        });
+        return $posts;
+    }
+
     public function media(Request $request, $page = 1): View
     {
+
+
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
@@ -144,7 +168,8 @@ class FrontHomeController extends Controller
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
-            'media' => $media
+            'media' => $media,
+            'posts' => $this->instagram()
         ];
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
@@ -239,6 +264,7 @@ class FrontHomeController extends Controller
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
+
 
     public function allCategories(): View
     {

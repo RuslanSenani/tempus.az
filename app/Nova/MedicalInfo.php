@@ -16,6 +16,9 @@ use Mostafaznv\NovaCkEditor\CkEditor;
 
 class MedicalInfo extends Resource
 {
+
+    public static $displayInNavigation = false;
+    public static $globallySearchable = false;
     /**
      * The model the resource corresponds to.
      *
