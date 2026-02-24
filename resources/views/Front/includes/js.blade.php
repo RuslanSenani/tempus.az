@@ -62,7 +62,7 @@
             pdfjsLib.getDocument(url).promise.then(function (pdf) {
                 pdfDoc = pdf;
                 loading.style.display = "none";
-                pageInfo.innerText = "{{$preparation->name}}";
+                pageInfo.innerText = "{{$preparation->name??''}}";
 
                 // Bütün səhifələri ardıcıl render edirik
                 renderAllPages();
