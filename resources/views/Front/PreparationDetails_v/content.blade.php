@@ -37,7 +37,7 @@
         <div class="row">
 
             {{-- Blog content --}}
-            <div class="col-lg-8 col-md-12 col-12 blog-area mb-4">
+            <div class="col-lg-9 col-md-12 col-12 blog-area mb-4">
 
                 <div id="pdfContainer" style="width:100%; max-width:1000px; margin:0 auto; padding:10px; background: #2098df;">
                     <div id="pageInfo" style="color: white; margin-bottom: 10px; text-align: center; font-family: sans-serif;"></div>
@@ -55,7 +55,7 @@
             </div>
 
             {{-- Sidebar --}}
-            <div class="col-lg-4 col-md-12 col-12 widget-area mb-4">
+            <div class="col-lg-3 col-md-12 col-12 widget-area mb-4">
                 <aside class="widget widget-categories bg-light p-3 rounded">
                     <h3 class="widget-title">
                         {{$siteContent['home_preparation_category']->value??'Kateqoriya'}}
