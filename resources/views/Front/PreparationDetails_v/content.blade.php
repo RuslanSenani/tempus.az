@@ -31,57 +31,31 @@
 </div>
 
 
-
-
-
-<div class="container mt-5">
-
-    <h2>{{ $preparation->title }}</h2>
-
-    @if($preparation->pdf)
-
-        {{-- Tam ekran genişlikdə button --}}
-        <button class="pdf-open-btn mt-4 mb-3" onclick="openPdfViewer()">
-            {{$siteContent['home_open_pdf']->value??''}}
-        </button>
-
-        {{-- PDF viewer canvas --}}
-        <div id="pdfViewerContainer"
-             style="display:none; margin-top:10px; width:100%; max-width:100%; overflow-x:auto;">
-            <div class="mb-3 d-flex gap-2 flex-wrap">
-                <button class="btn btn-success" onclick="zoomIn()">Zoom +</button>
-                <button class="btn btn-warning" onclick="zoomOut()">Zoom -</button>
-                <a href="{{ asset('storage/' . $preparation->pdf) }}" download
-                   class="btn btn-info">{{$siteContent['home_download']->value??''}}</a>
-                <button class="btn btn-secondary"
-                        onclick="closePdfViewer()">{{$siteContent['home_exit_pdf']->value??''}}</button>
-            </div>
-
-            <div style="width:100%;">
-                <canvas id="pdfCanvas" style="border:1px solid #ccc; width:100%; height:auto; display:block;"></canvas>
-            </div>
-        </div>
-
-    @endif
-
-</div>
-
 {{-- Blog + Sidebar container --}}
 <div class="container-fluid no-padding page-content" id="mainContent">
     <div class="container-fluid px-3 px-lg-5">
         <div class="row">
 
             {{-- Blog content --}}
-            <div class="col-lg-9 col-md-12 col-12 blog-area mb-4">
-                <article class="blog-post-list single-post">
-                    <div class="entry-content pt-2">
-                        {!! $preparation->description !!}
+            <div class="col-lg-8 col-md-12 col-12 blog-area mb-4">
+
+                <div id="pdfContainer" style="width:100%; max-width:1000px; margin:0 auto; padding:10px; background: #2098df;">
+                    <div id="pageInfo" style="color: white; margin-bottom: 10px; text-align: center; font-family: sans-serif;"></div>
+
+                    <div id="pdfWrapper" style="display:flex; flex-direction:column; gap:15px; align-items: center;">
                     </div>
-                </article>
+
+                    <div id="loading" style="text-align:center; padding:50px; color: white; font-family: sans-serif;">
+                        <div class="spinner"></div> PDF yüklənir, zəhmət olmasa gözləyin...
+                    </div>
+                </div>
+
+
+
             </div>
 
             {{-- Sidebar --}}
-            <div class="col-lg-3 col-md-12 col-12 widget-area mb-4">
+            <div class="col-lg-4 col-md-12 col-12 widget-area mb-4">
                 <aside class="widget widget-categories bg-light p-3 rounded">
                     <h3 class="widget-title">
                         {{$siteContent['home_preparation_category']->value??'Kateqoriya'}}

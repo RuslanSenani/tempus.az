@@ -319,5 +319,30 @@
         "az": "Hələ ki paylaşım yoxdur.",
         "en": "No sharing yet.",
         "ru": "Делиться пока нельзя."
+    },
+    "home_pdf_zoom_in": {
+        "az": "Yaxınlaşdır +",
+        "en": "Zoom +",
+        "ru": "Приблизить +"
+    },
+    "home_pdf_zoom_out": {
+        "az": "Uzaqlaşdır -",
+        "en": "Zoom -",
+        "ru": "Отдалить -"
+    },
+    "home_not_found_pdf": {
+        "az": "PDF faylı tapılmadı.",
+        "en": "PDF file not found.",
+        "ru": "PDF-файл не найден."
+    },
+    "home_upload_error_pdf": {
+        "az": "PDF yüklənmə xətası:",
+        "en": "PDF download error:",
+        "ru": "Ошибка при загрузке PDF-файла:"
+    },
+    "home_download_error_pdf": {
+        "az": "PDF yüklənərkən xəta baş verdi.",
+        "en": "An error occurred while loading the PDF.",
+        "ru": "Произошла ошибка при загрузке PDF-файла."
     }
 }

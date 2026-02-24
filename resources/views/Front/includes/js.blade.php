@@ -36,85 +36,73 @@
 
 {{-- PDF.js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        const wrapper = document.getElementById("pdfWrapper");
+        const loading = document.getElementById("loading");
+        const pageInfo = document.getElementById("pageInfo");
 
-        const container = document.getElementById('pdfViewerContainer');
-        const canvas = document.getElementById('pdfCanvas');
-        const ctx = canvas.getContext('2d');
+        // PDF JS Worker mütləq təyin olunmalıdır (render sürəti üçün)
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
         const url = "{{ isset($preparation) && $preparation->pdf ? asset('storage/' . $preparation->pdf) : '' }}";
 
+        if (!url) {
+            loading.innerText = "{{$siteContent['home_not_found_pdf']->value??''}}";
+            return;
+        }
+
         let pdfDoc = null;
-        let pageNum = 1;
-        let scale = 2.0;
-        let pdfLoaded = false;
+        // Keyfiyyət üçün scale (2.0 aydın görüntü verir, mobil üçün idealdır)
+        const scale = 2.0;
 
-        // PDF viewer açma funksiyası
-        window.openPdfViewer = function() {
-            // Body class əlavə edilir → mobil + desktop üçün mainContent gizlənir
-            document.body.classList.add('pdf-preview-active');
+        function loadPdf() {
+            loading.style.display = "block";
 
-            // PDF container görünür
-            if(container) container.style.display = 'block';
+            pdfjsLib.getDocument(url).promise.then(function (pdf) {
+                pdfDoc = pdf;
+                loading.style.display = "none";
+                pageInfo.innerText = "{{$preparation->name}}";
 
-            // PDF yüklənir yalnız bir dəfə
-            if(!pdfLoaded){
-                pdfjsLib.getDocument(url).promise.then(function(pdf) {
-                    pdfDoc = pdf;
-                    renderPage(pageNum);
-                    pdfLoaded = true;
-                });
-            }
-        };
-
-        // PDF viewer bağlama funksiyası
-        window.closePdfViewer = function() {
-            document.body.classList.remove('pdf-preview-active');
-            if(container) container.style.display = 'none';
-        };
-
-        // PDF-i canvas-da render et
-        function renderPage(num) {
-            pdfDoc.getPage(num).then(function(page) {
-
-                const containerWidth = canvas.parentElement.clientWidth;
-
-                // Responsive: mobil / desktop genişliyinə uyğun
-                let viewport = page.getViewport({ scale: scale });
-                if(viewport.width > containerWidth){
-                    const ratio = containerWidth / viewport.width;
-                    viewport = page.getViewport({ scale: scale * ratio });
-                }
-
-                // Retina / HD keyfiyyət
-                const dpr = window.devicePixelRatio || 1;
-                canvas.width = viewport.width * dpr;
-                canvas.height = viewport.height * dpr;
-                canvas.style.width = viewport.width + 'px';
-                canvas.style.height = viewport.height + 'px';
-
-                page.render({ canvasContext: ctx, viewport: viewport });
+                // Bütün səhifələri ardıcıl render edirik
+                renderAllPages();
+            }).catch(function (error) {
+                console.error("{{$siteContent['home_upload_error_pdf']->value??''}}", error);
+                loading.innerText = "{{$siteContent['home_download_error_pdf']->value??''}}";
             });
         }
 
-        // Zoom in / out funksiyaları
-        window.zoomIn = function() {
-            scale += 0.2;
-            if(pdfDoc) renderPage(pageNum);
-        };
+        async function renderAllPages() {
+            wrapper.innerHTML = "";
 
-        window.zoomOut = function() {
-            scale = Math.max(0.5, scale - 0.2);
-            if(pdfDoc) renderPage(pageNum);
-        };
+            // Səhifələrin sırası pozulmasın deye async/await istifadə edirik
+            for(let i = 1; i <= pdfDoc.numPages; i++){
+                await renderSinglePage(i);
+            }
+        }
 
-        // Window resize → mobil orientation zamanı canvas yenilənir
-        window.addEventListener('resize', function() {
-            if(pdfDoc) renderPage(pageNum);
-        });
+        function renderSinglePage(num) {
+            return pdfDoc.getPage(num).then(function(page) {
+                const viewport = page.getViewport({ scale: scale });
+                const canvas = document.createElement("canvas");
+                const context = canvas.getContext("2d");
 
+                canvas.className = "pdf-page-canvas";
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                wrapper.appendChild(canvas);
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                return page.render(renderContext).promise;
+            });
+        }
+
+        loadPdf();
     });
-
 </script>
 
