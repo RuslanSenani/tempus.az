@@ -14,6 +14,10 @@ class Preparation extends Model
 
     public  array $translatable = ['name','title','description','image_alt_text','slug','pdf'];
 
+    protected $casts = [
+        'name' => 'array',
+        'title' => 'array',
+    ];
     public function category(): BelongsTo
     {
         return $this->belongsTo(PreparationCategory::class, 'category_id');
