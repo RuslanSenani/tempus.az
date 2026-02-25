@@ -19,23 +19,24 @@ class SearchController extends Controller
 
     public function liveSearch(Request $request): JsonResponse
     {
-        $query = $request->get('query');
-
-        if (!$query || mb_strlen($query) < 2) {
-            return response()->json([]);
-        }
-
-        $results = Preparation::query()
-            ->where(function ($q) use ($query) {
-                // Ən sadə və ən işlək yol: Sütunu birbaşa string kimi axtarırıq
-                $q->where('name', 'LIKE', "%{$query}%")
-                    ->orWhere('title', 'LIKE', "%{$query}%")
-                    ->orWhere('slug', 'LIKE', "%{$query}%");
-            })
-            ->take(5)
-            ->get(['id', 'name', 'title']);
-
-        return response()->json($results);
+        return response()->json(Preparation::first());
+//        $query = $request->get('query');
+//
+//        if (!$query || mb_strlen($query) < 2) {
+//            return response()->json([]);
+//        }
+//
+//        $results = Preparation::query()
+//            ->where(function ($q) use ($query) {
+//                // Ən sadə və ən işlək yol: Sütunu birbaşa string kimi axtarırıq
+//                $q->where('name', 'LIKE', "%{$query}%")
+//                    ->orWhere('title', 'LIKE', "%{$query}%")
+//                    ->orWhere('slug', 'LIKE', "%{$query}%");
+//            })
+//            ->take(5)
+//            ->get(['id', 'name', 'title']);
+//
+//        return response()->json($results);
     }
 
 
