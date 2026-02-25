@@ -25,10 +25,11 @@ document.getElementById('live-search').addEventListener('input', function () {
     const query = this.value.trim();
     const resultsDiv = document.getElementById('search-results');
     const currentLang = document.documentElement.lang || 'az';
-
     if (query.length > 2) {
+        console.log(window.location.origin + `/live-search?query=${encodeURIComponent(query)}`);
 
         fetch(window.location.origin + `/live-search?query=${encodeURIComponent(query)}`, {
+
             headers: {'X-Requested-With': 'XMLHttpRequest'}
         })
             .then(response => response.json())
