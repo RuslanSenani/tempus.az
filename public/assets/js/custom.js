@@ -27,7 +27,8 @@ document.getElementById('live-search').addEventListener('input', function () {
     const currentLang = document.documentElement.lang || 'az';
 
     if (query.length > 2) {
-        fetch(`/live-search?query=${encodeURIComponent(query)}`, {
+
+        fetch(window.location.origin + `/live-search?query=${encodeURIComponent(query)}`, {
             headers: {'X-Requested-With': 'XMLHttpRequest'}
         })
             .then(response => response.json())

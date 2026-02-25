@@ -21,7 +21,6 @@ class SearchController extends Controller
     {
         $siteContent = $this->siteContent->getAllContent();
 
-
         $query = $request->get('query');
 
         $results = Preparation::where('name', 'LIKE', "%{$query}%")
@@ -29,6 +28,8 @@ class SearchController extends Controller
             ->orWhere('slug', 'LIKE', "%{$query}%")
             ->limit(5)
             ->get(['id', 'name', 'title']);
+
+
         return response()->json($results);
     }
 }
