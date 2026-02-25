@@ -19,6 +19,7 @@ class SearchController extends Controller
 
     public function liveSearch(Request $request): JsonResponse
     {
+        \DB::enableQueryLog();
         $query = $request->get('query');
 
         if (!$query || mb_strlen($query) < 2) {
@@ -36,7 +37,8 @@ class SearchController extends Controller
             ->take(5)
             ->get(['id', 'name', 'title']);
 
-        return response()->json($results);
+        return response()->json(\DB::getQueryLog());
+
     }
 
 
