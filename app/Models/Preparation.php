@@ -15,8 +15,8 @@ class Preparation extends Model
     public  array $translatable = ['name','title','description','image_alt_text','slug','pdf'];
 
     protected $casts = [
-        'name' => 'array',
-        'title' => 'array',
+        'name' => 'json',
+        'title' => 'json',
     ];
     public function category(): BelongsTo
     {

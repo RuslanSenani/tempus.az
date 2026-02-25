@@ -17,7 +17,6 @@ class SearchController extends Controller
         $this->siteContent = $siteContent;
     }
 
-
     public function liveSearch(Request $request): JsonResponse
     {
         $query = $request->get('query');
@@ -26,14 +25,12 @@ class SearchController extends Controller
             return response()->json([]);
         }
 
-        $currentLang = app()->getLocale(); // Cari dili götürürük (az, en, ru)
+        $currentLang = app()->getLocale() ?: 'az';
 
         $results = Preparation::query()
             ->where(function ($q) use ($query, $currentLang) {
-
-                $q->where('name->' . $currentLang, 'LIKE', "%{$query}%")
-                    ->orWhere('name->az', 'LIKE', "%{$query}%")
-                    ->orWhere('title->' . $currentLang, 'LIKE', "%{$query}%")
+                $q->where("name->{$currentLang}", 'LIKE', "%{$query}%")
+                    ->orWhere("title->{$currentLang}", 'LIKE', "%{$query}%")
                     ->orWhere('slug', 'LIKE', "%{$query}%");
             })
             ->take(5)
@@ -41,6 +38,8 @@ class SearchController extends Controller
 
         return response()->json($results);
     }
+
+
 //    public function liveSearch(Request $request): JsonResponse
 //    {
 //        $siteContent = $this->siteContent->getAllContent();
