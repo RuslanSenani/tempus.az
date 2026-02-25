@@ -26,7 +26,7 @@ class SearchController extends Controller
             return response()->json([]);
         }
 
-        $currentLang = app()->getLocale() ?: 'az';
+//        $currentLang = app()->getLocale() ?: 'az';
 
         $results = Preparation::query()
             ->where(function ($q) use ($query) {
