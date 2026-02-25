@@ -19,7 +19,7 @@ class SearchController extends Controller
 
     public function liveSearch(Request $request): JsonResponse
     {
-        \DB::enableQueryLog();
+        // \DB::enableQueryLog();
         $query = $request->get('query');
 
         if (!$query || mb_strlen($query) < 2) {
@@ -29,15 +29,15 @@ class SearchController extends Controller
         $currentLang = app()->getLocale() ?: 'az';
 
         $results = Preparation::query()
-            ->where(function ($q) use ($query, $currentLang) {
-                $q->where("name->{$currentLang}", 'LIKE', "%{$query}%")
-                    ->orWhere("title->{$currentLang}", 'LIKE', "%{$query}%")
+            ->where(function ($q) use ($query) {
+                $q->where('name->az', 'LIKE', "%{$query}%")
+                    ->orWhere('title->az', 'LIKE', "%{$query}%")
                     ->orWhere('slug', 'LIKE', "%{$query}%");
             })
             ->take(5)
             ->get(['id', 'name', 'title']);
-
-        return response()->json(\DB::getQueryLog());
+// \DB::getQueryLog()
+        return response()->json($results);
 
     }
 
