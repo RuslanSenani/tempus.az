@@ -47,23 +47,13 @@ document.getElementById('live-search').addEventListener('input', function () {
                                 return field[currentLang] || field['az'] || Object.values(field)[0] || '';
                             }
                             try {
-                                const obj = JSON.parse(field); // Əgər string gələrsə, burada obyektə çevriləcək
+                                const obj = JSON.parse(field);
                                 return obj[currentLang] || obj['az'] || Object.values(obj)[0] || '';
                             } catch (e) {
                                 return field;
                             }
                         };
 
-                        // const getCleanText = (field) => {
-                        //     if (!field) return '';
-                        //     try {
-                        //         // Əgər field artıq obyektdirsə olduğu kimi istifadə et, stringdirsə parse et
-                        //         const obj = (typeof field === 'string') ? JSON.parse(field) : field;
-                        //         return obj[currentLang] || obj['az'] || Object.values(obj)[0] || field;
-                        //     } catch (e) {
-                        //         return field; // JSON deyilsə birbaşa mətni qaytar
-                        //     }
-                        // };
 
                         const name = getCleanText(item.name);
                         const title = getCleanText(item.title);
