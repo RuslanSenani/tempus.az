@@ -40,16 +40,30 @@ document.getElementById('live-search').addEventListener('input', function () {
                 if (data && data.length > 0) {
                     data.forEach(item => {
                         // JSON obyektini təmizləyən funksiya
+
                         const getCleanText = (field) => {
                             if (!field) return '';
+                            if (typeof field === 'object') {
+                                return field[currentLang] || field['az'] || Object.values(field)[0] || '';
+                            }
                             try {
-                                // Əgər field artıq obyektdirsə olduğu kimi istifadə et, stringdirsə parse et
-                                const obj = (typeof field === 'string') ? JSON.parse(field) : field;
-                                return obj[currentLang] || obj['az'] || Object.values(obj)[0] || field;
+                                const obj = JSON.parse(field); // Əgər string gələrsə, burada obyektə çevriləcək
+                                return obj[currentLang] || obj['az'] || Object.values(obj)[0] || '';
                             } catch (e) {
-                                return field; // JSON deyilsə birbaşa mətni qaytar
+                                return field;
                             }
                         };
+
+                        // const getCleanText = (field) => {
+                        //     if (!field) return '';
+                        //     try {
+                        //         // Əgər field artıq obyektdirsə olduğu kimi istifadə et, stringdirsə parse et
+                        //         const obj = (typeof field === 'string') ? JSON.parse(field) : field;
+                        //         return obj[currentLang] || obj['az'] || Object.values(obj)[0] || field;
+                        //     } catch (e) {
+                        //         return field; // JSON deyilsə birbaşa mətni qaytar
+                        //     }
+                        // };
 
                         const name = getCleanText(item.name);
                         const title = getCleanText(item.title);
