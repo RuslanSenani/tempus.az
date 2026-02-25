@@ -22,7 +22,7 @@ class PartnersRepository implements PartnersRepositoryInterface
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
-        return $this->partner->newQuery()->latest()->paginate($limit);
+        return $this->partner->newQuery()->orderBy('name', 'asc')->latest()->paginate($limit);
     }
 
     public function getCount(): int

@@ -31,10 +31,17 @@
 </div>
 
 
+
+
+
+
+
 {{-- Blog + Sidebar container --}}
 <div class="container-fluid no-padding page-content" id="mainContent">
     <div class="container-fluid px-3 px-lg-5">
         <div class="row">
+
+
 
             {{-- Blog content --}}
             <div class="col-lg-9 col-md-12 col-12 blog-area mb-4">
@@ -46,7 +53,7 @@
                     </div>
 
                     <div id="loading" style="text-align:center; padding:50px; color: white; font-family: sans-serif;">
-                        <div class="spinner"></div> PDF yüklənir, zəhmət olmasa gözləyin...
+                        <div class="spinner"></div>
                     </div>
                 </div>
 

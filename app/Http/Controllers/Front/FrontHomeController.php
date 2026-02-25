@@ -249,7 +249,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
+        $allCategories = $this->categoryRepository->getRandomActiveCategories(20);
         $preparation = $this->preparationRepository->getPreparationById($id);
 
         $viewData = [
@@ -321,7 +321,7 @@ class FrontHomeController extends Controller
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
+        $allCategories = $this->categoryRepository->getRandomActiveCategories(20);// Menu-da gorunmesi ucun
         $partners = $this->partnersRepository->getPartnersByLimit(16, (int)$page);
         $partners->setPath(url('partners/page'));
         $viewData = [
@@ -331,7 +331,6 @@ class FrontHomeController extends Controller
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
             'partners' => $partners,
-
         ];
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);

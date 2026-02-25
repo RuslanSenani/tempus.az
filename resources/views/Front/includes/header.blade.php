@@ -76,7 +76,6 @@
                                                 {{ $category->name }}
                                                 @if($category->preparations->count() > 0)
                                                     <i class="fa fa-angle-right d-none d-md-block"></i>
-                                                    <i class="fa fa-angle-down d-md-none"></i>
                                                 @endif
                                             </a>
 
@@ -132,30 +131,19 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right" style="min-width: 250px; padding: 10px;">
                                 <li>
-                                    <form action="#" method="GET" autocomplete="off"
-                                          class="position-relative">
-                                        <div class="input-group">
-                                            <input type="text" id="live-search" name="query" class="form-control"
-                                                   placeholder="{{$siteContent['home_search']->value??'Axtarış edin...'}}">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="submit"><i
-                                                        class="fa fa-search"></i></button>
-                                            </span>
+                                    <form action="javascript:void(0);" method="GET" class="position-relative w-100"
+                                          id="searchForm">
+                                        @csrf
+                                        <div class="input-group search-box">
+                                            <input type="text" id="live-search" name="query"
+                                                   class="form-control shadow-none"
+                                                   placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}"
+                                                   autocomplete="off">
+
                                         </div>
-                                        <div id="search-results" class="list-group position-absolute w-100 shadow-lg"
-                                             style="z-index: 1000; display: none;">
-                                        </div>
+
+                                        <div id="search-results" class="search-dropdown-container shadow-lg"></div>
                                     </form>
-                                    {{--                                    <form action="#" method="POST">--}}
-                                    {{--                                        @csrf--}}
-                                    {{--                                        <div class="input-group">--}}
-                                    {{--                                            <input type="text" name="query" class="form-control"--}}
-                                    {{--                                                   placeholder="{{$siteContent['home_search']->value??'Axtarış edin...'}}">--}}
-                                    {{--                                            <span class="input-group-btn">--}}
-                                    {{--                                              <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>--}}
-                                    {{--                                            </span>--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </form>--}}
                                 </li>
                             </ul>
                         </li>

@@ -342,6 +342,68 @@ canvas {
 /*Bura Da PDF- sonudur*/
 
 
+/*Live search css*/
+
+/* Axtarış qutusu */
+.search-box .form-control {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-radius: 4px 0 0 4px; /* Standart kənarlar */
+}
+.search-box .btn {
+    border-radius: 0 4px 4px 0;
+}
+
+/* Nəticələr pəncərəsi */
+.search-dropdown-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    z-index: 1000;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+/* Hər bir nəticə sətri */
+.search-item {
+    display: block;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.search-item:last-child { border-bottom: none; }
+.search-item:hover {
+    background: #f8f9fa;
+    text-decoration: none;
+    color: #000;
+}
+
+.search-item h6 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+.search-item small {
+    color: #777;
+    font-size: 13px;
+}
+
+.not-found {
+    padding: 15px;
+    text-align: center;
+    color: #999;
+}
+
+/*Live Search Css end*/
+
+
 /* Məzmun daxilindəki cədvəllərin kənara çıxmasını əngəlləyir */
 .table-responsive-wrapper {
     width: 100%;

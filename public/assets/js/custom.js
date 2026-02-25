@@ -21,58 +21,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 document.getElementById('live-search').addEventListener('input', function () {
-    let currentLang = document.documentElement.lang || 'az';
-    let query = this.value;
-    let resultsDiv = document.getElementById('search-results');
+    const query = this.value.trim();
+    const resultsDiv = document.getElementById('search-results');
+    const currentLang = document.documentElement.lang || 'az';
 
     if (query.length > 2) {
         fetch(`/live-search?query=${encodeURIComponent(query)}`, {
-            // encodeURIComponent təhlükəsizlik üçündür
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+            headers: {'X-Requested-With': 'XMLHttpRequest'}
         })
             .then(response => response.json())
             .then(data => {
                 resultsDiv.innerHTML = '';
+                resultsDiv.style.display = 'block';
 
-                // let trans = response.not_found;
                 if (data && data.length > 0) {
-                    resultsDiv.style.display = 'block';
-
                     data.forEach(item => {
-                        // 1. Datanı təhlükəsiz şəkildə obyektə çevir (əgər string kimi gəlibsə)
-                        let nameObj = (typeof item.name === 'string') ? JSON.parse(item.name) : item.name;
-                        let titleObj = (typeof item.title === 'string') ? JSON.parse(item.title) : item.title;
+                        // JSON obyektini təmizləyən funksiya
+                        const getCleanText = (field) => {
+                            if (!field) return '';
+                            try {
+                                // Əgər field artıq obyektdirsə olduğu kimi istifadə et, stringdirsə parse et
+                                const obj = (typeof field === 'string') ? JSON.parse(field) : field;
+                                return obj[currentLang] || obj['az'] || Object.values(obj)[0] || field;
+                            } catch (e) {
+                                return field; // JSON deyilsə birbaşa mətni qaytar
+                            }
+                        };
 
-                        // 2. Aktiv dilə uyğun mətni götür, yoxdursa 'az' dilini, o da yoxdursa boş string göstər
-                        let displayName = nameObj[currentLang] || nameObj['az'] || 'Adsız';
-                        let displayTitle = titleObj[currentLang] || titleObj['az'] || '';
+                        const name = getCleanText(item.name);
+                        const title = getCleanText(item.title);
 
-                        // 3. HTML-ə yerləşdir
-                        let resultItem = document.createElement('a');
-                        resultItem.className = 'list-group-item list-group-item-action border-0 py-3';
-                        resultItem.innerHTML = `
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="mb-0 fw-bold text-dark">${displayName}</h6>
-                                <small class="text-muted">${displayTitle}</small>
-                            </div>
-                            <i class="fa fa-chevron-right small text-muted"></i>
-                        </div>
-                        `;
-                        resultsDiv.appendChild(resultItem);
+                        const resultLink = document.createElement('a');
+                        resultLink.className = 'search-item';
+                        resultLink.href = `/preparation-detail/${item.id}`; // Sizin route-a uyğun dəyişin
+
+                        resultLink.innerHTML = `
+                        <h6>${name}</h6>
+                        ${title ? `<small>${title}</small>` : ''}
+                    `;
+                        resultsDiv.appendChild(resultLink);
                     });
                 } else {
-                    resultsDiv.style.display = 'block';
-                    resultsDiv.innerHTML = '<div class="list-group-item text-muted">tapilmadi</div>';
+                    resultsDiv.innerHTML = '<div class="not-found">Heç bir nəticə tapılmadı</div>';
                 }
             })
-            .catch(error => console.error('Xəta:', error));
+            .catch(err => console.error('Xəta:', err));
     } else {
         resultsDiv.style.display = 'none';
+    }
+});
+
+// Kənara kliklədikdə bağla
+document.addEventListener('click', function (e) {
+    if (!document.getElementById('searchForm').contains(e.target)) {
+        document.getElementById('search-results').style.display = 'none';
     }
 });
 

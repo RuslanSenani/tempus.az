@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Contracts\SiteContentInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Preparation;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -16,7 +17,7 @@ class SearchController extends Controller
         $this->siteContent = $siteContent;
     }
 
-    public function liveSearch(Request $request)
+    public function liveSearch(Request $request): JsonResponse
     {
         $siteContent = $this->siteContent->getAllContent();
 
