@@ -26,13 +26,16 @@ document.getElementById('live-search').addEventListener('input', function () {
     const resultsDiv = document.getElementById('search-results');
     const currentLang = document.documentElement.lang || 'az';
     if (query.length > 2) {
-        console.log(window.location.origin + `/live-search?query=${encodeURIComponent(query)}`);
 
         fetch(window.location.origin + `/live-search?query=${encodeURIComponent(query)}`, {
-
             headers: {'X-Requested-With': 'XMLHttpRequest'}
         })
-            .then(response => response.json())
+            .then(response => {
+                // Başlığı oxuyuruq və decode edirik (Azərbaycan hərfləri üçün)
+                const encodedMsg = response.headers.get('X-Search-Message');
+                window.currentSearchError = encodedMsg ? decodeURIComponent(escape(atob(encodedMsg))) : '';
+                return response.json();
+            })
             .then(data => {
                 resultsDiv.innerHTML = '';
                 resultsDiv.style.display = 'block';
@@ -69,7 +72,7 @@ document.getElementById('live-search').addEventListener('input', function () {
                         resultsDiv.appendChild(resultLink);
                     });
                 } else {
-                    resultsDiv.innerHTML = '<div class="not-found">Heç bir nəticə tapılmadı</div>';
+                    resultsDiv.innerHTML = `<div class="not-found">${window.currentSearchError}</div>`;
                 }
             })
             .catch(err => console.error('Xəta:', err));

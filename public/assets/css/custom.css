@@ -20,11 +20,7 @@
     min-height: 500px !important;
 }
 
-.page-banner .banner-img img {
-    height: 100% !important;
-    width: 100% !important;
-    object-fit: cover !important;
-}
+
 
 /* --- MOBİL ÜÇÜN (Responsive) --- */
 @media (max-width: 768px) {
@@ -439,26 +435,13 @@ canvas {
 }
 
 
-.custom-banner-height {
-    height: auto !important; /* Məcburi hündürlüyü ləğv edirik */
-    min-height: 300px; /* Mobil üçün minimum bir ölçü */
-    position: relative;
-}
 
-/*.custom-banner-height {*/
-/*    height: 70vh;*/
-/*}*/
 
-@media (max-width: 768px) {
-    .custom-banner-height {
-        height: 40vh;
-    }
-}
 
-.custom-banner-height img {
-    object-fit: cover;
-    height: 100%;
-}
+
+
+
+
 
 /* Şəkillərin üst-üstə yığılma məntiqi */
 .image-stack {
@@ -839,11 +822,6 @@ canvas {
         min-height: 250px !important;
     }
 
-    .banner-img img {
-        height: 100% !important;
-        width: 100% !important;
-        object-fit: cover !important; /* Divi tam doldurur */
-    }
 
     /* Mətnin ölçüsünü mobilə uyğunlaşdırırıq */
     .banner-overlay-text h3 {
@@ -1086,6 +1064,90 @@ canvas {
     }
 }
 
+
+
+/*Test*/
+
+
+
+
+/* Mobil uyğunluq (Responsive) */
+@media (max-width: 768px) {
+    .custom-banner-height {
+        height: 300px; /* Mobildə daha kiçik hündürlük */
+    }
+
+    .banner-overlay-text {
+        top: 50% !important; /* Mobildə mətni tam mərkəzləyir */
+    }
+
+    .main-title {
+        font-size: 24px !important;
+    }
+}
+
+/* Şəklin üzərindəki yazının oxunması üçün kölgə (Overlay) */
+.custom-banner-height::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
+}
+/* Konteynerin ölçülərini qəti şəkildə limitləyirik */
+.custom-banner-height {
+    position: relative;
+    width: 100%;
+    height: 500px; /* İstədiyiniz sabit hündürlük */
+    overflow: hidden; /* Daşan hissələri gizlədir - ƏSAS BU DUR */
+}
+
+/* Şəklin konteynerə tam oturması */
+.banner-img img {
+    width: 100% !important;
+    height: 100% !important; /* Div-in hündürlüyünə məcbur edir */
+    object-fit: cover !important; /* Şəkli dartmır, sadəcə sığmayan hissəni kəsir */
+    object-position: center; /* Şəklin mərkəzini saxlayır */
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .custom-banner-height {
+        height: 300px; /* Mobildə daşmaması üçün hündürlüyü kiçildirik */
+    }
+}
+
+
+.btn-goster {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #fff; /* Düymə rəngi */
+    color: #333 !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-goster:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Mobil tənzimləmə */
+@media (max-width: 768px) {
+    .btn-goster {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+}
+/*End Test*/
 
 
 

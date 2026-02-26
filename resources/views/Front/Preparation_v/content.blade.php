@@ -68,7 +68,7 @@
                 <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">
                     <div class="product-img-wrapper">
                         <img src="{{asset('storage/'.$preparation->image)}}"
-                             alt="Urifar"
+                             alt="{{$preparation->image_alt_text}}"
                              class="img-fluid">
                     </div>
                     <div class="product-info text-center mt-2">

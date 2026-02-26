@@ -344,5 +344,10 @@
         "az": "PDF yüklənərkən xəta baş verdi.",
         "en": "An error occurred while loading the PDF.",
         "ru": "Произошла ошибка при загрузке PDF-файла."
+    },
+    "home_not_found_text": {
+        "az": "Heç bir nəticə tapılmadı",
+        "en": "No results found.",
+        "ru": "Результаты не найдены."
     }
 }
