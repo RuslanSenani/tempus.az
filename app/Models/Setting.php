@@ -11,9 +11,9 @@ class Setting extends Model
     use HasTranslations;
 
 
-    protected $fillable = ['company_name', 'address', 'about_us', 'mission', 'vision', 'logo', 'phone_1', 'phone_2', 'fax_1', 'fax_2', 'instagram', 'tik_tok', 'youtube', 'facebook', 'email'];
+    protected $fillable = ['company_name', 'address', 'about_us', 'mission', 'vision', 'logo', 'phone_1', 'phone_2', 'fax_1', 'fax_2', 'instagram', 'tik_tok', 'youtube', 'facebook', 'email', 'activities', 'values', 'history', 'advantages', 'results_achievements', 'team', 'activity_zone'];
 
-    public array $translatable = ['company_name', 'address', 'about_us', 'mission', 'vision'];
+    public array $translatable = ['company_name', 'address', 'about_us', 'mission', 'vision', 'activities', 'values', 'history', 'advantages', 'results_achievements', 'team', 'activity_zone'];
 
 
     protected $appends = ['logo_url'];

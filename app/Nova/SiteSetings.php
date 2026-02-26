@@ -57,6 +57,7 @@ class SiteSetings extends Resource
     {
         return false;
     }
+
     public function authorizedToDelete(Request $request)
     {
         return false;
@@ -134,6 +135,48 @@ class SiteSetings extends Resource
                 Tab::make('Vision', [
                     NovaTabTranslatable::make([
                         CkEditor::make('Vision', 'vision')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Our Activities', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('activities', 'activities')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Our Values', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('values', 'values')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Our History', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('history', 'history')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Advantages', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('advantages', 'advantages')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Results and Achievements', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('results_achievements', 'results_achievements')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Team', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('team', 'team')
+                            ->rules('required')
+                    ])
+                ]),
+                Tab::make('Activity Zone', [
+                    NovaTabTranslatable::make([
+                        CkEditor::make('activity_zone', 'activity_zone')
                             ->rules('required')
                     ])
                 ])
