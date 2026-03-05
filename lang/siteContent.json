@@ -374,5 +374,10 @@
         "az": "Sənədə Bax",
         "en": "View Document",
         "ru": "Просмотреть документ"
+    },
+    "home_contact_full_screen": {
+        "az": "Tam Ekran",
+        "en": "Full Screen",
+        "ru": "Полноэкранный"
     }
 }

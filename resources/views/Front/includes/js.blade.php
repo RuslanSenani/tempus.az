@@ -26,13 +26,36 @@
 <script src="{{asset("assets")}}/libraries/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 <!-- Library - Google Map API -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>--}}
 
 <!-- Library - Theme JS -->
 <script src="{{asset("assets")}}/js/functions.js"></script>
 
 <script src="{{asset("assets")}}/js/custom.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function toggleFullScreen() {
+        var elem = document.getElementById("fullscreen-container");
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+            // Tam ekrana keçəndə hündürlüyü 100% et
+            document.querySelector(".map-canvas").style.height = "100vh";
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            // Normal vəziyyətə qayıdanda hündürlüyü 450px et
+            document.querySelector(".map-canvas").style.height = "450px";
+        }
+    }
+</script>
 
 
 {{-- PDF.js --}}
@@ -77,14 +100,14 @@
             wrapper.innerHTML = "";
 
             // Səhifələrin sırası pozulmasın deye async/await istifadə edirik
-            for(let i = 1; i <= pdfDoc.numPages; i++){
+            for (let i = 1; i <= pdfDoc.numPages; i++) {
                 await renderSinglePage(i);
             }
         }
 
         function renderSinglePage(num) {
-            return pdfDoc.getPage(num).then(function(page) {
-                const viewport = page.getViewport({ scale: scale });
+            return pdfDoc.getPage(num).then(function (page) {
+                const viewport = page.getViewport({scale: scale});
                 const canvas = document.createElement("canvas");
                 const context = canvas.getContext("2d");
 

@@ -79,10 +79,30 @@
 </div><!-- Container /- -->
 
 <!-- Map Section -->
-<div class="map container-fluid no-padding">
-    <div class="map-canvas" id="map-canvas-contact" data-lat="-37.818415" data-lng="144.989050"
-         data-string="E-44, Design Street, Web Corner, Melbourne - 005" data-zoom="12"></div>
+<div class="map-wrapper" id="fullscreen-container" style="position: relative;">
+    <button onclick="toggleFullScreen()"
+            style="position: absolute; top: 10px; right: 10px; z-index: 10; padding: 10px; background: #fff; border: 1px solid #ccc; cursor: pointer; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+        <i class="bi bi-arrows-fullscreen"></i> {{$siteContent['home_contact_full_screen']->value??''}}
+    </button>
+
+    <div class="map-canvas" style="height: 450px; width: 100%;">
+        <iframe
+                id="map-iframe"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428490195655!2d49.876512!3d40.382458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDIyJzU2LjkiTiA0OcKwNTInMzUuNCJF!5e0!3m2!1sen!2saz!4v1700000000000">
+        </iframe>
+    </div>
 </div>
+
+{{--<div class="map container-fluid no-padding">--}}
+{{--    <div class="map-canvas" id="map-canvas-contact" data-lat="-37.818415" data-lng="144.989050"--}}
+{{--         data-string="E-44, Design Street, Web Corner, Melbourne - 005" data-zoom="12"></div>--}}
+{{--</div>--}}
 <!--  Map Section /- -->
 
 <!-- Container -->
@@ -112,14 +132,16 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number*</label>
-                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{old('phone')}}" id="phone"/>
+                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                               value="{{old('phone')}}" id="phone"/>
                         @error('phone')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="message">Details</label>
-                        <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message">
+                        <textarea class="form-control @error('message') is-invalid @enderror" name="message"
+                                  id="message">
                             {{old('message')}}
                         </textarea>
                         @error('message')
