@@ -14,6 +14,7 @@ use App\Contracts\SiteContentInterface;
 use App\Contracts\StatisticRepositoryInterface;
 use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -34,6 +35,7 @@ class FrontHomeController extends Controller
     private VacancyRepositoryInterface $vacancyRepository;
 
     private StatisticRepositoryInterface $statisticRepository;
+
 
     public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository, StatisticRepositoryInterface $statisticRepository)
     {
@@ -67,6 +69,14 @@ class FrontHomeController extends Controller
         $media = $this->mediaRepository->getMediaByLimit(12);
 
 
+        $regionData = Region::first();
+
+        $regions = [];
+        if ($regionData && isset($regionData->names)) {
+            $regions = $regionData->names;
+        }
+
+
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
             'abouts' => $abouts,
@@ -79,6 +89,7 @@ class FrontHomeController extends Controller
             'partners' => $partners,
             'media' => $media,
             'statistic' => $statistic,
+            'regions' => $regions,
         ];
         return view("{$viewData['viewFolder']}.index")->with($viewData);
 
@@ -91,7 +102,13 @@ class FrontHomeController extends Controller
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
+        $categories = $this->categoryRepository->getAllActiveCategory();
+        $regionData = Region::first();
 
+        $regions = [];
+        if ($regionData && isset($regionData->names)) {
+            $regions = $regionData->names;
+        }
 
         $viewData = [
             'viewFolder' => $this->viewFolder . "About_v",
@@ -100,6 +117,8 @@ class FrontHomeController extends Controller
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
+            'categories' => $categories,
+            'regions' => $regions,
         ];
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
@@ -406,4 +425,6 @@ class FrontHomeController extends Controller
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
+
+
 }

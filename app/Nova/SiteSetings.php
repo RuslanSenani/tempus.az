@@ -121,12 +121,88 @@ class SiteSetings extends Resource
                     Text::make('Youtube', 'youtube'),
                 ]),
                 Tab::make('About Us', [
+                    Image::make('Logo 1', 'logo1')
+                        ->disk('public')
+                        ->prunable()
+                        ->store(function ($request, $model, $attribute, $requestAttribute) {
+                            $file = $request->file($requestAttribute);
+                            if (!$file) return null;
+
+                            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                            $path = "Logo/$filename";
+
+                            // Version 3-də yeni Manager yaradılır
+                            $manager = new ImageManager(new Driver());
+
+                            // Şəkli oxuyuruq və ölçüləndiririk
+                            $image = $manager->read($file)
+                                ->pad(800, 600, 'ffffff');
+
+                            // Şəkli formatlayıb Storage-a yazırıq
+                            Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                            return [
+                                $attribute => $path,
+                            ];
+                        }),
+                    Image::make('Logo 2', 'logo2')
+                        ->disk('public')
+                        ->prunable()
+                        ->store(function ($request, $model, $attribute, $requestAttribute) {
+                            $file = $request->file($requestAttribute);
+                            if (!$file) return null;
+
+                            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                            $path = "Logo/$filename";
+
+                            // Version 3-də yeni Manager yaradılır
+                            $manager = new ImageManager(new Driver());
+
+                            // Şəkli oxuyuruq və ölçüləndiririk
+                            $image = $manager->read($file)
+                                ->pad(800, 600, 'ffffff');
+
+                            // Şəkli formatlayıb Storage-a yazırıq
+                            Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                            return [
+                                $attribute => $path,
+                            ];
+                        }),
+
+
                     NovaTabTranslatable::make([
                         CkEditor::make('About Us', 'about_us')
                             ->rules('required')->fullWidth()
                     ])
                 ]),
                 Tab::make('Mission', [
+
+                    Image::make('Mission Vission Logo', 'mission_vision_logo')
+                        ->disk('public')
+                        ->prunable()
+                        ->store(function ($request, $model, $attribute, $requestAttribute) {
+                            $file = $request->file($requestAttribute);
+                            if (!$file) return null;
+
+                            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                            $path = "Logo/$filename";
+
+                            // Version 3-də yeni Manager yaradılır
+                            $manager = new ImageManager(new Driver());
+
+                            // Şəkli oxuyuruq və ölçüləndiririk
+                            $image = $manager->read($file)
+                                ->pad(800, 600, 'ffffff');
+
+                            // Şəkli formatlayıb Storage-a yazırıq
+                            Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                            return [
+                                $attribute => $path,
+                            ];
+                        }),
+
                     NovaTabTranslatable::make([
                         CkEditor::make('Mission', 'mission')
                             ->rules('required')
@@ -139,6 +215,34 @@ class SiteSetings extends Resource
                     ])
                 ]),
                 Tab::make('Our Activities', [
+
+                    Image::make('Activities Logo', 'activities_logo')
+                        ->disk('public')
+                        ->prunable()
+                        ->rules( 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048')
+                        ->store(function ($request, $model, $attribute, $requestAttribute) {
+
+                            $file = $request->file($requestAttribute);
+                            if (!$file) return null;
+
+                            $extension = $file->getClientOriginalExtension();
+                            $filename = Str::uuid() . '.' . $extension;
+                            $path = "Logo/$filename";
+
+                            $manager = new ImageManager(new Driver());
+
+                            if ($extension === 'gif') {
+                                Storage::disk('public')->put($path, $file->get());
+                            } else {
+                                $image = $manager->read($file)
+                                    ->pad(800, 600, 'ffffff');
+
+                                Storage::disk('public')->put($path, $image->toJpeg(80));
+                            }
+
+                            return [$attribute => $path];
+                        }),
+
                     NovaTabTranslatable::make([
                         CkEditor::make('activities', 'activities')
                             ->rules('required')
@@ -175,6 +279,31 @@ class SiteSetings extends Resource
                     ])
                 ]),
                 Tab::make('Activity Zone', [
+                    Image::make('Active Zone Logo', 'active_zone_logo')
+                        ->disk('public')
+                        ->prunable()
+                        ->store(function ($request, $model, $attribute, $requestAttribute) {
+                            $file = $request->file($requestAttribute);
+                            if (!$file) return null;
+
+                            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                            $path = "Logo/$filename";
+
+                            // Version 3-də yeni Manager yaradılır
+                            $manager = new ImageManager(new Driver());
+
+                            // Şəkli oxuyuruq və ölçüləndiririk
+                            $image = $manager->read($file)
+                                ->pad(800, 600, 'ffffff');
+
+                            // Şəkli formatlayıb Storage-a yazırıq
+                            Storage::disk('public')->put($path, $image->toJpeg(80));
+
+                            return [
+                                $attribute => $path,
+                            ];
+                        }),
+
                     NovaTabTranslatable::make([
                         CkEditor::make('activity_zone', 'activity_zone')
                             ->rules('required')

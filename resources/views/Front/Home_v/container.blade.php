@@ -28,17 +28,16 @@
             <!-- Emargency Case -->
             <div class="col-md-6 col-sm-6 emargency-case">
                 <div class="col-md-6 message-block no-left-padding">
-                    <h3>{{$siteContent['home_preparations']->value??'Preparatlar'}}</h3>
-                    <a href="{{route('preparation')}}">{{$siteContent['home_more_details']->value??'Daha Ətraflı
-
-'}}<i class="fa fa-caret-right"></i></a>
+                    <h3>{{$siteContent['home_preparations']->value??'Preparatlar'}}</h3><a
+                        href="{{route('preparation')}}">{{$siteContent['home_more_details']->value??'Daha Ətraflı'}}
+                        <i class="fa fa-caret-right"></i></a>
                 </div>
                 <div class="col-md-6 message-block no-right-padding">
                     <h3>{{$siteContent['home_media']->value??'Media'}}</h3>
                     <a href="{{route('media')}}">{{$siteContent['home_more_details']->value??'Daha Ətraflı'}}<i
                             class="fa fa-caret-right"></i></a>
                 </div>
-            </div><!-- Emargency Case /- -->
+            </div>
             <!-- Opening Hours -->
             <div class="col-md-6 col-sm-6 opening-hours">
 
@@ -62,15 +61,16 @@
         </div>
     </div><!-- Container /- -->
 </div>
+
+
 <!-- Message Borad /- -->
 <section class="about-section py-5" style="margin-bottom: 50px;margin-top: 50px;">
-    <div class="container">
-        <div class="section-header" style="margin-bottom: 10px;">
-            <h3>{{$siteContent['home_about_us']->value??''}}</h3>
-        </div>
 
+    <div class="container">
         <div class="row align-items-center">
+
             <div class="col-lg-6 mb-5 mb-lg-0">
+
                 <div class="image-stack">
                     <div class="image-stack__item image-stack__item--top">
                         <img
@@ -86,26 +86,23 @@
                     <div class="decorative-box shadow-sm"></div>
                 </div>
             </div>
+            <div class="section-header" style="margin-bottom: 10px;">
+                <h3>{{$siteContent['home_about_us']->value??''}}</h3>
+            </div>
+            <div class="col-lg-6 mb-4 mb-lg-0">
 
-            <div class="col-lg-6 ps-lg-5">
-
-                <h1 class="display-5 fw-bold mb-4">
-                    <span
-                        style="color: #71C0DF; font-style: italic;">{{$siteContent['home_company_name']->value??'Tempus MMC'}}</span>
-                    <span
-                        style="color: #4C70B5;">{{$siteContent['home_company_title']->value??'Azərbaycanda “Şirkətlər Qrupu”nun bir hissəsidir.'}}</span>
-                </h1>
-                <div class="about-text text-muted mb-4">
-                    <p> {!! $setting->mission !!}</p>
-                    <p> {!! $setting->vision !!}</p>
+                <div class="about-card glass-effect h-100 p-4 p-md-5 shadow-lg">
+                    <div class="section-lead fs-5 text-secondary leading-relaxed">
+                        {!! $setting->about_us ?? 'Haqqımızda məlumat tezliklə əlavə olunacaq.' !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+
 <div id="call-out" class="container-fluid no-padding call-out">
-    <!-- Container -->
     <div class="container">
         <div class="call-out-content row">
             <div class="col-md-10 col-sm-9 col-xs-12">
@@ -117,12 +114,12 @@
                 </a>
             </div>
         </div>
-    </div><!-- Container /- -->
-</div><!-- Call Out /- -->
+    </div>
+</div>
 
 <!-- What We Do Best -->
 <div id="what-we-do-best" class="container-fluid no-padding what-we-do-best">
-    <div class="section-header" style="margin-bottom: 10px;">
+    <div class="section-header" style="margin-bottom: 10px;margin-top: 10px;">
         <h3>{{$siteContent['home_preparation_category']->value??''}}</h3>
     </div>
     <div class="what-we-do-left col-md-4 no-padding">
@@ -131,6 +128,7 @@
 
 
     <div class="col-md-8 what-we-do-right no-padding">
+
         @foreach($categories as $category)
             <div class="col-md-4 col-sm-4 col-xs-6 no-padding">
                 <div class="what-we-do-block">

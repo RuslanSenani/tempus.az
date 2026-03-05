@@ -97,6 +97,28 @@ class Preparation extends Resource
                         $attribute => $path,
                     ];
                 }),
+            Image::make('Official Document', 'official_document')
+                ->disk('public')
+                ->prunable()
+                ->store(function ($request, $model, $attribute, $requestAttribute) {
+                    $file = $request->file($requestAttribute);
+                    if (!$file) return null;
+
+                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $path = "preparation/$filename";
+
+                    $manager = new ImageManager(new Driver());
+
+                    $image = $manager->read($file);
+
+                    $encoded = $image->toJpeg(100);
+
+                    Storage::disk('public')->put($path, (string)$encoded);
+
+                    return [
+                        $attribute => $path,
+                    ];
+                }),
 
 
             NovaTabTranslatable::make([

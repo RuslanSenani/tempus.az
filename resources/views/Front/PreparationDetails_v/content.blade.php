@@ -7,86 +7,50 @@
                          class="img-responsive"
                          alt="{{$preparation->image_alt_text??''}}">
 
-                    <div class="banner-overlay-text" style="position: absolute; top: 40%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">
+                    <div class="banner-overlay-text"
+                         style="position: absolute; top: 40%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">
                         <div class="container">
                             <div class="row align-items-center">
-                                <div class="col-md-9 col-xs-8">
-                                    <div class="entry-title-area modern-glass-card">
-                                        <h2 class="main-title" style="color: #fff; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                                            {{ $preparation->name }}
-                                        </h2>
-                                        <div class="post-meta-custom">
-                                            <span style="color: #eee; font-size: 1.1rem;">{{ $preparation->title }}</span>
+                                <div class="col-md-12">
+                                    <div
+                                        class="entry-title-area modern-glass-card d-flex flex-wrap align-items-center justify-content-between p-4">
+
+                                        <div class="title-content flex-grow-1">
+                                            <h2 class="main-title mb-1"
+                                                style="color: #fff; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-size: 2rem;">
+                                                {{ $preparation->name }}
+                                            </h2>
+                                            <div class="post-meta-custom">
+                                                <span style="color: #eee; font-size: 1.1rem; opacity: 0.9;">
+                                                    {{ $preparation->title }}
+                                                </span>
+                                            </div>
                                         </div>
+
+                                        @if(isset($preparation->official_document))
+                                            <div class="button-area ms-lg-3 mt-3 mt-md-0"
+                                                 style="position: relative; z-index: 10;">
+                                                <a href="{{ asset('storage/' . $preparation->official_document) }}"
+                                                   target="_blank"
+                                                   class="btn-modern-view">
+                                                    <i class="bi bi-eye-fill me-2"></i>
+                                                    {{ $siteContent['home_view_loyal_document']->value ?? 'Sənədə Bax' }}
+                                                </a>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-xs-4 text-right">
-                                    <a href="#" class="btn-goster">Göstər</a>
-                                </div>
                             </div>
                         </div>
                     </div>
 
-{{--                    <div class="banner-overlay-text"--}}
-{{--                         style="position: absolute; top: 40%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">--}}
-{{--                        <div class="container">--}}
-{{--                            <div class="entry-title-area modern-glass-card">--}}
-{{--                                <h2 class="main-title" style="color: #fff; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">--}}
-{{--                                    {{ $preparation->name }}--}}
-{{--                                </h2>--}}
-{{--                                <div class="post-meta-custom">--}}
-{{--                                    <span style="color: #eee; font-size: 1.1rem;">{{ $preparation->title }}</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-{{--<div class="page-banner services-banner container-fluid no-padding img-trieangle">--}}
-{{--    <div id="banner-slider" class="carousel slide" data-ride="carousel">--}}
-{{--        <div class="carousel-inner" role="listbox">--}}
-{{--            <div class="item active">--}}
-{{--                <div class="banner-img custom-banner-height">--}}
-{{--                    <img src="{{ asset('storage/'.$preparation->image) }}"--}}
-{{--                         class="d-block w-100"--}}
-{{--                         style="height: auto; display: block;"--}}
-{{--                         alt="{{$preparation->image_alt_text??''}}">--}}
-
-{{--                    <div class="banner-overlay-text"--}}
-{{--                         style="position: absolute; top: 30%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">--}}
-{{--                        <div class="container">--}}
-{{--                            <h1 class="d-none d-md-block" style="color: #fff; margin-bottom: 10px;">--}}
-{{--                            </h1>--}}
-
-{{--                            <div class="entry-title-area modern-glass-card">--}}
-{{--                                <h2 class="main-title" style="color: #fff;">--}}
-{{--                                    {{ $preparation->name }}--}}
-{{--                                </h2>--}}
-{{--                                <div class="post-meta-custom">--}}
-{{--                                    <span style="color: #eee;">{{ $preparation->title }}</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-
-
-
-
 
 
 {{-- Blog + Sidebar container --}}
@@ -97,8 +61,10 @@
             {{-- Blog content --}}
             <div class="col-lg-9 col-md-12 col-12 blog-area mb-4">
 
-                <div id="pdfContainer" style="width:100%; max-width:1000px; margin:0 auto; padding:10px; background: #2098df;">
-                    <div id="pageInfo" style="color: white; margin-bottom: 10px; text-align: center; font-family: sans-serif;"></div>
+                <div id="pdfContainer"
+                     style="width:100%; max-width:1000px; margin:0 auto; padding:10px; background: #2098df;">
+                    <div id="pageInfo"
+                         style="color: white; margin-bottom: 10px; text-align: center; font-family: sans-serif;"></div>
 
                     <div id="pdfWrapper" style="display:flex; flex-direction:column; gap:15px; align-items: center;">
                     </div>
@@ -107,7 +73,6 @@
                         <div class="spinner"></div>
                     </div>
                 </div>
-
 
 
             </div>

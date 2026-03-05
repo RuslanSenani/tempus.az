@@ -349,5 +349,30 @@
         "az": "Heç bir nəticə tapılmadı",
         "en": "No results found.",
         "ru": "Результаты не найдены."
+    },
+    "home_regional_units": {
+        "az": "Regional Bölmələr",
+        "en": "Regional Units",
+        "ru": "Региональные подразделения"
+    },
+    "home_and": {
+        "az": "Və",
+        "en": "And",
+        "ru": "И"
+    },
+    "home_about_activities": {
+        "az": "Fəaliyyəti haqqında",
+        "en": "About its activities",
+        "ru": "О своей деятельности"
+    },
+    "home_therapeutic_activity": {
+        "az": "Fəaliyyət göstərdiyi əsas terapevtik sahələr",
+        "en": "Main therapeutic areas of activity",
+        "ru": "Основные терапевтические области деятельности"
+    },
+    "home_view_loyal_document": {
+        "az": "Sənədə Bax",
+        "en": "View Document",
+        "ru": "Просмотреть документ"
     }
 }

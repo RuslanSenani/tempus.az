@@ -11,7 +11,7 @@
                 <div class="col-md-3 logo-block pull-left">
                     @if($setting && $setting->logo)
                         <a href="{{route('home')}}">
-                            <img src="{{ asset('storage/Logo/' . $setting->logo) }}" class="img-responsive main-logo"
+                            <img src="{{ asset('storage/' . $setting->logo) }}" class="img-responsive main-logo"
                                  alt="Logo"/>
                         </a>
                     @else
