@@ -61,7 +61,9 @@ class SocialMedia extends Resource
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-
+                    if ($model->icon && Storage::disk('public')->exists($model->icon)) {
+                        Storage::disk('public')->delete($model->icon);
+                    }
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "social_media/$filename";
 

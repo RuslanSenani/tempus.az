@@ -62,7 +62,9 @@ class MedicalInfo extends Resource
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-
+                    if ($model->image && Storage::disk('public')->exists($model->image)) {
+                        Storage::disk('public')->delete($model->image);
+                    }
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "medicalInfo/$filename";
 

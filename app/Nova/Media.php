@@ -68,7 +68,9 @@ class Media extends Resource
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-
+                    if ($model->image_url && Storage::disk('public')->exists($model->image_url)) {
+                        Storage::disk('public')->delete($model->image_url);
+                    }
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "Media_Path/$filename";
 

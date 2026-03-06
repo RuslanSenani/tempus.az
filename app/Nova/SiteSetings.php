@@ -86,7 +86,9 @@ class SiteSetings extends Resource
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
-
+                            if ($model->logo && Storage::disk('public')->exists($model->logo)) {
+                                Storage::disk('public')->delete($model->logo);
+                            }
                             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                             $path = "Logo/$filename";
 
@@ -127,7 +129,9 @@ class SiteSetings extends Resource
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
-
+                            if ($model->logo1 && Storage::disk('public')->exists($model->logo1)) {
+                                Storage::disk('public')->delete($model->logo1);
+                            }
                             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                             $path = "Logo/$filename";
 
@@ -151,7 +155,9 @@ class SiteSetings extends Resource
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
-
+                            if ($model->logo2 && Storage::disk('public')->exists($model->logo2)) {
+                                Storage::disk('public')->delete($model->logo2);
+                            }
                             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                             $path = "Logo/$filename";
 
@@ -184,7 +190,9 @@ class SiteSetings extends Resource
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
-
+                            if ($model->mission_vision_logo && Storage::disk('public')->exists($model->mission_vision_logo)) {
+                                Storage::disk('public')->delete($model->mission_vision_logo);
+                            }
                             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                             $path = "Logo/$filename";
 
@@ -224,7 +232,9 @@ class SiteSetings extends Resource
 
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
-
+                            if ($model->activities_logo && Storage::disk('public')->exists($model->activities_logo)) {
+                                Storage::disk('public')->delete($model->activities_logo);
+                            }
                             $extension = $file->getClientOriginalExtension();
                             $filename = Str::uuid() . '.' . $extension;
                             $path = "Logo/$filename";
@@ -285,7 +295,9 @@ class SiteSetings extends Resource
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
-
+                            if ($model->active_zone_logo && Storage::disk('public')->exists($model->active_zone_logo)) {
+                                Storage::disk('public')->delete($model->active_zone_logo);
+                            }
                             $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                             $path = "Logo/$filename";
 

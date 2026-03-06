@@ -76,10 +76,13 @@ class Preparation extends Resource
             Image::make('Image', 'image')
                 ->disk('public')
                 ->prunable()
+                ->deletable()
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-
+                    if ($model->image && Storage::disk('public')->exists($model->image)) {
+                        Storage::disk('public')->delete($model->image);
+                    }
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "preparation/$filename";
 
@@ -100,10 +103,13 @@ class Preparation extends Resource
             Image::make('Official Document', 'official_document')
                 ->disk('public')
                 ->prunable()
+                ->deletable()
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-
+                    if ($model->image && Storage::disk('public')->exists($model->image)) {
+                        Storage::disk('public')->delete($model->image);
+                    }
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "preparation/$filename";
 
@@ -122,9 +128,13 @@ class Preparation extends Resource
 
 
             NovaTabTranslatable::make([
+
+
                 File::make('PDF Sənəd', 'pdf')
                     ->disk('public')
                     ->path('preparations/pdfs')
+                    ->prunable()
+                    ->deletable()
                     ->acceptedTypes('.pdf')
                     ->preview(function ($value, $disk) {
                         return $value
@@ -132,10 +142,10 @@ class Preparation extends Resource
                             : null;
                     })
                     ->displayUsing(function ($value) {
-                        return $value ? '📄 PDF-ə bax' : 'Yoxdur';
+                        return $value ? ' PDF-ə bax' : 'Yoxdur';
                     })
-                    ->rules('nullable', 'mimes:pdf')
-                    ->prunable(),
+                    ->rules('nullable', 'mimes:pdf'),
+
                 Text::make('Name', 'name')
                     ->rules('max:255'),
                 Text::make('Title', 'title')

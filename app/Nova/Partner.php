@@ -56,7 +56,9 @@ class Partner extends Resource
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-
+                    if ($model->logo && Storage::disk('public')->exists($model->logo)) {
+                        Storage::disk('public')->delete($model->logo);
+                    }
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
                     $path = "partner/$filename";
 
