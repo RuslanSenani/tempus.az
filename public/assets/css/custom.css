@@ -1544,3 +1544,6 @@ canvas {
     .section-title { font-size: 1.6rem; }
 }
 
+.media-container:hover .portfolio-item-hover {
+    opacity: 1 !important;
+}

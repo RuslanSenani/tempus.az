@@ -49,7 +49,7 @@
 
 
 <div class="container mt-5">
-    <div class="section-header" style="margin-bottom: 10px;">
+    <div class="section-header" style="margin-bottom: 10px; margin-top: 30px;">
 
         <h3 class="text-center mb-5">{{$siteContent['home_insta_share']->value??''}}</h3>
 
@@ -70,7 +70,7 @@
 
                             @if($post['media_type'] === 'VIDEO')
                                 <div
-                                        style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
+                                    style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
                                     <i class="fa fa-play"></i> Video
                                 </div>
                             @endif
@@ -101,16 +101,57 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                 <div id="portfolio" class="">
+
                     @foreach($media as $med)
-                        <div class="portfolio-item facilities col-md-4 col-sm-6">
-                            <img src="../../../../../assets/images/portfolio-1.jpg" alt="Portfolio"/>
-                            {{--                            <a href="../../../../../assets/images/portfolio-1.jpg" title=""><img--}}
-                            {{--                                    src="../../../../../assets/images/plus.png" alt="portfolio-arrow"/></a>--}}
-                            <div class="portfolio-item-hover">
-                                <h3><a href="">{{$siteContent['home_more_details']->value??''}}</a></h3>
+                        <div class="portfolio-item facilities col-md-4 col-sm-6" style="margin-bottom: 40px;">
+
+
+                            <div class="media-container" style="position: relative; overflow: hidden; height: 250px; border-radius: 8px; background: #000;">
+
+                                @if($med->type === 'video' && !empty($med->video_url))
+                                    @php
+                                        $url = $med->video_url;
+                                        $finalUrl = '';
+                                        if (str_contains($url, 'youtu.be') || str_contains($url, 'youtube.com')) {
+                                            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match);
+                                            $finalUrl = isset($match[1]) ? "https://www.youtube.com/embed/" . $match[1] : $url;
+                                        }
+                                        elseif (str_contains($url, 'tiktok.com')) {
+                                            preg_match('/video\/(\d+)/', $url, $match);
+                                            $finalUrl = isset($match[1]) ? "https://www.tiktok.com/embed/v2/" . $match[1] : $url;
+                                        }
+                                    @endphp
+                                    <iframe width="100%" height="100%" src="{{ $finalUrl }}" frameborder="0" allowfullscreen style="width: 100%; height: 100%; object-fit: contain;"></iframe>
+                                @elseif($med->type === 'image' && !empty($med->image_url))
+                                    <img src="{{ asset('storage/' . $med->image_url) }}" alt="{{ $med->title }}" style="width: 100%; height: 100%; object-fit: cover;"/>
+                                @endif
+
+
+                                <div class="portfolio-item-hover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
+                                    <a href="{{ $med->type === 'video' ? $med->video_url : asset('storage/' . $med->image_url) }}"
+                                       target="_blank"
+                                       style="background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold;">
+                                        {{ $siteContent['home_more_details']->value ?? 'Ətraflı bax' }}
+                                    </a>
+                                </div>
                             </div>
+
+                            {{-- 2. Mətn Hissəsi (Medianın Altında Sabit) --}}
+                            <div class="portfolio-content-bottom" style="margin-top: 15px;">
+                                <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #333;">
+                                    {{ $med->title }}
+                                </h3>
+
+                                @if($med->description)
+                                    <div class="description" style="font-size: 14px; color: #666;">
+                                        {!! $med->description !!}
+                                    </div>
+                                @endif
+                            </div>
+
                         </div>
                     @endforeach
+
                 </div>
             </div>
         </div>
