@@ -15,6 +15,7 @@ use App\Contracts\StatisticRepositoryInterface;
 use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Region;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;

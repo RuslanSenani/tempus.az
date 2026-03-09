@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
+
 use App\Contracts\LanguageRepositoryInterface;
 use Closure;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SetLocaleLanguage
@@ -23,6 +24,7 @@ class SetLocaleLanguage
      */
     public function handle(Request $request, Closure $next): Response
     {
+
 
         // 1. Bazadakı cari default dili götür (Repository vasitəsilə)
         $defaultLang = $this->languageRepository->getDefaultLanguage();

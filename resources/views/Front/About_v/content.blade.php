@@ -44,6 +44,7 @@
                     <div class="about-card glass-effect h-100 p-4 p-md-5 shadow-lg">
                         <div class="section-lead fs-5 text-secondary leading-relaxed">
                             {!! $setting->about_us ?? 'Haqqımızda məlumat tezliklə əlavə olunacaq.' !!}
+                            {!! $setting->history ?? '' !!}
                         </div>
                     </div>
                 </div>
