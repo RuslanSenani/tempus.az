@@ -40,6 +40,6 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getCategoryById($id)
     {
-        return $this->category->newQuery()->findOrFail($id)->first();
+        return $this->category->newQuery()->findOrFail($id);
     }
 }

@@ -157,7 +157,7 @@
                             @if($item->is_otc)
                                 <i class="bi bi-patch-check-fill text-success me-2"></i>
                             @endif
-                            <span>{{ $item->name }}</span>
+                            <span><a href="{{route('category-details',$item->id)}}">{{ $item->name }}</a></span>
                         </li>
 
                         @endforeach
