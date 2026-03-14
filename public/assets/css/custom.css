@@ -1547,3 +1547,22 @@ canvas {
 .media-container:hover .portfolio-item-hover {
     opacity: 1 !important;
 }
+
+/*////////////////////////////////////////////////*/
+
+
+.product-banner{
+    min-height: 450px;
+}
+
+@media (max-width: 768px){
+
+    .product-banner{
+        min-height: 600px;
+    }
+
+    .product-banner img{
+        object-position: top center;
+    }
+
+}

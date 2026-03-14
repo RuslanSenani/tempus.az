@@ -1,52 +1,47 @@
-<div class="page-banner services-banner container-fluid no-padding img-trieangle">
-    <div id="banner-slider" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <div class="banner-img custom-banner-height">
-                    <img src="{{ asset('storage/'.$preparation->image) }}"
-                         class="img-responsive"
-                         alt="{{$preparation->image_alt_text??''}}">
+<section class="product-banner position-relative overflow-hidden py-5" style="background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            min-height: 400px; display: flex; align-items: center;">
 
-                    <div class="banner-overlay-text"
-                         style="position: absolute; top: 40%; left: 0; transform: translateY(-50%); width: 100%; z-index: 2;">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-md-12">
-                                    <div
-                                        class="entry-title-area modern-glass-card d-flex flex-wrap align-items-center justify-content-between p-4">
+    <div class="position-absolute top-0 start-0 w-100 h-100 z-n1">
+        <img src="{{ asset('storage/'.$preparation->image) }}"
+             alt="{{$preparation->image_alt_text??''}}"
+             class="w-100 h-100 object-fit-cover shadow-sm"
+             style="object-position: center;">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-white opacity-25"></div>
+    </div>
 
-                                        <div class="title-content flex-grow-1">
-                                            <h2 class="main-title mb-1"
-                                                style="color: #fff; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-size: 2rem;">
-                                                {{ $preparation->name }}
-                                            </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6">
 
-                                        </div>
+                <div class="content-box p-4 p-md-5 shadow-sm"
+                     style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.3);">
 
-                                        @if(isset($preparation->official_document))
-                                            <div class="button-area ms-lg-3 mt-3 mt-md-0"
-                                                 style="position: relative; z-index: 10;">
-                                                <a href="{{ asset('storage/' . $preparation->official_document) }}"
-                                                   target="_blank"
-                                                   class="btn-modern-view">
-                                                    <i class="bi bi-eye-fill me-2"></i>
-                                                    {{ $siteContent['home_view_loyal_document']->value ?? 'Sənədə Bax' }}
-                                                </a>
-                                            </div>
-                                        @endif
+                    <h1 class="fw-bold fs-3 text-dark mb-3">
+                        {!! $preparation->name !!}
+                    </h1>
 
-                                    </div>
-                                </div>
-
-                            </div>
+                    @if(isset($preparation->official_document))
+                        <div class="mt-4">
+                            <a href="{{ asset('storage/' . $preparation->official_document) }}"
+                               target="_blank"
+                               class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 shadow-sm"
+                               style="border-radius: 50px; background-color: #4C70B5; border: none;">
+                                <span
+                                    class="fw-bold">{{ $siteContent['home_view_loyal_document']->value ?? 'Qeydiyyat vəsiqəsi' }}</span>
+                            </a>
                         </div>
-                    </div>
+                    @endif
 
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 {{-- Blog + Sidebar container --}}
