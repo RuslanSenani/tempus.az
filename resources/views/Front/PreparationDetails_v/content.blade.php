@@ -20,11 +20,7 @@
                                                 style="color: #fff; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-size: 2rem;">
                                                 {{ $preparation->name }}
                                             </h2>
-                                            <div class="post-meta-custom">
-                                                <span style="color: #eee; font-size: 1.1rem; opacity: 0.9;">
-                                                    {{ $preparation->title }}
-                                                </span>
-                                            </div>
+
                                         </div>
 
                                         @if(isset($preparation->official_document))

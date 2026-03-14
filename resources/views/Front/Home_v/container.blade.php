@@ -9,9 +9,7 @@
                                 <img src="{{ asset('storage/'.$about->image) }}" class="d-block w-100" alt="banner">
                             </div>
                             <div class="banner-overlay-text">
-                                <div class="container">
-                                    <h1>{{$siteContent['home_about_us']->value ?? ''}}</h1>
-                                </div>
+
                             </div>
                         </div>
                     @endforeach

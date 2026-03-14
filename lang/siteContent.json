@@ -66,12 +66,12 @@
         "ru": "Социальные сети"
     },
     "home_tempus_adrress": {
-        "az": "Addresimiz",
+        "az": "Ünvanımız",
         "en": "Our address",
         "ru": "Наш адрес"
     },
     "home_electron_address": {
-        "az": "Elektron Adres",
+        "az": "Elektron Ünvan",
         "en": "Email address",
         "ru": "Адрес электронной почты"
     },
@@ -371,9 +371,9 @@
         "ru": "Основные терапевтические области деятельности"
     },
     "home_view_loyal_document": {
-        "az": "Sənədə Bax",
-        "en": "View Document",
-        "ru": "Просмотреть документ"
+        "az": "Qeydiyyat vəsiqəsi",
+        "en": "Registration card",
+        "ru": "Регистрационная карта"
     },
     "home_contact_full_screen": {
         "az": "Tam Ekran",

@@ -28,7 +28,6 @@
                     <div class="phone">
                         <h3><img src="{{asset("assets")}}/images/phone-ic.png" alt="phone"/> {{$setting->phone_1??''}}
                         </h3>
-                        <p>{{$siteContent['home_call_us']->value??''}}</p>
                     </div>
                 </div>
             </div>

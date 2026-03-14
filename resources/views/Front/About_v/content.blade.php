@@ -4,6 +4,9 @@
 
 
     <div class="page-banner services-banner container-fluid no-padding img-trieangle">
+
+
+
         <div id="banner-slider" class="carousel slide" data-ride="carousel" data-interval="10000">
             <div class="carousel-inner" role="listbox">
                 @foreach($abouts as $key => $about)
@@ -14,7 +17,15 @@
 
                         <div class="banner-overlay-text">
                             <div class="container">
-                                <h1>{{$siteContent['home_about_us']->value ?? ''}}</h1>
+                                <h3>{{$siteContent['home_about_us']->value ?? ''}}</h3>
+                                <p>
+
+                                </p>
+
+                                <ol class="breadcrumb">
+                                    <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??'Home'}}</a></li>
+                                    <li class="active">{{$siteContent['home_about_us']->value??''}}</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
