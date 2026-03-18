@@ -63,6 +63,12 @@
                     <a href="{{ $post['permalink'] }}" target="_blank" class="d-block">
                         @php
                             $imageSrc = ($post['media_type'] === 'VIDEO') ? ($post['thumbnail_url'] ?? $post['media_url']) : $post['media_url'];
+
+                            $permalink = $post['permalink'];
+                            // Əgər Reels-dirsə linki /reels/ formatına salırıq
+                            if ($post['media_type'] === 'VIDEO') {
+                                $permalink = str_replace('/p/', '/reels/', $permalink);
+                            }
                         @endphp
 
                         <div style="position: relative;">
@@ -70,18 +76,18 @@
 
                             @if($post['media_type'] === 'VIDEO')
                                 <div
-                                    style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
-                                    <i class="fa fa-play"></i> Video
+                                        style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
+                                    <i class="fa fa-play"></i> {{$siteContent['home_in_video']->value??''}}
                                 </div>
                             @endif
                         </div>
                     </a>
                     <div class="card-body d-flex flex-column">
                         <p class="card-text text-muted flex-grow-1" style="font-size: 14px; line-height: 1.4;">
-                            {{ Str::limit($post['caption'] ?? 'Instagram Post', 80) }}
+                            {!!   Str::limit($post['caption'] ?? 'Instagram Post', 80) !!}
                         </p>
                         <small class="text-primary mt-2"><a target="_blank" class="d-block"
-                                                            href="{{$post['permalink']}}">{{$siteContent['home_more_details']??'Daha Ətraflı..'}}</a></small>
+                                                            href="{{$permalink}}">{{$siteContent['home_more_details']->value??'Daha Ətraflı..'}}</a></small>
                     </div>
                 </div>
             </div>
@@ -106,7 +112,8 @@
                         <div class="portfolio-item facilities col-md-4 col-sm-6" style="margin-bottom: 40px;">
 
 
-                            <div class="media-container" style="position: relative; overflow: hidden; height: 250px; border-radius: 8px; background: #000;">
+                            <div class="media-container"
+                                 style="position: relative; overflow: hidden; height: 250px; border-radius: 8px; background: #000;">
 
                                 @if($med->type === 'video' && !empty($med->video_url))
                                     @php
@@ -121,13 +128,17 @@
                                             $finalUrl = isset($match[1]) ? "https://www.tiktok.com/embed/v2/" . $match[1] : $url;
                                         }
                                     @endphp
-                                    <iframe width="100%" height="100%" src="{{ $finalUrl }}" frameborder="0" allowfullscreen style="width: 100%; height: 100%; object-fit: contain;"></iframe>
+                                    <iframe width="100%" height="100%" src="{{ $finalUrl }}" frameborder="0"
+                                            allowfullscreen
+                                            style="width: 100%; height: 100%; object-fit: contain;"></iframe>
                                 @elseif($med->type === 'image' && !empty($med->image_url))
-                                    <img src="{{ asset('storage/' . $med->image_url) }}" alt="{{ $med->title }}" style="width: 100%; height: 100%; object-fit: cover;"/>
+                                    <img src="{{ asset('storage/' . $med->image_url) }}" alt="{{ $med->title }}"
+                                         style="width: 100%; height: 100%; object-fit: cover;"/>
                                 @endif
 
 
-                                <div class="portfolio-item-hover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
+                                <div class="portfolio-item-hover"
+                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
                                     <a href="{{ $med->type === 'video' ? $med->video_url : asset('storage/' . $med->image_url) }}"
                                        target="_blank"
                                        style="background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold;">

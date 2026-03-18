@@ -379,5 +379,10 @@
         "az": "Tam Ekran",
         "en": "Full Screen",
         "ru": "Полноэкранный"
+    },
+    "home_in_video": {
+        "az": "Video",
+        "en": "Video",
+        "ru": "Видео"
     }
 }

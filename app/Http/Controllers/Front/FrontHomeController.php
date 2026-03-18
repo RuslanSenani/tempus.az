@@ -152,9 +152,10 @@ class FrontHomeController extends Controller
     public function instagram()
     {
         $token = env('INSTAGRAM_ACCESS_TOKEN');
+        $limit = 100;
 
-        $posts = Cache::remember('instagram_feed', 3600, function () use ($token) {
-            $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&access_token={$token}";
+        $posts = Cache::remember('instagram_feed', 3600, function () use ($token, $limit) {
+            $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&limit={$limit}&access_token={$token}";
 
             $response = Http::get($url);
 
@@ -164,7 +165,23 @@ class FrontHomeController extends Controller
 
             return [];
         });
+
         return $posts;
+
+//        $token = env('INSTAGRAM_ACCESS_TOKEN');
+//
+//        $posts = Cache::remember('instagram_feed', 3600, function () use ($token) {
+//            $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&access_token={$token}";
+//
+//            $response = Http::get($url);
+//
+//            if ($response->successful()) {
+//                return $response->json()['data'] ?? [];
+//            }
+//
+//            return [];
+//        });
+//        return $posts;
     }
 
     public function media(Request $request, $page = 1): View
