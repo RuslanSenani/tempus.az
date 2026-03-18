@@ -31,7 +31,8 @@
                                class="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 shadow-sm"
                                style="border-radius: 50px; background-color: #4C70B5; border: none;">
                                 <span
-                                    class="fw-bold">{{ $siteContent['home_view_loyal_document']->value ?? 'Qeydiyyat vəsiqəsi' }}</span>
+                                    class="fw-bold"
+                                    style="color: white;!important;">{{ $siteContent['home_view_loyal_document']->value ?? 'Qeydiyyat vəsiqəsi' }} </span>
                             </a>
                         </div>
                     @endif
