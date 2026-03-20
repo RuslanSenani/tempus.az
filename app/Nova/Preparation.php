@@ -80,26 +80,55 @@ class Preparation extends Resource
                 ->store(function ($request, $model, $attribute, $requestAttribute) {
                     $file = $request->file($requestAttribute);
                     if (!$file) return null;
-                    if ($model->image && Storage::disk('public')->exists($model->image)) {
-                        Storage::disk('public')->delete($model->image);
+
+                    $oldImage = $model->getOriginal($attribute);
+
+                    if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+
+                        Storage::disk('public')->delete($oldImage);
                     }
-                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+
+                    $filename = Str::uuid() . '.jpg';
                     $path = "preparation/$filename";
 
-                    // Version 3-də yeni Manager yaradılır
+
                     $manager = new ImageManager(new Driver());
+                    $image = $manager->read($file)->pad(800, 600, 'ffffff');
 
-                    // Şəkli oxuyuruq və ölçüləndiririk
-                    $image = $manager->read($file)
-                        ->pad(800, 600, 'ffffff');
-
-                    // Şəkli formatlayıb Storage-a yazırıq
                     Storage::disk('public')->put($path, $image->toJpeg(80));
 
                     return [
                         $attribute => $path,
                     ];
                 }),
+//            Image::make('Image', 'image')
+//                ->disk('public')
+//                ->prunable()
+//                ->deletable()
+//                ->store(function ($request, $model, $attribute, $requestAttribute) {
+//                    $file = $request->file($requestAttribute);
+//                    if (!$file) return null;
+//                    if ($model->image && Storage::disk('public')->exists($model->image)) {
+//                        Storage::disk('public')->delete($model->image);
+//                    }
+//                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+//                    $path = "preparation/$filename";
+//
+//                    // Version 3-də yeni Manager yaradılır
+//                    $manager = new ImageManager(new Driver());
+//
+//                    // Şəkli oxuyuruq və ölçüləndiririk
+//                    $image = $manager->read($file)
+//                        ->pad(800, 600, 'ffffff');
+//
+//                    // Şəkli formatlayıb Storage-a yazırıq
+//                    Storage::disk('public')->put($path, $image->toJpeg(80));
+//
+//                    return [
+//                        $attribute => $path,
+//                    ];
+//                }),
             Image::make('Official Document', 'official_document')
                 ->disk('public')
                 ->prunable()
