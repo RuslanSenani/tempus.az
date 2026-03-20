@@ -6,7 +6,6 @@
     <div class="page-banner services-banner container-fluid no-padding img-trieangle">
 
 
-
         <div id="banner-slider" class="carousel slide" data-ride="carousel" data-interval="10000">
             <div class="carousel-inner" role="listbox">
                 @foreach($abouts as $key => $about)
@@ -23,7 +22,8 @@
                                 </p>
 
                                 <ol class="breadcrumb">
-                                    <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??'Home'}}</a></li>
+                                    <li><a href="{{route('home')}}">{{$siteContent['home_home']->value??'Home'}}</a>
+                                    </li>
                                     <li class="active">{{$siteContent['home_about_us']->value??''}}</li>
                                 </ol>
                             </div>
@@ -54,7 +54,7 @@
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <div class="about-card glass-effect h-100 p-4 p-md-5 shadow-lg">
                         <div class="section-lead fs-5 text-secondary leading-relaxed">
-                            {!! $setting->about_us ?? 'Haqqımızda məlumat tezliklə əlavə olunacaq.' !!}
+                            {!! $setting->about_us ?? '' !!}
                             {!! $setting->history ?? '' !!}
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="company-info pe-lg-5">
 
-                        <div class="custom-blue-border text-muted fs-5">
+                        <div class="custom-blue-border text-muted">
                             {!! $setting->activity_zone ?? '' !!}
                         </div>
                         <div class=" mb-6">
@@ -142,41 +142,36 @@
     <div class="container my-5 py-5">
         <div class="row">
             <div class="col-12 mb-5 text-center">
-                <h2 class="section-title fw-bold">{{$siteContent['home_therapeutic_activity']->value??''}}</h2>
+                <h2 class="section-title fw-bold">{{ $siteContent['home_therapeutic_activity']->value ?? '' }}</h2>
                 <div class="title-divider mx-auto"></div>
             </div>
 
             @php
-                $half = ceil($categories->count() / 2);
+                // Kateqoriyaları tən ortadan iki hissəyə bölürük
+                $chunks = $categories->chunk(ceil($categories->count() / 2));
             @endphp
 
-            <div class="col-lg-6">
-                <div class="therapeutic-card shadow-sm">
-                    <ul class="list-unstyled mb-0">
-
-                        @foreach($categories as $index => $item)
-
-                            @if($index == $half)
-                    </ul>
+            @foreach($chunks as $chunk)
+                <div class="col-lg-6 {{ $loop->last ? 'mt-4 mt-lg-0' : '' }}">
+                    <div class="therapeutic-card shadow-sm h-100">
+                        <ul class="list-unstyled mb-0">
+                            @foreach($chunk as $item)
+                                <li class="therapeutic-item {{ $item->is_otc ? 'highlight-item' : '' }}">
+                                    @if($item->is_otc)
+                                        <i class="bi bi-patch-check-fill text-success me-2"></i>
+                                    @endif
+                                    <span>
+                                    <a href="{{ route('category-details', $item->id) }}"
+                                       class="text-decoration-none text-dark fw-medium">
+                                        {{ $item->name }}
+                                    </a>
+                                </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6 mt-4 mt-lg-0">
-                <div class="therapeutic-card shadow-sm">
-                    <ul class="list-unstyled mb-0">
-                        @endif
-
-                        <li class="therapeutic-item {{ $item->is_otc ? 'highlight-item' : '' }}">
-                            @if($item->is_otc)
-                                <i class="bi bi-patch-check-fill text-success me-2"></i>
-                            @endif
-                            <span><a href="{{route('category-details',$item->id)}}">{{ $item->name }}</a></span>
-                        </li>
-
-                        @endforeach
-
-                    </ul>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 
@@ -190,14 +185,12 @@
     padding: 60px 0;
     font-family: sans-serif;">
             <div class="container">
-                <div class="row">
 
-
+                <div class="row g-4">
                     <div class="col-lg-6">
-                        <div class="card h-100 border-0 shadow-lg custom-mission-card">
+                        <div class="card h-100 border-0 shadow-lg custom-mission-card" style="border-radius: 25px;">
                             <div class="card-body p-5">
-
-                                <h1 class="fw-bold mb-3">{{$siteContent['home_our_mission']->value ?? 'Missiyamız'}}</h1>
+                                <h1 class="fw-bold mb-3 text-dark">{{$siteContent['home_our_mission']->value ?? ''}}</h1>
                                 <div class="description-text">
                                     {!! $setting->mission ?? '' !!}
                                 </div>
@@ -206,19 +199,57 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <div class="card h-100 border-0 shadow-lg custom-vision-card">
+                        <div class="card h-100 border-0 shadow-lg custom-vision-card" style="border-radius: 25px;">
                             <div class="card-body p-5">
-
-                                <h1 class="fw-bold mb-3">{{$siteContent['home_our_vision']->value ?? 'Vizionumuz'}}</h1>
+                                <h1 class="fw-bold mb-3 text-dark">{{$siteContent['home_our_vision']->value ?? ''}}</h1>
                                 <div class="description-text">
                                     {!! $setting->vision ?? '' !!}
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
+
+                @php
+                    $valueTags = explode(',', html_entity_decode(strip_tags($setting->values)));
+                @endphp
+                <div class="row justify-content-center mt-5">
+                    <div class="col-lg-12">
+                        <div class="card border-0 shadow-sm custom-values-card"
+                             style="border-radius: 40px; background: #ffffff; overflow: hidden;">
+
+                            <div class="card-body p-4 p-md-5">
+                                <div class="row align-items-center">
+
+                                    <div class="col-lg-4 text-center text-lg-start mb-4 mb-lg-0 border-end-lg">
+                                        <h1 class="fw-bold display-5 text-dark-blue mb-3">
+                                            {{$siteContent['home_our_values']->value ?? 'Dəyərlərimiz'}}
+                                        </h1>
+                                    </div>
+
+                                    <div class="col-lg-8">
+                                        <div class="values-grid px-lg-4">
+                                            <div
+                                                    class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                                                @foreach($valueTags as $tag)
+                                                    @if(trim($tag, " \t\n\r\0\x0B\xA0") != "")
+                                                        <div class="value-tag">
+                                                            <div class="dot rotate-{{$loop->iteration}}"></div>
+                                                            <span>{{ trim($tag) }}</span>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
     </div>

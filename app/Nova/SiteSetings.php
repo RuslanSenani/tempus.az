@@ -227,7 +227,7 @@ class SiteSetings extends Resource
                     Image::make('Activities Logo', 'activities_logo')
                         ->disk('public')
                         ->prunable()
-                        ->rules( 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048')
+                        ->rules('image', 'mimes:jpg,jpeg,png,gif', 'max:2048')
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
 
                             $file = $request->file($requestAttribute);
@@ -261,7 +261,7 @@ class SiteSetings extends Resource
                 Tab::make('Our Values', [
                     NovaTabTranslatable::make([
                         CkEditor::make('values', 'values')
-                            ->rules('required')
+                            ->rules('required')->help("Deyer Yazarken ve ya Deyer Elave Ederken Mütləq vergül (,)-ile ayırın")
                     ])
                 ]),
                 Tab::make('Our History', [

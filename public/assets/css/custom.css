@@ -144,10 +144,30 @@
     letter-spacing: -0.5px;
 }
 
+/*.description-text {*/
+/*    color: #666;*/
+/*    line-height: 1.8;*/
+/*    font-size: 1.2rem;*/
+/*}*/
+
 .description-text {
-    color: #666;
-    line-height: 1.8;
-    font-size: 1.05rem;
+    color: #2d3436;
+    line-height: 1.9;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+}
+
+.description-text p {
+    margin-bottom: 25px;
+
+}
+
+@media (max-width: 768px) {
+    .description-text {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
 }
 
 /* Mobil telefonlar üçün kiçik tənzimləmə */
@@ -1205,35 +1225,22 @@ canvas {
     background: #4854C7;
 }
 
-/* Region elementləri (Pills) */
-.region-pill {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    background: #f8f9fe;
-    border-radius: 15px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: default;
-    border: 1px solid transparent;
+/* Sütunlar arasındakı daxili məsafəni 5px etmək üçün */
+.custom-gutter > [class*='col-'] {
+    padding-right: 2.5px;
+    padding-left: 2.5px;
+    margin-bottom: 5px; /* Alt-alta düşəndə də 5px olsun */
 }
 
-.region-pill i {
-    font-size: 1.3rem; /* İkonu böyütdük */
-    color: #4854C7;
-    margin-right: 12px;
+/* Row-un kənarındakı artıq boşluğu kompensasiya etmək üçün */
+.custom-gutter {
+    margin-right: -2.5px;
+    margin-left: -2.5px;
 }
 
-.region-pill span {
-    font-size: 1.1rem; /* Mətni böyütdük */
-    font-weight: 600;
-    color: #4b4b4b;
-}
-
-.region-pill:hover {
-    background: #ffffff;
-    border-color: #4854C7;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(72, 84, 199, 0.15);
+.custom-gutter * {
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 /* Mobil uyğunluq */
@@ -1251,26 +1258,75 @@ canvas {
     }
 }
 
-/* Sütunlar arasındakı daxili məsafəni 5px etmək üçün */
-.custom-gutter > [class*='col-'] {
-    padding-right: 2.5px;
-    padding-left: 2.5px;
-    margin-bottom: 5px; /* Alt-alta düşəndə də 5px olsun */
-}
-
-/* Row-un kənarındakı artıq boşluğu kompensasiya etmək üçün */
-.custom-gutter {
-    margin-right: -2.5px;
-    margin-left: -2.5px;
-}
-
+/* Region elementləri (Pills) */
 .region-pill {
-    padding: 10px; /* Pill-in daxili genişliyi üçün */
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    display: block; /* Tam genişlik tutması üçün */
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 20px 25px; /* Daha geniş sahə */
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid #e1e4ed;
+    overflow: hidden; /* Fonun kənarlardan daşmaması üçün */
+    transition: all 0.4s ease;
+    z-index: 1;
 }
+
+/* Arxa fondakı rəngli blok (Overlay) */
+.region-pill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px; /* İlkin olaraq ikonun altını tutur */
+    height: 100%;
+    background: rgba(72, 84, 199, 0.1); /* Sənin istədiyin o yumşaq mavi rəng */
+    transition: all 0.4s ease;
+    z-index: -1; /* Yazının altında qalması üçün */
+}
+
+.region-pill i {
+    font-size: 1.9rem;
+    color: #4854C7;
+    margin-right: 15px;
+    z-index: 2;
+}
+
+.region-pill span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3436;
+    z-index: 2; /* Yazının fonun üstündə durmasını təmin edir */
+    transition: color 0.3s ease;
+}
+
+/* HOVER - Bütün bloku rənglə doldurmaq */
+.region-pill:hover::before {
+    width: 100%; /* Hover edəndə rəng bütün border-in içini tutur */
+    background: #4854C7; /* Rəng tam tündləşir */
+}
+
+.region-pill:hover span,
+.region-pill:hover i {
+    color: #ffffff; /* Üstündəki yazılar ağarır */
+}
+
+.region-pill:hover {
+    transform: scale(1.03); /* Kiçik bir böyümə effekti */
+    box-shadow: 0 10px 25px rgba(72, 84, 199, 0.2);
+}
+
+@media (max-width: 576px) {
+    .region-pill span {
+        font-size: 1rem;
+    }
+
+    .region-pill {
+        padding: 12px 15px;
+    }
+}
+
 
 .section-lead {
     font-size: 1.7rem; /* Təxminən 24px */
@@ -1352,6 +1408,9 @@ canvas {
 }
 
 .custom-blue-border {
+    font-weight: bold;
+    font-size: 16px;
+!important;
     border-left: 5px solid #007bff; /* Mavi rəng kodu */
     padding-left: 20px; /* Xəttlə yazı arası məsafə */
     margin-left: 10px; /* Xəttin daxili blokdan kənar məsafəsi */
@@ -1667,27 +1726,6 @@ canvas {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*!* Ana Nəticə Bloku *!*/
 /*#search-results {*/
 /*    position: absolute;*/
@@ -1759,9 +1797,6 @@ canvas {
 /*}*/
 
 
-
-
-
 :root {
     --search-blue: #007bff;
     --search-gray: #8e8e93;
@@ -1818,14 +1853,20 @@ canvas {
     max-height: 450px;
     overflow-y: auto;
     display: none;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     transform-origin: top;
     animation: slideIn 0.2s ease-out;
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Nəticə Elementləri */
@@ -1874,3 +1915,70 @@ canvas {
         padding: 20px 18px;
     }
 }
+
+/* Rəng tonları */
+:root {
+    --soft-blue: #f0f4ff;
+    --primary-main: #4854C7;
+    --text-dark: #2d3436;
+}
+
+.text-dark-blue { color: var(--text-dark); }
+
+.bg-soft-primary {
+    background-color: var(--soft-blue);
+}
+
+.bg-light-soft {
+    background-color: #fafbfc;
+}
+
+/* Dəyər Teqləri (Pill-lər) */
+.value-tag {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e1e8f5;
+    padding: 12px 25px;
+    border-radius: 100px;
+    font-weight: 700;
+    color: var(--primary-main);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+}
+
+/* Kiçik nöqtə animasiyası (Şəkildəki nöqtələrin modern versiyası) */
+.value-tag .dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-main);
+    border-radius: 50%;
+    margin-right: 12px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effekti - Çox yumşaq keçid */
+.value-tag:hover {
+    background-color: var(--primary-main);
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(72, 84, 199, 0.15);
+}
+
+.value-tag:hover .dot {
+    background-color: #ffffff;
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Border-end yalnız desktopda görünsün */
+@media (min-width: 992px) {
+    .border-end-lg {
+        border-right: 1px solid #eee !important;
+    }
+}
+

@@ -404,5 +404,10 @@
         "az": "Yüklənir...",
         "en": "Loading...",
         "ru": "Загрузка..."
+    },
+    "home_our_values": {
+        "az": "Dəyərlərimiz",
+        "en": "Our Values",
+        "ru": "Наши ценности"
     }
 }
