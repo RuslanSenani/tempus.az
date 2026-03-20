@@ -15,6 +15,7 @@ use App\Contracts\StatisticRepositoryInterface;
 use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Region;
+use App\Models\Site_Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -149,45 +150,56 @@ class FrontHomeController extends Controller
     }
 
 
-    public function instagram()
+    private function getInstagramData($after = null, $limit = 28)
     {
-        $token = env('INSTAGRAM_ACCESS_TOKEN');
-        $limit = 100;
 
-        $posts = Cache::remember('instagram_feed', 3600, function () use ($token, $limit) {
+
+        $setting = Site_Settings::first();
+        $token = $setting->key_value['instagram_access_token'] ?? null;
+
+        if (!$token) return ['posts' => [], 'next_cursor' => null];
+
+
+        $cacheKey = 'insta_feed_' . ($after ?: 'initial');
+        return Cache::remember($cacheKey, 86400, function () use ($limit, $token, $after) {
             $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&limit={$limit}&access_token={$token}";
+
+            if ($after) {
+                $url .= "&after={$after}";
+            }
 
             $response = Http::get($url);
 
             if ($response->successful()) {
-                return $response->json()['data'] ?? [];
+                $resJson = $response->json();
+                $posts = collect($resJson['data'] ?? [])->map(function ($post) {
+                    $post['permalink'] = str_replace(['/reel/', '/reels/'], '/p/', $post['permalink'] ?? '');
+                    $post['imageSrc'] = ($post['media_type'] === 'VIDEO')
+                        ? ($post['thumbnail_url'] ?? $post['media_url'])
+                        : $post['media_url'];
+                    return $post;
+                })->all();
+
+                return [
+                    'posts' => $posts,
+                    'next_cursor' => $resJson['paging']['cursors']['after'] ?? null
+                ];
             }
 
-            return [];
+            return ['posts' => [], 'next_cursor' => null];
         });
-
-        return $posts;
-
-//        $token = env('INSTAGRAM_ACCESS_TOKEN');
-//
-//        $posts = Cache::remember('instagram_feed', 3600, function () use ($token) {
-//            $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&access_token={$token}";
-//
-//            $response = Http::get($url);
-//
-//            if ($response->successful()) {
-//                return $response->json()['data'] ?? [];
-//            }
-//
-//            return [];
-//        });
-//        return $posts;
     }
+
+    public function instagramFeed(Request $request)
+    {
+        $after = $request->get('after');
+        $data = $this->getInstagramData($after, 50);
+        return response()->json($data);
+    }
+
 
     public function media(Request $request, $page = 1): View
     {
-
-
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
@@ -196,6 +208,7 @@ class FrontHomeController extends Controller
         $media = $this->mediaRepository->getMediaByLimit(12, (int)$page);
         $media->setPath(url('media/page'));
 
+        $instaData = $this->getInstagramData();
 
         $viewData = [
             'viewFolder' => $this->viewFolder . "Gallery_v",
@@ -205,11 +218,13 @@ class FrontHomeController extends Controller
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
             'media' => $media,
-            'posts' => $this->instagram()
+            'posts' => $instaData['posts'],
+            'next_cursor' => $instaData['next_cursor']
         ];
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
+
 
     public function mediaDetails(int $id): View
     {

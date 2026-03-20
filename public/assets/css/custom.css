@@ -32,13 +32,6 @@
 }
 
 
-.instagram-card-img {
-    width: 100%;
-    height: 250px; /* Bütün şəkillər üçün sabit hündürlük */
-    object-fit: cover; /* Şəkli dartmır, sahəni dolduracaq şəkildə kəsir */
-    object-position: center; /* Şəklin mərkəzini fokusda saxlayır */
-}
-
 .card {
     transition: transform 0.2s;
     border: none !important;
@@ -385,11 +378,6 @@ canvas {
     border-bottom: none;
 }
 
-.search-item:hover {
-    background: #f8f9fa;
-    text-decoration: none;
-    color: #000;
-}
 
 .search-item h6 {
     margin: 0;
@@ -397,10 +385,6 @@ canvas {
     font-weight: 600;
 }
 
-.search-item small {
-    color: #777;
-    font-size: 13px;
-}
 
 .not-found {
     padding: 15px;
@@ -1039,17 +1023,6 @@ canvas {
     color: #444;
 }
 
-#search-results {
-    top: 100%; /* Inputun tam altında */
-    left: 0;
-    right: 0;
-    background: white;
-    border-radius: 0 0 10px 10px;
-    border: 1px solid #ddd;
-    max-height: 300px;
-    overflow-y: auto;
-    margin-top: 2px;
-}
 
 .list-group-item-action:hover {
     background-color: #f8f9fa;
@@ -1541,7 +1514,9 @@ canvas {
 
 /* Grid Vizualizasiyası Üçün */
 @media (max-width: 991px) {
-    .section-title { font-size: 1.6rem; }
+    .section-title {
+        font-size: 1.6rem;
+    }
 }
 
 .media-container:hover .portfolio-item-hover {
@@ -1550,5 +1525,352 @@ canvas {
 
 /*////////////////////////////////////////////////*/
 
+/*.instagram-card-img {*/
+/*    width: 100%;*/
+/*    height: 250px; !* Bütün şəkillər üçün sabit hündürlük *!*/
+/*    object-fit: cover; !* Şəkli dartmır, sahəni dolduracaq şəkildə kəsir *!*/
+/*    object-position: center; !* Şəklin mərkəzini fokusda saxlayır *!*/
+/*}*/
+
+/*!* Kartın içindəki caption hissəsini də sabitləyək *!*/
+/*.card-text {*/
+/*    height: 40px; !* İki sətirlik yer ayırırıq *!*/
+/*    overflow: hidden;*/
+/*    display: -webkit-box;*/
+/*    -webkit-line-clamp: 2;*/
+/*    -webkit-box-orient: vertical;*/
+/*}*/
 
 
+.insta-card-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Video İkonu */
+.video-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    z-index: 2;
+}
+
+/* Instagram üslubunda Spinner (Yüklənmə ikonası) */
+.insta-loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobil üçün kənar boşluqların tənzimlənməsi */
+@media (max-width: 768px) {
+    .insta-col {
+        padding: 2px !important; /* Mobil cihazlarda şəkillər bir-birinə yaxın olsun */
+    }
+}
+
+
+/* Bütün sütunları eyni hündürlükdə saxlayır */
+#instagram-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.insta-col {
+    display: flex;
+    align-items: stretch; /* Kartları aşağıya qədər uzadır */
+}
+
+.insta-col .card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Yazı sahəsini sabitləyirik */
+.insta-caption {
+    font-size: 13px;
+    line-height: 1.4;
+    height: 40px; /* 2 sətirlik yer */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+/*///////////////////////////////////////////////////////////*/
+
+
+/* Şəkillərin yerləşdiyi konteyner */
+.insta-card-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Məcburi 1:1 kvadrat formatı */
+    overflow: hidden;
+    background-color: #eee; /* Şəkil yüklənənə qədər boz fon */
+}
+
+/* Konteynerin içindəki şəkil */
+.insta-card-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Şəkli kvadratın içinə tam doldurur (boşluq qalmır) */
+    object-position: center; /* Şəkli mərkəzdən kəsir */
+}
+
+/* Mobildə (col-6 olanda) kartların hündürlüyünü eyniləşdirək */
+@media (max-width: 768px) {
+    .insta-col {
+        display: flex;
+    }
+
+    .insta-col .card {
+        width: 100%;
+    }
+
+    /* Mobildə yazı hissəsi dizaynı pozmasın deyə onu tam sabitləyirik və ya gizlədirik */
+    .insta-caption {
+        font-size: 11px;
+        height: 32px;
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*!* Ana Nəticə Bloku *!*/
+/*#search-results {*/
+/*    position: absolute;*/
+/*    top: 100%;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    background: #ffffff;*/
+/*    border-radius: 0 0 12px 12px; !* Üst künclər düz, alt yuvarlaq *!*/
+/*    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);*/
+/*    z-index: 99999;*/
+/*    border: 2px solid #007bff;*/
+/*    border-top: none;*/
+/*    margin-top: -2px;*/
+/*    max-height: 450px; !* Daha çox nəticə görmək üçün *!*/
+/*    overflow-y: auto;*/
+/*}*/
+
+/*!* Hər bir sətir - Daha UZUN və GENİŞ *!*/
+/*.search-item {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    padding: 16px 20px; !* Hündürlüyü bura artırır (16px üst-alt) *!*/
+/*    min-height: 70px;   !* Blokun minimum hündürlüyü *!*/
+/*    justify-content: center;*/
+/*    text-decoration: none !important;*/
+/*    border-bottom: 1px solid #f1f4f6;*/
+/*    transition: all 0.2s ease;*/
+/*}*/
+
+/*.search-item:hover {*/
+/*    background-color: #f8fbff;*/
+/*}*/
+
+/*!* Üst kiçik etiket *!*/
+/*.item-sub-label {*/
+/*    font-size: 9px;*/
+/*    font-weight: 700;*/
+/*    text-transform: uppercase;*/
+/*    letter-spacing: 1px;*/
+/*    margin-bottom: 4px;*/
+/*    color: #6c757d;*/
+/*}*/
+
+/*!* Əsas AD - Qalın və Böyük *!*/
+/*.item-main-name {*/
+/*    font-size: 16px;*/
+/*    font-weight: 800;*/
+/*    color: #1491e6;*/
+/*    line-height: 1.3; !* Yazı uzun olsa alt sətrə rahat keçsin *!*/
+/*    word-wrap: break-word; !* Uzun sözləri parçalayıb yerləşdirsin *!*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+/*!* MOBİL VERSİYA ÜÇÜN ÖZƏL AYARLAR *!*/
+/*@media (max-width: 768px) {*/
+/*    #search-results {*/
+/*        position: absolute; !* Qopmaması üçün absolute saxlayırıq *!*/
+/*        width: 100%;*/
+/*        left: 0;*/
+/*    }*/
+
+/*    .search-item {*/
+/*        padding: 18px 15px; !* Mobildə daha da hündür blok *!*/
+/*    }*/
+
+/*    .item-main-name {*/
+/*        font-size: 12px; !* Mobildə yazıların kənara çıxmaması üçün bir az kiçiltdik *!*/
+/*    }*/
+/*}*/
+
+
+
+
+
+:root {
+    --search-blue: #007bff;
+    --search-gray: #8e8e93;
+    --search-bg: #ffffff;
+    --radius: 12px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    z-index: 999999;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#live-search {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid #e1e1e1;
+    border-radius: var(--radius);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    background: var(--search-bg);
+}
+
+#live-search:focus {
+    border-color: var(--search-blue);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+}
+
+/* Yüklənmə İkonu */
+#search-loader {
+    position: absolute;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+
+/* Nəticələr Paneli */
+.search-dropdown-container {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: var(--search-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    max-height: 450px;
+    overflow-y: auto;
+    display: none;
+    border: 1px solid rgba(0,0,0,0.05);
+    transform-origin: top;
+    animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Nəticə Elementləri */
+.search-item {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none !important;
+    border-bottom: 1px solid #f2f2f7;
+    transition: background 0.2s;
+}
+
+.search-item:hover {
+    background: #f9f9fb;
+}
+
+.label-upper {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--search-gray); /* Boz rəng - Üst */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.title-lower {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--search-blue); /* Mavi rəng - Alt */
+    line-height: 1.2;
+}
+
+/* MOBİL VERSİYA - Tamamilə fərqli və güclü */
+@media (max-width: 768px) {
+    .search-dropdown-container {
+        position: fixed; /* Mobildə qətiyyən altda qalmır */
+        top: 80px; /* Header hündürlüyünə görə tənzimlə */
+        left: 15px;
+        right: 15px;
+        width: auto;
+        max-height: 70vh;
+        z-index: 9999999 !important;
+    }
+
+    .search-item {
+        padding: 20px 18px;
+    }
+}

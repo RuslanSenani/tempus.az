@@ -36,7 +36,7 @@ Route::get('/vacancy', [FrontHomeController::class, 'vacancy'])->name('vacancy')
 Route::get('/media', [FrontHomeController::class, 'media'])->name('media');
 Route::get('/media-details/{id}', [FrontHomeController::class, 'mediaDetails'])->name('media-details');
 Route::get('/media/page/{page}', [FrontHomeController::class, 'media'])->name('media.page');
-
+Route::get('/instagram-feed', [FrontHomeController::class, 'instagramFeed'])->name('instagram.ajax');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/vacancy-store', [VacancyApplicationController::class, 'store'])

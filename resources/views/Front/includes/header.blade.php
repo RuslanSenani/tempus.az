@@ -133,15 +133,30 @@
                                     <form action="javascript:void(0);" method="GET" class="position-relative w-100"
                                           id="searchForm">
                                         @csrf
-                                        <div class="input-group search-box">
-                                            <input type="text" id="live-search" name="query"
-                                                   class="form-control shadow-none"
-                                                   placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}"
-                                                   autocomplete="off">
 
+                                        <div class="search-container">
+                                            <div class="search-wrapper">
+                                                <input type="text" id="live-search"
+                                                       placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}"
+                                                       autocomplete="off">
+                                                <div id="search-loader" class="spinner-border text-primary" role="status"></div>
+                                            </div>
+                                            <div id="search-results" class="search-dropdown-container"></div>
                                         </div>
+{{--                                        <div class="input-group search-box">--}}
+{{--                                            <input type="text" id="live-search" name="query"--}}
+{{--                                                   class="form-control shadow-none"--}}
+{{--                                                   placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}"--}}
+{{--                                                   >--}}
 
-                                        <div id="search-results" class="search-dropdown-container shadow-lg"></div>
+{{--                                        </div>--}}
+
+{{--                                        <div class="search-wrapper"><input type="text" id="live-search"--}}
+{{--                                                                           placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}" autocomplete="off">--}}
+{{--                                            <div id="search-results"></div>--}}
+{{--                                        </div>--}}
+
+{{--                                        <div id="search-results" class="search-dropdown-container shadow-lg"></div>--}}
                                     </form>
                                 </li>
                             </ul>

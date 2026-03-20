@@ -384,5 +384,25 @@
         "az": "Video",
         "en": "Video",
         "ru": "Видео"
+    },
+    "home_link_to_instagram": {
+        "az": "İnstaqrama keçid et",
+        "en": "Go to Instagram",
+        "ru": "Перейти в Instagram"
+    },
+    "home_instagram_post": {
+        "az": "Instagram Post",
+        "en": "Instagram Post",
+        "ru": "Пост в Instagram"
+    },
+    "home_load_more": {
+        "az": "Daha çox yüklə",
+        "en": "Load more",
+        "ru": "Загрузить ещё"
+    },
+    "home_downloading": {
+        "az": "Yüklənir...",
+        "en": "Loading...",
+        "ru": "Загрузка..."
     }
 }

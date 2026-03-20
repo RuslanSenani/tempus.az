@@ -21,71 +21,145 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.getElementById('live-search').addEventListener('input', function () {
+
+// document.getElementById('live-search').addEventListener('input', function () {
+//     const query = this.value.trim();
+//     const resultsDiv = document.getElementById('search-results');
+//     const currentLang = document.documentElement.lang || 'az';
+//
+//     // JSON formatında olan translatable datanı oxumaq üçün funksiya
+//     const getCleanText = (field) => {
+//         if (!field) return '';
+//         // Əgər artıq obyekt kimidirsə
+//         if (typeof field === 'object') {
+//             return field[currentLang] || field['az'] || Object.values(field)[0] || '';
+//         }
+//         // Əgər string kimidirsə, JSON parse etməyə çalış
+//         try {
+//             const obj = JSON.parse(field);
+//             return obj[currentLang] || obj['az'] || Object.values(obj)[0] || '';
+//         } catch (e) {
+//             return field;
+//         }
+//     };
+//
+//     if (query.length > 2) {
+//         fetch(`/live-search?query=${encodeURIComponent(query)}`, {
+//             headers: {'X-Requested-With': 'XMLHttpRequest'}
+//         })
+//             .then(response => response.json())
+//             .then(data => {
+//                 resultsDiv.innerHTML = '';
+//                 resultsDiv.style.display = 'block';
+//
+//                 if (data.length > 0) {
+//                     data.forEach(item => {
+//                         const prepName = getCleanText(item.name);
+//                         const catName = item.category ? getCleanText(item.category.name) : '';
+//
+//                         const resultLink = document.createElement('a');
+//                         resultLink.className = 'search-item d-block p-2 text-decoration-none border-bottom';
+//                         resultLink.href = `/preparation-detail/${item.id}`; // Route-u özünə görə düzəlt
+//
+//                         resultLink.innerHTML = `
+//                         <div class="search-content">
+//                             ${catName ? `<small class="text-primary text-uppercase" style="font-size: 10px; font-weight: bold;">${catName}</small>` : ''}
+//                             <h6 class="mb-0 text-dark" style="font-size: 14px;">${prepName}</h6>
+//                         </div>
+//                     `;
+//                         resultsDiv.appendChild(resultLink);
+//                     });
+//                 } else {
+//                     resultsDiv.innerHTML = '<div class="p-3 text-muted small text-center">Nəticə tapılmadı</div>';
+//                 }
+//             })
+//             .catch(err => console.error('Axtarış xətası:', err));
+//     } else {
+//         resultsDiv.style.display = 'none';
+//     }
+// });
+
+
+
+const searchInput = document.getElementById('live-search');
+const resultsDiv = document.getElementById('search-results');
+const loader = document.getElementById('search-loader');
+let searchTimeout;
+
+// JSON Translatable üçün köməkçi
+const getLangText = (data) => {
+    const lang = document.documentElement.lang || 'az';
+    if (!data) return '';
+    if (typeof data === 'object') return data[lang] || Object.values(data)[0];
+    try {
+        const parsed = JSON.parse(data);
+        return parsed[lang] || Object.values(parsed)[0];
+    } catch { return data; }
+};
+
+searchInput.addEventListener('input', function() {
     const query = this.value.trim();
-    const resultsDiv = document.getElementById('search-results');
-    const currentLang = document.documentElement.lang || 'az';
-    if (query.length > 2) {
+    clearTimeout(searchTimeout);
 
-        fetch(window.location.origin + `/live-search?query=${encodeURIComponent(query)}`, {
-            headers: {'X-Requested-With': 'XMLHttpRequest'}
+    if (query.length < 2) {
+        resultsDiv.style.display = 'none';
+        return;
+    }
+
+    loader.style.display = 'block';
+
+    searchTimeout = setTimeout(() => {
+        fetch(`/live-search?query=${encodeURIComponent(query)}`, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
-            .then(response => {
-                // Başlığı oxuyuruq və decode edirik (Azərbaycan hərfləri üçün)
-                const encodedMsg = response.headers.get('X-Search-Message');
-                window.currentSearchError = encodedMsg ? decodeURIComponent(escape(atob(encodedMsg))) : '';
-                return response.json();
-            })
+            .then(res => res.json())
             .then(data => {
+                loader.style.display = 'none';
                 resultsDiv.innerHTML = '';
-                resultsDiv.style.display = 'block';
 
-                if (data && data.length > 0) {
+                if (data.length > 0) {
+                    resultsDiv.style.display = 'block';
                     data.forEach(item => {
-                        // JSON obyektini təmizləyən funksiya
+                        const name = getLangText(item.name);
+                        const isCat = item.search_type === 'category';
+                        const subLabel = isCat ? '' : (item.category ? getLangText(item.category.name) : '');
 
-                        const getCleanText = (field) => {
-                            if (!field) return '';
-                            if (typeof field === 'object') {
-                                return field[currentLang] || field['az'] || Object.values(field)[0] || '';
-                            }
-                            try {
-                                const obj = JSON.parse(field);
-                                return obj[currentLang] || obj['az'] || Object.values(obj)[0] || '';
-                            } catch (e) {
-                                return field;
-                            }
-                        };
-
-
-                        const name = getCleanText(item.name);
-                        const title = getCleanText(item.title);
-
-                        const resultLink = document.createElement('a');
-                        resultLink.className = 'search-item';
-                        resultLink.href = `/preparation-detail/${item.id}`; // Sizin route-a uyğun dəyişin
-
-                        resultLink.innerHTML = `
-                        <h6>${name}</h6>
-                        ${title ? `<small>${title}</small>` : ''}
+                        const a = document.createElement('a');
+                        a.href = isCat ? `/category-details/${ item.id}` : `/preparation-detail/${item.id}`;
+                        a.className = 'search-item';
+                        a.innerHTML = `
+                        <span class="label-upper">${subLabel}</span>
+                        <span class="title-lower">${name}</span>
                     `;
-                        resultsDiv.appendChild(resultLink);
+                        resultsDiv.appendChild(a);
                     });
                 } else {
-                    resultsDiv.innerHTML = `<div class="not-found">${window.currentSearchError}</div>`;
+                    resultsDiv.innerHTML = '<div class="p-4 text-center text-muted">Heç bir nəticə tapılmadı.</div>';
+                    resultsDiv.style.display = 'block';
                 }
             })
-            .catch(err => console.error('Xəta:', err));
-    } else {
+            .catch(() => {
+                loader.style.display = 'none';
+            });
+    }, 400); // 400ms serverə nəfəs almaq üçün kifayətdir
+});
+
+// Kənara toxunanda bağlamaq
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
         resultsDiv.style.display = 'none';
     }
 });
 
 // Kənara kliklədikdə bağla
 document.addEventListener('click', function (e) {
-    if (!document.getElementById('searchForm').contains(e.target)) {
+    if (!document.getElementById('live-search').contains(e.target) &&
+        !document.getElementById('search-results').contains(e.target)) {
         document.getElementById('search-results').style.display = 'none';
     }
+    // if (!document.getElementById('searchForm').contains(e.target)) {
+    //     document.getElementById('search-results').style.display = 'none';
+    // }
 });
 
 
@@ -126,6 +200,9 @@ document.addEventListener('click', function (e) {
         });
     }
 });
+
+
+
 
 
 

@@ -56,46 +56,27 @@
     </div>
 
 
-    <div class="row">
-        @forelse($posts as $post)
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100 shadow-sm overflow-hidden">
-                    <a href="{{ $post['permalink'] }}" target="_blank" class="d-block">
-                        @php
-                            $imageSrc = ($post['media_type'] === 'VIDEO') ? ($post['thumbnail_url'] ?? $post['media_url']) : $post['media_url'];
+    <div class="container-fluid px-md-5 mt-4">
+        <div class="row g-2" id="instagram-wrapper">
+            @foreach($posts as $post)
+                @include('partials.instagram_card', ['post' => $post])
+            @endforeach
+        </div>
 
-                            $permalink = $post['permalink'];
-                            // Əgər Reels-dirsə linki /reels/ formatına salırıq
-                            if ($post['media_type'] === 'VIDEO') {
-                                $permalink = str_replace('/p/', '/reels/', $permalink);
-                            }
-                        @endphp
+        {{-- Yükləmə bölməsi --}}
+        <div class="text-center my-5 w-100">
+            {{-- "Daha çox" düyməsi --}}
+            <button id="load-more-btn" class="btn btn-primary px-5 py-2 shadow-sm" onclick="loadMoreInstagram()"
+                    style="{{ !$next_cursor ? 'display:none;' : '' }}">
+                {{$siteContent['home_load_more']->value??''}}
+            </button>
 
-                        <div style="position: relative;">
-                            <img src="{{ $imageSrc }}" class="instagram-card-img" alt="Instagram Post">
-
-                            @if($post['media_type'] === 'VIDEO')
-                                <div
-                                        style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">
-                                    <i class="fa fa-play"></i> {{$siteContent['home_in_video']->value??''}}
-                                </div>
-                            @endif
-                        </div>
-                    </a>
-                    <div class="card-body d-flex flex-column">
-                        <p class="card-text text-muted flex-grow-1" style="font-size: 14px; line-height: 1.4;">
-                            {!!   Str::limit($post['caption'] ?? 'Instagram Post', 80) !!}
-                        </p>
-                        <small class="text-primary mt-2"><a target="_blank" class="d-block"
-                                                            href="{{$permalink}}">{{$siteContent['home_more_details']->value??'Daha Ətraflı..'}}</a></small>
-                    </div>
-                </div>
+            {{-- Yüklənmə ikonası (ilkin olaraq gizli) --}}
+            <div id="loading-spinner" style="display: none;">
+                <div class="insta-loader"></div>
+                <p class="text-muted mt-2">{{$siteContent['home_downloading']->value??''}}</p>
             </div>
-        @empty
-            <div class="col-12">
-                <p class="text-center">{{$siteContent['home_not_insta_share']->value??''}}</p>
-            </div>
-        @endforelse
+        </div>
     </div>
 </div>
 
