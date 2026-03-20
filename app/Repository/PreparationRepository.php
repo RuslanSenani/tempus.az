@@ -29,7 +29,7 @@ class PreparationRepository implements PreparationRepositoryInterface
 
     public function getPreparationsByCategoryId($id)
     {
-        return $this->preparation->newQuery()->with('category')->where('category_id', $id)->get();
+        return $this->preparation->newQuery()->with('category')->where('category_id', $id)->orderBy('name')->get();
     }
 
 

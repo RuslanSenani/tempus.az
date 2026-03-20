@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Models\PreparationCategory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 
 class CategoryRepository implements CategoryRepositoryInterface
@@ -26,16 +27,17 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getRandomActiveCategories($limit = 5): Collection
     {
-        return $this->category->newQuery()
+       return $this->category->newQuery()
             ->with(['preparations' => function ($query) use ($limit) {
                 $query->limit($limit);
             }])
             ->withCount('preparations')
             ->where('is_active', 1)
-            ->inRandomOrder()
+            ->orderBy('name', 'asc')
             ->limit($limit)
-            ->orderBy('name')
+            ->inRandomOrder()
             ->get();
+
     }
 
     public function getCategoryById($id)
