@@ -36,7 +36,7 @@ class ActivityLog extends Resource
      * @var array
      */
 
-    public static $search = ['id', 'description', 'subject_type', 'event', 'properties', 'causer_id', 'created_at'];
+    public static $search = ['id', 'description', 'subject_type', 'event', 'causer_id', 'created_at'];
     public static $globallySearchable = true;
 
     /**
@@ -58,7 +58,11 @@ class ActivityLog extends Resource
                 return $this->causer->name . " <span class='text-gray-400'>(ID: {$this->causer->id})</span>";
             })->asHtml(),
 
-            Text::make('Resurs', 'subject_type'),
+//            Text::make('Resurs', 'subject_type'),
+            Text::make('Resurs', 'subject_type')
+                ->displayUsing(function ($value) {
+                    return  class_basename($value);
+                }),
 
             Badge::make('Növ', 'event')->map([
                 'created' => 'success',
@@ -82,7 +86,7 @@ class ActivityLog extends Resource
                 return $value;
             }),
             DateTime::make('Tarix', 'created_at')
-                ->displayUsing(fn ($v) => $v ? $v->format('d.m.Y H:i') : '-')
+                ->displayUsing(fn($v) => $v ? $v->format('d.m.Y H:i') : '-')
                 ->sortable(),
 
 
@@ -161,77 +165,46 @@ class ActivityLog extends Resource
     {
         $search = strtolower($search);
 
+        // 1. Azərbaycan dilindəki ay adlarını rəqəmə çeviririk (PHP tərəfində)
+        // Bu, "22 mart" yazanda PHP-nin onu "22 03" kimi başa düşməsi üçündür
+        $monthsMap = [
+            'yanvar' => '01', 'fevral' => '02', 'mart' => '03', 'aprel' => '04',
+            'may' => '05', 'iyun' => '06', 'iyul' => '07', 'avqust' => '08',
+            'sentyabr' => '09', 'oktyabr' => '10', 'noyabr' => '11', 'dekabr' => '12',
+            'yan' => '01', 'fev' => '02', 'mar' => '03', 'apr' => '04', 'iyn' => '06',
+            'iyl' => '07', 'avq' => '08', 'sen' => '09', 'okt' => '10', 'noy' => '11', 'dek' => '12'
+        ];
 
-        return $query->where(function ($q) use ($search) {
-            // 1. Standart sütunlar
+        $translatedSearch = $search;
+        foreach ($monthsMap as $az => $num) {
+            if (str_contains($search, $az)) {
+                $translatedSearch = str_replace($az, $num, $translatedSearch);
+            }
+        }
+
+        // Axtarış sözündəki bütün nöqtə, tire, slash-ları silirik (Bitişik rəqəm axtarışı üçün)
+        $cleanSearch = str_replace(['.', '-', '/', ' ', ':'], '', $search);
+
+        return $query->where(function ($q) use ($search, $translatedSearch, $cleanSearch) {
+
+            // --- A. Standart Mətn Sütunları ---
             $q->where('activity_log.id', 'like', "%{$search}%")
                 ->orWhere('activity_log.description', 'like', "%{$search}%")
-                ->orWhere('activity_log.subject_type', 'like', "%{$search}%")
-                ->orWhere('activity_log.properties', 'like', "%{$search}%");
+                ->orWhere('activity_log.subject_type', 'like', "%{$search}%");
 
-            // 2. "Yeniləndi", "Yaradıldı" kimi statusların axtarışı (Event tərcüməsi)
-            $q->orWhere(function ($sub) use ($search) {
-                if (str_contains($search, 'yeni')) $sub->orWhere('event', 'updated');
-                if (str_contains($search, 'yara')) $sub->orWhere('event', 'created');
-                if (str_contains($search, 'sil')) $sub->orWhere('event', 'deleted');
+            // --- B. Event (Status) Tərcüməli Axtarış ---
+            if (str_contains($search, 'yeni')) $q->orWhere('event', 'updated');
+            if (str_contains($search, 'yara')) $q->orWhere('event', 'created');
+            if (str_contains($search, 'sil'))  $q->orWhere('event', 'deleted');
+            if (str_contains($search, 'iden') || str_contains($search, 'giriş') || str_contains($search, 'çıxış')) {
+                $q->orWhereNull('event')->orWhere('event', '');
+            }
 
-                // Əgər heç biri deyilsə, ingiliscə sütun daxilində axtar
-                if (str_contains($search, 'iden') || str_contains($search, 'giriş') || str_contains($search, 'çıxış')) {
-                    $sub->orWhereNull('event')->orWhere('event', '');
-                }
-                $sub->where('activity_log.created_at', 'like', "%{$search}%")
-
-                    // --- RƏQƏMLƏRİN BİTİŞİK VƏ QARIŞIQ VERSİYALARI ---
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d%m%Y')"), 'like', "%{$search}%")   // 22032026
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%Y%m%d')"), 'like', "%{$search}%")   // 20260322
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%H%i%s')"), 'like', "%{$search}%")   // 012214
-
-                    // --- AY ADLARI (Azərbaycan dili üçün xüsusi məntiq) ---
-                    // Əgər istifadəçi ayın adını azərbaycanca yazsa, onu rəqəmə çevirib axtarırıq
-                    ->orWhere(function($query) use ($search) {
-                        $months = [
-                            'yanvar' => '01', 'fevral' => '02', 'mart' => '03', 'aprel' => '04',
-                            'may' => '05', 'iyun' => '06', 'iyul' => '07', 'avqust' => '08',
-                            'sentyabr' => '09', 'oktyabr' => '10', 'noyabr' => '11', 'dekabr' => '12',
-                            'yan' => '01', 'fev' => '02', 'mar' => '03', 'apr' => '04', 'iyn' => '06',
-                            'iyl' => '07', 'avq' => '08', 'sen' => '09', 'okt' => '10', 'noy' => '11', 'dek' => '12'
-                        ];
-                        foreach ($months as $name => $num) {
-                            if (str_contains(strtolower($search), $name)) {
-                                $query->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%m')"), $num);
-                            }
-                        }
-                    })
-
-                    // --- BÜTÜN AYIRICILARLA (Tire, Nöqtə, Slash, Boşluq, Vergül) ---
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d-%m-%Y %H:%i')"), 'like', "%{$search}%")
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d.%m.%Y %H:%i')"), 'like', "%{$search}%")
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d/%m/%Y %H:%i')"), 'like', "%{$search}%")
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d %m %Y %H %i')"), 'like', "%{$search}%")
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%Y, %m, %d')"), 'like', "%{$search}%")
-
-                    // --- AM/PM VƏ SAAT VARIANTLARI ---
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%h:%i %p')"), 'like', "%{$search}%") // 01:22 AM
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%r')"), 'like', "%{$search}%")       // 01:22:14 AM
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%H.%i.%s')"), 'like', "%{$search}%") // 01.22.14
-
-                    // --- İNSANIN AĞLINA GƏLƏCƏK QƏRİBƏ KOMBİNASİYALAR ---
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%M %Y %d')"), 'like', "%{$search}%") // March 2026 22
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d %M %Y, %W')"), 'like', "%{$search}%") // 22 March 2026, Sunday
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%W %H:%i')"), 'like', "%{$search}%") // Sunday 01:22
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%b %d')"), 'like', "%{$search}%")    // Mar 22
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%y/%m/%d')"), 'like', "%{$search}%") // 26/03/22
-
-                    // --- SƏRHƏDSİZ FORMAT (Hər şeyi bir-birinə qatanlar üçün) ---
-                    ->orWhere(DB::raw("CONCAT(DAY(activity_log.created_at), MONTH(activity_log.created_at), YEAR(activity_log.created_at))"), 'like', "%{$search}%")
-                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%D %M %Y %H:%i:%s %p %W')"), 'like', "%{$search}%");
-            });
-
+            // --- C. İcraçı (User) Axtarışı ---
             if (str_contains($search, 'sist') || str_contains($search, 'qonaq')) {
                 $q->orWhereNull('causer_id');
             }
 
-            // 4. İcraçı (User) adına görə axtarış
             $q->orWhereExists(function ($subQuery) use ($search) {
                 $subQuery->select(\Illuminate\Support\Facades\DB::raw(1))
                     ->from('users')
@@ -239,10 +212,33 @@ class ActivityLog extends Resource
                     ->where('users.name', 'like', "%{$search}%");
             });
 
-            // 5. Tarix
-            $q->orWhere('activity_log.created_at', 'like', "%{$search}%");
+            // --- D. ULTIMATE TARİX AXTARIŞI ---
+            $q->orWhere(function ($sub) use ($search, $translatedSearch, $cleanSearch) {
+                $sub->where('activity_log.created_at', 'like', "%{$search}%")
+                    ->orWhere('activity_log.created_at', 'like', "%{$translatedSearch}%")
+
+                    // 1. Bitişik rəqəmlər (22032026)
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d%m%Y%H%i')"), 'like', "%{$cleanSearch}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%Y%m%d')"), 'like', "%{$cleanSearch}%")
+
+                    // 2. Müxtəlif Ayırıcılar (22.03.2026, 22-03, 22/03)
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d.%m.%Y %H:%i')"), 'like', "%{$translatedSearch}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d-%m-%Y %H:%i')"), 'like', "%{$translatedSearch}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d/%m/%Y %H:%i')"), 'like', "%{$translatedSearch}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d.%m.%Y-%H:%i')"), 'like', "%{$translatedSearch}%")
+
+                    // 3. Saat və Ay Adları (English DB match)
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%H:%i:%s')"), 'like', "%{$search}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%h:%i %p')"), 'like', "%{$search}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%M %d, %Y')"), 'like', "%{$search}%")
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%W')"), 'like', "%{$search}%") // Sunday
+
+                    // 4. Gün və Saat kombinasiyası (22 01:26)
+                    ->orWhere(DB::raw("DATE_FORMAT(activity_log.created_at, '%d %H:%i')"), 'like', "%{$translatedSearch}%");
+            });
         });
     }
+
 
 
     public static function authorizedToCreate(Request $request)
