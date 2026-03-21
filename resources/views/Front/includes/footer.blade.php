@@ -1,3 +1,33 @@
+<div id="custom-popup-container" style="position: fixed; top: 20px; right: 20px; z-index: 999999;">
+    @if(session('success'))
+        <div class="my-popup success">
+            <div class="popup-body">
+                <span class="popup-icon">✅</span>
+                <div class="popup-content">
+                    <strong>{{$siteContent['home_success']->value??''}}</strong>
+                    <p>{{ $siteContent['home_success_msg']->value??'' }}</p>
+                </div>
+                <button onclick="closePopup(this)" class="popup-close">&times;</button>
+            </div>
+            <div class="popup-progress"></div>
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="my-popup error">
+            <div class="popup-body">
+                <span class="popup-icon">⚠️</span>
+                <div class="popup-content">
+                    <strong>{{$siteContent['home_error']->value??''}}</strong>
+                    <p>{{$siteContent['home_error_msg']->value??''}}</p>
+                </div>
+                <button onclick="closePopup(this)" class="popup-close">&times;</button>
+            </div>
+            <div class="popup-progress"></div>
+        </div>
+    @endif
+</div>
+
 <footer class="footer-main container-fluid no-padding">
     <!-- Container -->
     <div class="container">

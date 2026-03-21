@@ -4,10 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Mostafaznv\NovaCkEditor\FileStorage;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class File extends Model
 {
+
+    use LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
+
     protected $fillable = [
         'name', 'file', 'disk', 'mime', 'size'
     ];
@@ -16,12 +29,11 @@ class File extends Model
     {
         parent::booted();
 
-        self::saving(function($model) {
+        self::saving(function ($model) {
             if (!$model->name) {
                 if ($file = request()->file('file')) {
                     $name = $file->getClientOriginalName();
-                }
-                else {
+                } else {
                     $name = $model->file;
                 }
 

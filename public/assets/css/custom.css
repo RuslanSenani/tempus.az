@@ -1916,69 +1916,65 @@ canvas {
     }
 }
 
-/* Rəng tonları */
-:root {
-    --soft-blue: #f0f4ff;
-    --primary-main: #4854C7;
-    --text-dark: #2d3436;
+
+
+ .my-popup {
+     background: #fff;
+     min-width: 320px;
+     border-radius: 15px;
+     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+     margin-bottom: 15px;
+     position: relative;
+     overflow: hidden;
+     animation: popupSlideIn 0.5s ease forwards;
+ }
+
+@keyframes popupSlideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
-.text-dark-blue { color: var(--text-dark); }
-
-.bg-soft-primary {
-    background-color: var(--soft-blue);
-}
-
-.bg-light-soft {
-    background-color: #fafbfc;
-}
-
-/* Dəyər Teqləri (Pill-lər) */
-.value-tag {
+.popup-body {
+    padding: 20px;
     display: flex;
     align-items: center;
-    background: #ffffff;
-    border: 1px solid #e1e8f5;
-    padding: 12px 25px;
-    border-radius: 100px;
-    font-weight: 700;
-    color: var(--primary-main);
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-    cursor: pointer;
 }
 
-/* Kiçik nöqtə animasiyası (Şəkildəki nöqtələrin modern versiyası) */
-.value-tag .dot {
-    width: 10px;
-    height: 10px;
-    background-color: var(--primary-main);
-    border-radius: 50%;
-    margin-right: 12px;
-    opacity: 0.6;
-    transition: all 0.3s ease;
+.popup-icon { font-size: 24px; margin-right: 15px; }
+
+.popup-content strong { display: block; font-size: 16px; margin-bottom: 2px; }
+.popup-content p { margin: 0; font-size: 13px; color: #666; }
+
+.popup-close {
+    background: none; border: none; font-size: 20px; margin-left: auto;
+    cursor: pointer; color: #ccc; transition: 0.3s;
+}
+.popup-close:hover { color: #333; }
+
+/* Rəng xətləri */
+.my-popup.success { border-left: 5px solid #28a745; }
+.my-popup.error { border-left: 5px solid #dc3545; }
+
+/* Progress bar animasiyası */
+.popup-progress {
+    height: 4px; width: 100%; background: #eee;
+    position: absolute; bottom: 0; left: 0;
+}
+.popup-progress::after {
+    content: ''; position: absolute; left: 0; top: 0; height: 100%;
+    width: 100%; background: inherit;
+    animation: progressAnimate 10s linear forwards;
+}
+.success .popup-progress::after { background: #28a745; }
+.error .popup-progress::after { background: #dc3545; }
+
+@keyframes progressAnimate {
+    from { width: 100%; }
+    to { width: 0%; }
 }
 
-/* Hover Effekti - Çox yumşaq keçid */
-.value-tag:hover {
-    background-color: var(--primary-main);
-    color: #ffffff;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(72, 84, 199, 0.15);
-}
 
-.value-tag:hover .dot {
-    background-color: #ffffff;
-    opacity: 1;
-    transform: scale(1.2);
-}
 
-/* Border-end yalnız desktopda görünsün */
-@media (min-width: 992px) {
-    .border-end-lg {
-        border-right: 1px solid #eee !important;
-    }
-}
+
+
 

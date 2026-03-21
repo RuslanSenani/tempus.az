@@ -4,10 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Mostafaznv\NovaCkEditor\AudioStorage;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class Audio extends Model
 {
+    use LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
+
     protected $fillable = [
         'name', 'file', 'disk', 'mime', 'size'
     ];
@@ -16,12 +28,11 @@ class Audio extends Model
     {
         parent::booted();
 
-        self::saving(function($model) {
+        self::saving(function ($model) {
             if (!$model->name) {
                 if ($file = request()->file('file')) {
                     $name = $file->getClientOriginalName();
-                }
-                else {
+                } else {
                     $name = $model->file;
                 }
 

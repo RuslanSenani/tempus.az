@@ -87,29 +87,25 @@
 
     <div class="map-canvas" style="height: 450px; width: 100%;">
         <iframe
-                id="map-iframe"
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428490195655!2d49.876512!3d40.382458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDIyJzU2LjkiTiA0OcKwNTInMzUuNCJF!5e0!3m2!1sen!2saz!4v1700000000000">
+            id="map-iframe"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428490195655!2d49.876512!3d40.382458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDIyJzU2LjkiTiA0OcKwNTInMzUuNCJF!5e0!3m2!1sen!2saz!4v1700000000000">
         </iframe>
     </div>
 </div>
 
-{{--<div class="map container-fluid no-padding">--}}
-{{--    <div class="map-canvas" id="map-canvas-contact" data-lat="-37.818415" data-lng="144.989050"--}}
-{{--         data-string="E-44, Design Street, Web Corner, Melbourne - 005" data-zoom="12"></div>--}}
-{{--</div>--}}
-<!--  Map Section /- -->
 
-<!-- Container -->
 <div class="container">
     <!-- Enquiry Us -->
     <div class="leave-comment enquiry-us">
         <h3 class="section-heading">{{$siteContent['home_contact_us']->value??''}}</h3>
+
+
         <form id="contact-form" class="comment-form enquiry-form" method="POST" action="{{route('contact.store')}}">
             @csrf
             <div class="row">
@@ -148,13 +144,17 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="form-group">
                         <input type="submit" name="post">
+                        <i class="bi bi-send ms-2"></i>
                     </div>
+
                     <div id="alert-msg" class="alert-msg"></div>
                 </div>
 
             </div>
         </form>
     </div><!-- Enquiry Us /- -->
-</div><!-- Container /- -->
+</div>
+

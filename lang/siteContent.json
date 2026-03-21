@@ -409,5 +409,25 @@
         "az": "Dəyərlərimiz",
         "en": "Our Values",
         "ru": "Наши ценности"
+    },
+    "home_error": {
+        "az": "Xəta !",
+        "en": "Error !",
+        "ru": "Ошибка !"
+    },
+    "home_error_msg": {
+        "az": "Məlumatları düzgün daxil edin.",
+        "en": "Please enter the information correctly.",
+        "ru": "Пожалуйста, введите информацию правильно."
+    },
+    "home_success": {
+        "az": "Uğurlu !",
+        "en": "Successful !",
+        "ru": "Успешный !"
+    },
+    "home_success_msg": {
+        "az": "Mesaj göndərildi",
+        "en": "Message sent.",
+        "ru": "Сообщение отправлено."
     }
 }

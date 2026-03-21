@@ -7,10 +7,21 @@ use Mostafaznv\Larupload\Enums\LaruploadMediaStyle;
 use Mostafaznv\Larupload\Enums\LaruploadNamingMethod;
 use Mostafaznv\Larupload\Storage\Attachment;
 use Mostafaznv\Larupload\Traits\Larupload;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Video extends Model
 {
     use Larupload;
+    use LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     protected $fillable = ['name', 'file', 'disk'];
 
@@ -18,7 +29,7 @@ class Video extends Model
     {
         parent::booted();
 
-        self::saving(function($model) {
+        self::saving(function ($model) {
             $hasLaruploadTrait = method_exists(self::class, 'bootLarupload');
 
             if (!$model->name) {

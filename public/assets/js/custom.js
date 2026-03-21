@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
 // });
 
 
-
 const searchInput = document.getElementById('live-search');
 const resultsDiv = document.getElementById('search-results');
 const loader = document.getElementById('search-loader');
@@ -94,10 +93,12 @@ const getLangText = (data) => {
     try {
         const parsed = JSON.parse(data);
         return parsed[lang] || Object.values(parsed)[0];
-    } catch { return data; }
+    } catch {
+        return data;
+    }
 };
 
-searchInput.addEventListener('input', function() {
+searchInput.addEventListener('input', function () {
     const query = this.value.trim();
     clearTimeout(searchTimeout);
 
@@ -110,7 +111,7 @@ searchInput.addEventListener('input', function() {
 
     searchTimeout = setTimeout(() => {
         fetch(`/live-search?query=${encodeURIComponent(query)}`, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            headers: {'X-Requested-With': 'XMLHttpRequest'}
         })
             .then(res => res.json())
             .then(data => {
@@ -125,7 +126,7 @@ searchInput.addEventListener('input', function() {
                         const subLabel = isCat ? '' : (item.category ? getLangText(item.category.name) : '');
 
                         const a = document.createElement('a');
-                        a.href = isCat ? `/category-details/${ item.id}` : `/preparation-detail/${item.id}`;
+                        a.href = isCat ? `/category-details/${item.id}` : `/preparation-detail/${item.id}`;
                         a.className = 'search-item';
                         a.innerHTML = `
                         <span class="label-upper">${subLabel}</span>
@@ -200,6 +201,30 @@ document.addEventListener('click', function (e) {
         });
     }
 });
+
+
+
+function closePopup(btn) {
+    let popup = btn.closest('.my-popup');
+    popup.style.transition = "0.4s";
+    popup.style.transform = "translateX(120%)";
+    setTimeout(() => popup.remove(), 400);
+}
+
+// 4 saniyə sonra avtomatik bağlansın
+document.addEventListener('DOMContentLoaded', function () {
+    const popups = document.querySelectorAll('.my-popup');
+    popups.forEach(popup => {
+        setTimeout(() => {
+            if (popup) {
+                popup.style.transition = "0.4s";
+                popup.style.transform = "translateX(120%)";
+                setTimeout(() => popup.remove(), 400);
+            }
+        }, 10000);
+    });
+});
+
 
 
 

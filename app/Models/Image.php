@@ -4,9 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Mostafaznv\NovaCkEditor\ImageStorage;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Image extends Model
 {
+
+    use LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
+
     protected $fillable = [
         'name', 'file', 'disk', 'mime', 'width', 'height', 'size'
     ];
@@ -15,8 +28,7 @@ class Image extends Model
     {
         if ($value) {
             $this->attributes['name'] = trim($value);
-        }
-        else if ($file = request()->file('file')) {
+        } else if ($file = request()->file('file')) {
             $this->attributes['name'] = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         }
     }
