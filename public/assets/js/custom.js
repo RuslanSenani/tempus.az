@@ -22,64 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// document.getElementById('live-search').addEventListener('input', function () {
-//     const query = this.value.trim();
-//     const resultsDiv = document.getElementById('search-results');
-//     const currentLang = document.documentElement.lang || 'az';
-//
-//     // JSON formatında olan translatable datanı oxumaq üçün funksiya
-//     const getCleanText = (field) => {
-//         if (!field) return '';
-//         // Əgər artıq obyekt kimidirsə
-//         if (typeof field === 'object') {
-//             return field[currentLang] || field['az'] || Object.values(field)[0] || '';
-//         }
-//         // Əgər string kimidirsə, JSON parse etməyə çalış
-//         try {
-//             const obj = JSON.parse(field);
-//             return obj[currentLang] || obj['az'] || Object.values(obj)[0] || '';
-//         } catch (e) {
-//             return field;
-//         }
-//     };
-//
-//     if (query.length > 2) {
-//         fetch(`/live-search?query=${encodeURIComponent(query)}`, {
-//             headers: {'X-Requested-With': 'XMLHttpRequest'}
-//         })
-//             .then(response => response.json())
-//             .then(data => {
-//                 resultsDiv.innerHTML = '';
-//                 resultsDiv.style.display = 'block';
-//
-//                 if (data.length > 0) {
-//                     data.forEach(item => {
-//                         const prepName = getCleanText(item.name);
-//                         const catName = item.category ? getCleanText(item.category.name) : '';
-//
-//                         const resultLink = document.createElement('a');
-//                         resultLink.className = 'search-item d-block p-2 text-decoration-none border-bottom';
-//                         resultLink.href = `/preparation-detail/${item.id}`; // Route-u özünə görə düzəlt
-//
-//                         resultLink.innerHTML = `
-//                         <div class="search-content">
-//                             ${catName ? `<small class="text-primary text-uppercase" style="font-size: 10px; font-weight: bold;">${catName}</small>` : ''}
-//                             <h6 class="mb-0 text-dark" style="font-size: 14px;">${prepName}</h6>
-//                         </div>
-//                     `;
-//                         resultsDiv.appendChild(resultLink);
-//                     });
-//                 } else {
-//                     resultsDiv.innerHTML = '<div class="p-3 text-muted small text-center">Nəticə tapılmadı</div>';
-//                 }
-//             })
-//             .catch(err => console.error('Axtarış xətası:', err));
-//     } else {
-//         resultsDiv.style.display = 'none';
-//     }
-// });
-
-
 const searchInput = document.getElementById('live-search');
 const resultsDiv = document.getElementById('search-results');
 const loader = document.getElementById('search-loader');
