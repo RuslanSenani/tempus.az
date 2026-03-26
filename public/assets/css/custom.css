@@ -1792,83 +1792,75 @@ canvas {
 }
 
 
-/* Nəticələrin çıxdığı ana qab (resultsDiv) */
+/* Bütün elementlər üçün ölçü hesablamasını standartlaşdırırıq */
+#search-results, #search-results * {
+    box-sizing: border-box;
+}
+
+.search-container {
+    position: relative; /* Bu mütləq olmalıdır */
+    width: 100%;
+}
+
 #search-results {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    width: 100%; /* Konteynerin eni nə qədərdirsə, o qədər qalacaq */
     background: #ffffff;
     border: 1px solid #e0e0e0;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    max-height: 450px;
+    border-top: none; /* İnputla birləşmiş görünsün */
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 20px rgba(12, 13, 14, 0.75);
+    z-index: 9999;
+    max-height: 350px;
     overflow-y: auto;
-    margin-top: 5px;
-    display: none; /* JS ilə block olunacaq */
+    display: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* Hər bir axtarış nəticəsi (a teqi) */
-.search-item {
-    display: flex;
-    flex-direction: column;
-    padding: 12px 20px;
-    text-decoration: none;
-    border-bottom: 1px solid #f5f5f5;
-    transition: all 0.2s ease;
-}
-
-.search-item:last-child {
-    border-bottom: none;
-}
-
-.search-item:hover {
-    background-color: #f0f7ff; /* Çox açıq mavi fon */
-    padding-left: 25px; /* Hover edəndə sağa sürüşmə effekti */
-}
-
-/* Üstdəki kiçik Kategoriya adı */
-.label-upper {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: rgba(9, 8, 8, 0.3); /* Qara rəng - Kategoriya fərqlənsin */
-    margin-bottom: 2px;
-    letter-spacing: 0.8px;
-    display: block;
-}
-
-/* Altda duran Preparat/Məhsul adı */
-.title-lower {
-    font-size: 15px;
-    font-weight: 600;
-    color: #057aef;
-    line-height: 1.4;
-}
-
-/* --- MOBİL ÜÇÜN ÖZƏL AYARLAR --- */
+/* --- MOBİL ÜÇÜN ÖZƏL --- */
 @media (max-width: 768px) {
     #search-results {
-        position: fixed; /* Mobildə inputun enindən asılı olmasın */
-        top: 70px; /* Header-in hündürlüyünə görə tənzimləyin */
-        left: 3%;
-        width: 94%; /* Ekranın kənarlarından boşluq qalsın */
-        border-radius: 12px;
-        max-height: 80vh; /* Ekranın 80%-ni keçməsin */
+        /* Mobildə sola və ya sağa daşmaması üçün */
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 60vh; /* Ekranın çoxunu tutsun amma scroll çıxsın */
+        box-shadow: 0 15px 30px rgb(2, 213, 250);
+        /* Kənarlarda yapışıq qalmasın deyə bəzi dizaynlarda
+           lazım olsa border-i ləğv edə bilərsən */
     }
 
     .search-item {
-        padding: 15px 20px; /* Mobildə barmaqla toxunmaq daha rahat olsun */
+        padding: 15px; /* Barmaqla toxunma sahəsi */
     }
+}
 
-    .title-lower {
-        font-size: 16px; /* Mobildə oxunaqlılıq üçün bir az böyük */
-    }
+/* Nəticə daxili elementlər */
+.search-item {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    background: #fff;
+}
 
-    .label-upper {
-        font-size: 11px;
-    }
+.label-upper {
+    font-size: 10px;
+    color: #070707;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.title-lower {
+    font-size: 15px;
+    color: rgba(17, 120, 239, 0.99);
+    font-weight: 600;
 }
 
 
