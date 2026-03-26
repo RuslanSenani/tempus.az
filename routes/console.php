@@ -9,4 +9,3 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('instagram:refresh-token')->monthlyOn(1, '03:00');
-//Schedule::command('instagram:refresh-token')->everyThreeMinutes();
