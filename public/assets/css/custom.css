@@ -1975,6 +1975,63 @@ canvas {
 
 
 
+ .custom-values-card {
+     background: #ffffff;
+     border-radius: 40px !important;
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+ }
+
+
+.text-dark-blue {
+    color: #087df4;
+}
+
+.value-tag {
+    background: #f8f9fa;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.value-tag:hover {
+    background: #0d1b2a;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #007bff;
+    border-radius: 2px;
+}
+
+/* Nöqtələrin fərqli fırlanması üçün dinamik klaslar */
+.rotate-1 { transform: rotate(15deg); }
+.rotate-2 { transform: rotate(45deg); }
+.rotate-3 { transform: rotate(75deg); }
+.rotate-4 { transform: rotate(115deg); }
+.rotate-5 { transform: rotate(145deg); }
+
+.border-end-lg {
+    border-right: 1px solid #eee;
+}
+
+@media (max-width: 991px) {
+    .border-end-lg {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+}
+
+
+
 
 
 

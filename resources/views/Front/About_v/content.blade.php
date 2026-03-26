@@ -62,7 +62,7 @@
 
                 <div class="col-lg-3">
                     <div
-                            class="logo-grid-card h-100 d-flex flex-column justify-content-between p-4 shadow-sm bg-white rounded-4 border border-light">
+                        class="logo-grid-card h-100 d-flex flex-column justify-content-between p-4 shadow-sm bg-white rounded-4 border border-light">
                         <div class="logo-flex">
                             <img src="{{ asset('storage/' . $setting->logo) }}" class="brand-logo" alt="Logo 1"/>
                             <img src="{{ asset('storage/' . $setting->logo1) }}" class="brand-logo" alt="Logo 2"/>
@@ -211,44 +211,95 @@
                 </div>
 
                 @php
-                    $valueTags = explode(',', html_entity_decode(strip_tags($setting->values)));
+
+                    $valueTags =  explode(',', html_entity_decode(strip_tags($setting->values??'')));
                 @endphp
-                <div class="row justify-content-center mt-5">
-                    <div class="col-lg-12">
-                        <div class="card border-0 shadow-sm custom-values-card"
-                             style="border-radius: 40px; background: #ffffff; overflow: hidden;">
 
-                            <div class="card-body p-4 p-md-5">
-                                <div class="row align-items-center">
+                @if(count($valueTags) > 0)
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-lg-12">
+                            <div class="card border-0 shadow-sm custom-values-card">
+                                <div class="card-body p-4 p-md-5">
+                                    <div class="row align-items-center">
 
-                                    <div class="col-lg-4 text-center text-lg-start mb-4 mb-lg-0 border-end-lg">
-                                        <h1 class="fw-bold display-5 text-dark-blue mb-3">
-                                            {{$siteContent['home_our_values']->value ?? 'Dəyərlərimiz'}}
-                                        </h1>
-                                    </div>
-
-                                    <div class="col-lg-8">
-                                        <div class="values-grid px-lg-4">
-                                            <div
-                                                    class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-                                                @foreach($valueTags as $tag)
-                                                    @if(trim($tag, " \t\n\r\0\x0B\xA0") != "")
-                                                        <div class="value-tag">
-                                                            <div class="dot rotate-{{$loop->iteration}}"></div>
-                                                            <span>{{ trim($tag) }}</span>
-                                                        </div>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-
+                                        <div class="col-lg-4 text-center text-lg-start mb-4 mb-lg-0 border-end-lg">
+                                            <h1 class="fw-bold display-5 text-dark-blue mb-3">
+                                                {{ $siteContent['home_our_values']->value ?? 'Dəyərlərimiz' }}
+                                            </h1>
                                         </div>
-                                    </div>
 
+                                        <div class="col-lg-8">
+                                            <div class="values-grid px-lg-4">
+                                                <div
+                                                    class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+
+                                                    @foreach($valueTags as $tag)
+                                                        @if(trim($tag, " \t\n\r\0\x0B\xA0") != "")
+                                                            <div class="value-tag">
+                                                                <div class="dot rotate-{{$loop->iteration}}"></div>
+                                                                <span>{{ trim($tag) }}</span>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                    {{--                                                    @foreach($valueTags as $tag)--}}
+                                                    {{--                                                        @php $trimmedTag = trim($tag, " \t\n\r\0\x0B\xA0"); @endphp--}}
+                                                    {{--                                                        @if($trimmedTag != "")--}}
+                                                    {{--                                                            <div class="value-tag">--}}
+                                                    {{--                                                                <div class="dot rotate-{{ $loop->iteration }}"></div>--}}
+                                                    {{--                                                                <span>{{ trim($trimmedTag) }}</span>--}}
+                                                    {{--                                                            </div>--}}
+                                                    {{--                                                        @endif--}}
+                                                    {{--                                                    @endforeach--}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
+                {{--                @php--}}
+                {{--                    $valueTags = explode(',', html_entity_decode(strip_tags($setting->values)));--}}
+                {{--                @endphp--}}
+                {{--                <div class="row justify-content-center mt-5">--}}
+                {{--                    <div class="col-lg-12">--}}
+                {{--                        <div class="card border-0 shadow-sm custom-values-card"--}}
+                {{--                             style="border-radius: 40px; background: #ffffff; overflow: hidden;">--}}
+
+                {{--                            <div class="card-body p-4 p-md-5">--}}
+                {{--                                <div class="row align-items-center">--}}
+
+                {{--                                    <div class="col-lg-4 text-center text-lg-start mb-4 mb-lg-0 border-end-lg">--}}
+                {{--                                        <h1 class="fw-bold display-5 text-dark-blue mb-3">--}}
+                {{--                                            {{$siteContent['home_our_values']->value ?? 'Dəyərlərimiz'}}--}}
+                {{--                                        </h1>--}}
+                {{--                                    </div>--}}
+
+                {{--                                    <div class="col-lg-8">--}}
+                {{--                                        <div class="values-grid px-lg-4">--}}
+                {{--                                            <div--}}
+                {{--                                                    class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">--}}
+                {{--                                                @foreach($valueTags as $tag)--}}
+                {{--                                                    @if(trim($tag, " \t\n\r\0\x0B\xA0") != "")--}}
+                {{--                                                        <div class="value-tag">--}}
+                {{--                                                            <div class="dot rotate-{{$loop->iteration}}"></div>--}}
+                {{--                                                            <span>{{ trim($tag) }}</span>--}}
+                {{--                                                        </div>--}}
+                {{--                                                    @endif--}}
+                {{--                                                @endforeach--}}
+                {{--                                            </div>--}}
+
+                {{--                                        </div>--}}
+                {{--                                    </div>--}}
+
+                {{--                                </div>--}}
+                {{--                            </div>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
 
             </div>
         </section>
