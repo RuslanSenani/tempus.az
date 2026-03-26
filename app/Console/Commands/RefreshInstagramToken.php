@@ -11,8 +11,6 @@ class RefreshInstagramToken extends Command
 {
 
 
-
-
     /**
      * The name and signature of the console command.
      *
@@ -30,17 +28,29 @@ class RefreshInstagramToken extends Command
     /**
      * Execute the console command.
      */
+
     public function handle()
     {
-        // 1. Bazadan köhnə tokeni götür
-        $oldToken = Site_Settings::where('key_value', 'instagram_access_token')->first()->value;
 
-        if (!$oldToken) {
-            $this->error('Köhnə token tapılmadı!');
+        $setting = Site_Settings::first();
+
+        if (!$setting) {
+            $this->error('Bazada heç bir tənzimləmə tapılmadı!');
             return;
         }
 
-        // 2. Instagram API-yə yeniləmə sorğusu at
+
+        $data = $setting->key_value;
+
+
+        $oldToken = $data['instagram_access_token'] ?? null;
+
+        if (!$oldToken) {
+            $this->error('JSON-un içində "instagram_access_token" açarı tapılmadı!');
+            return;
+        }
+
+
         $response = Http::get("https://graph.instagram.com/refresh_access_token", [
             'grant_type' => 'ig_refresh_token',
             'access_token' => $oldToken,
@@ -49,14 +59,20 @@ class RefreshInstagramToken extends Command
         if ($response->successful()) {
             $newToken = $response->json()['access_token'];
 
-            // 3. Yeni tokeni bazaya yaz
-             Site_Settings::where('key', 'instagram_token')->update(['value' => $newToken]);
+
+            $data['instagram_access_token'] = $newToken;
+
+
+            $setting->update([
+                'key_value' => $data
+            ]);
 
             Log::info('Instagram tokeni uğurla yeniləndi.');
-            $this->info('Uğurlu: Yeni token yadda saxlanıldı.');
+            $this->info('Uğurlu: Yeni token massiv daxilində yeniləndi.');
         } else {
             Log::error('Instagram token yenilənmə xətası: ' . $response->body());
             $this->error('Xəta baş verdi. Loglara baxın.');
         }
     }
+
 }
