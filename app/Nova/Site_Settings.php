@@ -106,4 +106,8 @@ class Site_Settings extends Resource
     {
         return [];
     }
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
 }
