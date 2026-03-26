@@ -64,36 +64,8 @@
                                class="dropdown-toggle"
                                data-bs-toggle="dropdown"
                                data-bs-auto-close="outside"> {{$siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            @if($allCategories->count()>0)
-                                <ul class="dropdown-menu">
-                                    @foreach($allCategories as $category)
-                                        <li class="dropdown-submenu">
-                                            <a class="dropdown-item d-flex justify-content-between align-items-center"
-                                               href="{{route('category-details',$category->id)}}">
-                                                {{ $category->name }}
-                                                @if($category->preparations->count() > 0)
-                                                    <i class="fa fa-angle-right d-none d-md-block"></i>
-                                                @endif
-                                            </a>
 
-                                            @if($category->preparations->count() > 0)
-                                                <ul class="dropdown-menu submenu">
-                                                    @foreach($category->preparations as $preparation)
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                               href="{{route('preparation-detail',$preparation->id)}}">
-                                                                {{ $preparation->name }}
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                            </a>
                         </li>
 
                         <li class="px-1">
@@ -139,24 +111,11 @@
                                                 <input type="text" id="live-search"
                                                        placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}"
                                                        autocomplete="off">
-                                                <div id="search-loader" class="spinner-border text-primary" role="status"></div>
+                                                <div id="search-loader" class="spinner-border text-primary"
+                                                     role="status"></div>
                                             </div>
                                             <div id="search-results" class="search-dropdown-container"></div>
                                         </div>
-{{--                                        <div class="input-group search-box">--}}
-{{--                                            <input type="text" id="live-search" name="query"--}}
-{{--                                                   class="form-control shadow-none"--}}
-{{--                                                   placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}"--}}
-{{--                                                   >--}}
-
-{{--                                        </div>--}}
-
-{{--                                        <div class="search-wrapper"><input type="text" id="live-search"--}}
-{{--                                                                           placeholder="{{$siteContent['home_search']->value ?? 'Axtarış edin...'}}" autocomplete="off">--}}
-{{--                                            <div id="search-results"></div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div id="search-results" class="search-dropdown-container shadow-lg"></div>--}}
                                     </form>
                                 </li>
                             </ul>

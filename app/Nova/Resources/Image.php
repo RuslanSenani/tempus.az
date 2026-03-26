@@ -75,4 +75,8 @@ class Image extends Resource
     {
         return trans('Media');
     }
+    public static function availableForNavigation(Request $request)
+    {
+        return false;
+    }
 }
