@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\SearchController;
 use App\Http\Controllers\Front\VacancyApplicationController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
@@ -43,8 +44,8 @@ Route::post('/vacancy-store', [VacancyApplicationController::class, 'store'])
     ->name('vacancy.store');
 
 
-Route::post('/vacancy-application', [\App\Http\Controllers\Front\VacancyApplicationController::class, 'store'])->name('vacancy.store');
+Route::post('/vacancy-application', [VacancyApplicationController::class, 'store'])->name('vacancy.store');
 
 
-Route::get('/live-search', [\App\Http\Controllers\Front\SearchController::class, 'liveSearch'])->name('live.search');
+Route::get('/live-search', [SearchController::class, 'liveSearch'])->name('live.search');
 

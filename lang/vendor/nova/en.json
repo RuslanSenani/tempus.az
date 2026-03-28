@@ -517,6 +517,7 @@
     "Are you sure you want to sync translations from File?": "Are you sure you want to sync translations from the file to the database?",
     ":count translations synced successfully.": ":count translations synced successfully.",
     "Error occurred: :error": "Error occurred: :error",
+    "All rights reserved.": "All rights reserved.",
     "New :resource Create": "Create New :resource",
     ":resource Update": "Update :resource"
 }

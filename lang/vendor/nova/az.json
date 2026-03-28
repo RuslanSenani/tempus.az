@@ -519,6 +519,7 @@
     "Are you sure you want to sync translations from File?": "Faylındakı tərcümələri bazaya köçürməyə əminsiniz?",
     ":count translations synced successfully.": ":count ədəd tərcümə uğurla sinxronlaşdırıldı.",
     "Error occurred: :error": "Xəta baş verdi: :error",
+    "All rights reserved.": "Bütün hüquqlar qorunur.",
 
     "New :resource Create": "Yeni :resource əlavə et",
     ":resource Update": ":resource məlumatını yenilə"

@@ -519,5 +519,6 @@
     ":count translations synced successfully.": "Успешно синхронизировано переводов: :count.",
     "Error occurred: :error": "Произошла ошибка: :error",
     "New :resource Create": "Создать новый :resource",
+    "All rights reserved.": "Все права защищены.",
     ":resource Update": "Обновить :resource"
 }

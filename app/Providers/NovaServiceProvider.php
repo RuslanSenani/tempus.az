@@ -21,17 +21,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
 
         // Footer-i özəlləşdiririk
+
         Nova::footer(function ($request) {
             return Blade::render('
-                <div class="flex justify-center gap-1 text-xs">
-                    <p class="text-center">
-                        &copy; {{ date("Y") }}
-                        <a href="#" class="link-default">Tempus</a>.
-                        Bütün hüquqlar qorunur.
-                    </p>
-                    <span class="px-1">&middot;</span>
-                </div>
-            ');
+        <div class="flex justify-center gap-1 text-xs">
+            <p class="text-center">
+                &copy; {{ date("Y") }}
+                <a href="{{ route("home") }}" class="link-default">Tempus</a>.
+                {{ __("All rights reserved.") }}
+            </p>
+        </div>
+    ');
         });
 
     }
