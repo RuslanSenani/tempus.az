@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -42,10 +43,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function routes()
     {
+
         Nova::routes()
             ->withAuthenticationRoutes(default: true)
             ->withPasswordResetRoutes()
             ->register();
+
+        Route::get('/admin', function () {
+            return redirect('/admin/resources/activity-logs');
+        });
     }
 
     /**
@@ -70,7 +76,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [
-            new \App\Nova\Dashboards\Main,
+//            new \App\Nova\Dashboards\Main,
+
         ];
     }
 

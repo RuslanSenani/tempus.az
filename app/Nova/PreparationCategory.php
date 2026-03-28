@@ -138,6 +138,10 @@ class PreparationCategory extends Resource
     {
         return [];
     }
+    public static function group()
+    {
+        return __('Other');
+    }
 
     public static function label()
     {

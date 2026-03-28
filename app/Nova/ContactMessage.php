@@ -129,7 +129,7 @@ class ContactMessage extends Resource
 
     public static function group(): string
     {
-        return trans('Message');
+        return __('Message');
     }
 
     public static function label()

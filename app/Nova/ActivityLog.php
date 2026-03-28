@@ -20,7 +20,10 @@ class ActivityLog extends Resource
      */
     public static $model = Activity::class;
 
-    public static $group = 'Sistem';
+    public static function group(): string
+    {
+        return __('System');
+    }
 
     public static $clickAction = 'preview';
     /**

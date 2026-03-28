@@ -40,6 +40,10 @@ class SocialMedia extends Resource
     public static $search = [
         'id',
     ];
+    public static function group()
+    {
+        return __('Other');
+    }
 
     /**
      * Get the fields displayed by the resource.

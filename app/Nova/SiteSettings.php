@@ -360,7 +360,10 @@ class SiteSettings extends Resource
     {
         return [];
     }
-
+    public static function group()
+    {
+        return __('Other');
+    }
     /**
      * Get the actions available for the resource.
      *

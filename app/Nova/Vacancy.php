@@ -27,6 +27,11 @@ class Vacancy extends Resource
         return false;
     }
 
+    public static function group()
+    {
+        return __('Other');
+    }
+
     /**
      * The model the resource corresponds to.
      *

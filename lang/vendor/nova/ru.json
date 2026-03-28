@@ -474,7 +474,6 @@
     "The image could not be loaded.": "Изображение не удалось загрузить.",
     "User Actions": "Действия пользователя",
     "image": "Изображение",
-
     "Preparations": "Препараты",
     "Preparation": "Препарат",
     "Abouts": "О нас",
@@ -485,6 +484,7 @@
     "Contact": "Контакт",
     "ContactMessages": "Сообщения контактов",
     "ContactMessage": "Сообщение",
+    "Message": "Сообщение",
     "Languages": "Языки",
     "Language": "Язык",
     "Medias": "Медиа файлы",
@@ -511,7 +511,13 @@
     "Vacancy": "Вакансия",
     "VacancyApplications": "Заявки на вакансии",
     "VacancyApplication": "Заявка",
-
+    "Other": "Другой",
+    "Unregistered": " ",
+    "Sync Languages": "Синхронизировать языки из файла",
+    "Sync": "Синхронизировать",
+    "Are you sure you want to sync translations from File?": "Вы уверены, что хотите синхронизировать переводы из файла в базу данных?",
+    ":count translations synced successfully.": "Успешно синхронизировано переводов: :count.",
+    "Error occurred: :error": "Произошла ошибка: :error",
     "New :resource Create": "Создать новый :resource",
     ":resource Update": "Обновить :resource"
 }

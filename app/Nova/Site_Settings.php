@@ -23,6 +23,10 @@ class Site_Settings extends Resource
      */
     public static $title = 'id';
 
+    public static function group()
+    {
+        return __('Other');
+    }
     /**
      * The columns that should be searched.
      *

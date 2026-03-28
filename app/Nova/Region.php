@@ -33,6 +33,10 @@ class Region extends Resource
         'id',
     ];
 
+    public static function group()
+    {
+        return __('Other');
+    }
     public static function authorizedToCreate(Request $request): bool
     {
         return \App\Models\Region::count() === 0;

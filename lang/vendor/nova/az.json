@@ -484,6 +484,7 @@
     "Contact": "Əlaqə",
     "ContactMessages": "Əlaqə Mesajları",
     "ContactMessage": "Əlaqə Mesajı",
+    "Message": "Mesaj",
     "Languages": "Dillər",
     "Language": "Dil",
     "Medias": "Media Faylları",
@@ -510,6 +511,14 @@
     "Vacancy": "Vakansiya",
     "VacancyApplications": "Vakansiya Müraciətləri",
     "VacancyApplication": "Müraciət",
+    "Other": "Digər",
+    "Unregistered": " ",
+
+    "Sync Languages": "Dilləri Fayldan Sinxronla",
+    "Sync": "Sinxronla",
+    "Are you sure you want to sync translations from File?": "Faylındakı tərcümələri bazaya köçürməyə əminsiniz?",
+    ":count translations synced successfully.": ":count ədəd tərcümə uğurla sinxronlaşdırıldı.",
+    "Error occurred: :error": "Xəta baş verdi: :error",
 
     "New :resource Create": "Yeni :resource əlavə et",
     ":resource Update": ":resource məlumatını yenilə"

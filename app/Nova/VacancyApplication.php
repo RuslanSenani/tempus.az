@@ -81,9 +81,9 @@ class VacancyApplication extends Resource
             Badge::make('Müsahibə Günü', 'available_days')->map([
                 'B.E' => 'info',
                 'Ç.A' => 'warning',
-                'Ç'   => 'warning',
+                'Ç' => 'warning',
                 'C.A' => 'success',
-                'C'   => 'info',
+                'C' => 'info',
             ]),
             CkEditor::make('Message', 'message'),
             CkEditor::make('Work Experience', 'work_experience'),
@@ -136,9 +136,10 @@ class VacancyApplication extends Resource
     {
         return [];
     }
+
     public static function group(): string
     {
-        return trans('Message');
+        return __('Message');
     }
 
     public static function label()

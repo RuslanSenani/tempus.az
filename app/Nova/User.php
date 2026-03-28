@@ -39,6 +39,11 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+    public static function group()
+    {
+        return __('Other');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *

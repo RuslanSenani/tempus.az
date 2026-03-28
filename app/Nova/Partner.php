@@ -29,7 +29,10 @@ class Partner extends Resource
     public static $title = 'id';
     public static $clickAction = 'select';
 
-
+    public static function group()
+    {
+        return __('Other');
+    }
     /**
      * The columns that should be searched.
      *

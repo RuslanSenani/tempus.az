@@ -118,10 +118,15 @@ class Statistic extends Resource
         return [];
     }
 
+    public static function group()
+    {
+        return __('Other');
+    }
     public static function label()
     {
         return __('Statistics');
     }
+
 
 
     public static function singularLabel()
