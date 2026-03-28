@@ -240,35 +240,25 @@ class Preparation extends Resource
         return [];
     }
 
-    /**
-     * Modulun cəm halda adı (Sol menyuda görünən əsas ad)
-     */
+
     public static function label()
     {
-        return __('Preparatlar');
+        return __('Preparations');
     }
 
-    /**
-     * Modulun tək halda adı (Məsələn: "Create Preparat" hissəsindəki "Preparat")
-     */
     public static function singularLabel()
     {
-        return __('Preparat');
+        return __('Preparation');
     }
 
-    /**
-     * Yeni qeyd yaradarkən düymənin üstündəki yazı
-     */
+
     public static function createButtonLabel()
     {
-        return __('Yeni :resource Yarat', ['resource' => static::singularLabel()]);
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
     }
 
-    /**
-     * Yeniləyərkən düymənin üstündəki yazı
-     */
     public static function updateButtonLabel()
     {
-        return __(':resource Yenilə', ['resource' => static::singularLabel()]);
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }

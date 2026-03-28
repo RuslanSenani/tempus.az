@@ -131,4 +131,26 @@ class ContactMessage extends Resource
     {
         return trans('Message');
     }
+
+    public static function label()
+    {
+        return __('ContactMessages');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('ContactMessage');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
 }

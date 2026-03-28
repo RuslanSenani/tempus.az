@@ -2,7 +2,7 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use function Symfony\Component\Translation\t;
+
 
 class SocialMedia extends Resource
 {
@@ -131,5 +131,27 @@ class SocialMedia extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+
+    public static function label()
+    {
+        return __('SocialMedias');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('SocialMedia');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }

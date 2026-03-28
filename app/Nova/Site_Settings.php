@@ -110,4 +110,25 @@ class Site_Settings extends Resource
     {
         return false;
     }
+    public static function label()
+    {
+        return __('Site_Settings');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('Site_Setting');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
 }

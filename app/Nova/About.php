@@ -136,4 +136,28 @@ class About extends Resource
     {
         return [];
     }
+
+
+    public static function label()
+    {
+        return __('Abouts');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('About');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
+
 }

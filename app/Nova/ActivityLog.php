@@ -10,7 +10,6 @@ use Spatie\Activitylog\Models\Activity;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Badge;
-use Illuminate\Database\Eloquent\Builder;
 
 class ActivityLog extends Resource
 {
@@ -305,5 +304,27 @@ class ActivityLog extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+
+    public static function label()
+    {
+        return __('ActivityLogs');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('ActivityLog');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }

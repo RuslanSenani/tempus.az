@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -130,5 +129,26 @@ class Partner extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+    public static function label()
+    {
+        return __('Partners');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('Partner');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }

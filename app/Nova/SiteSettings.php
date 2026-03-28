@@ -16,7 +16,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Mostafaznv\NovaCkEditor\CkEditor;
 
-class SiteSetings extends Resource
+class SiteSettings extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -370,5 +370,27 @@ class SiteSetings extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+
+    public static function label()
+    {
+        return __('SiteSettings');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('SiteSetting');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }

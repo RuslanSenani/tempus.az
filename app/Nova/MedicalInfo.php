@@ -144,4 +144,26 @@ class MedicalInfo extends Resource
     {
         return [];
     }
+
+    public static function label()
+    {
+        return __('MedicalInfos');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('MedicalInfo');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
 }

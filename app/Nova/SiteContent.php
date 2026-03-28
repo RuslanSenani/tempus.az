@@ -104,6 +104,27 @@ class SiteContent extends Resource
             (new Actions\SyncLanguages)->standalone(), // standalone() düyməni yuxarıda, tək göstərir
         ];
     }
+    public static function label()
+    {
+        return __('SiteContents');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('SiteContent');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
 
 
 }

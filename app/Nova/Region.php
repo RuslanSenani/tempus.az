@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\KeyValue;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Region extends Resource
@@ -107,5 +106,26 @@ class Region extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+    public static function label()
+    {
+        return __('Regions');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('Region');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }

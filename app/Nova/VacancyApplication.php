@@ -140,4 +140,26 @@ class VacancyApplication extends Resource
     {
         return trans('Message');
     }
+
+    public static function label()
+    {
+        return __('VacancyApplications');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('VacancyApplication');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
 }

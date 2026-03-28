@@ -122,4 +122,26 @@ class Language extends Resource
     {
         return [];
     }
+
+    public static function label()
+    {
+        return __('Languages');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('Language');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
 }
