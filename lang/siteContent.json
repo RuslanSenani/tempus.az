@@ -429,5 +429,10 @@
         "az": "Mesaj göndərildi",
         "en": "Message sent.",
         "ru": "Сообщение отправлено."
+    },
+    "home_follow_us": {
+        "az": "Bizi izləyin",
+        "en": "Follow us",
+        "ru": "Подписывайтесь на нас"
     }
 }

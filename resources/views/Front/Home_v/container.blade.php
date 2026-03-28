@@ -273,7 +273,7 @@
 
                                 <div class="statistics-content">
                             <span data-statistics_percent="{{$statistic->preparation_count??''}}"
-                                  id="statistics_count-1">{{$statistic->title??''}}</span>
+                                  id="statistics_count-1">{{$statistic->preparation_count??''}}</span>
                                     <p>{{$statistic->preparation??''}}</p>
                                 </div>
                             </div>

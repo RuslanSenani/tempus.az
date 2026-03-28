@@ -1863,6 +1863,79 @@ canvas {
     font-weight: 600;
 }
 
+/* Sosial bölmənin ana qabı */
+.footer-social-section {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.social-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* İkonların düzülüşü */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* İkonlar arası məsafə */
+}
+
+/* Ümumi ikon stili */
+.social-link {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    color: #555;
+    border-radius: 50%; /* Dairəvi forma */
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Hover effekti - yuxarı qalxma */
+.social-link:hover {
+    transform: translateY(-5px);
+    color: #fff;
+}
+
+/* Hər şəbəkə üçün öz rəngi (Hover olanda) */
+.social-link.facebook:hover {
+    background-color: #3b5998;
+}
+
+.social-link.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.social-link.tiktok:hover {
+    background-color: #000000;
+}
+
+.social-link.youtube:hover {
+    background-color: #ff0000;
+}
+
+/* --- MOBİL ÜÇÜN --- */
+@media (max-width: 768px) {
+    .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .social-title {
+        font-size: 16px;
+    }
+}
+
 
 
 

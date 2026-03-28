@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -88,7 +90,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/shortcodes.css">
 
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/css/custom.css">
-
 
 
     <!--[if lt IE 9]>

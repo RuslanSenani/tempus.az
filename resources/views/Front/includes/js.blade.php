@@ -24,7 +24,6 @@
 
 <!-- Library - Magnific Popup - v1.0.0 -->
 <script src="{{asset("assets")}}/libraries/magnific-popup/jquery.magnific-popup.min.js"></script>
-
 <!-- Library - Google Map API -->
 {{--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>--}}
 

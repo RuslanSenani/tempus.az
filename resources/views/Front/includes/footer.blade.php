@@ -116,6 +116,35 @@
                 </aside>
             </div>
 
+            <div class="footer-social-section">
+                <h4 class="social-title">{{$siteContent['home_follow_us']->value??''}}</h4>
+                <div class="social-icons">
+                    @if(!empty($setting->facebook))
+                        <a href="{{$setting->facebook}}" class="social-link facebook" target="_blank"
+                           aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    @endif
+                    @if(!empty($setting->instagram))
+                        <a href="{{$setting->instagram}}" class="social-link instagram" target="_blank"
+                           aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    @endif
+                    @if(!empty($setting->tik_tok))
+                        <a href="{{$setting->tik_tok}}" class="social-link tiktok" target="_blank" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    @endif
+                    @if(!empty($setting->youtube))
+                        <a href="{{$setting->youtube}}" class="social-link youtube" target="_blank"
+                           aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    @endif
+                </div>
+            </div>
+
         </div>
     </div><!-- Container /- -->
     <!-- Bottom Footer -->
