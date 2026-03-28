@@ -24,6 +24,13 @@ class ActivityLog extends Resource
 
     public static $clickAction = 'preview';
     /**
+     * Resurs üçün səhifələmə seçimləri.
+     *
+     * @var array
+     */
+    public static $perPageOptions = [100, 50, 25];
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
