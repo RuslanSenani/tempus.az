@@ -22,6 +22,8 @@ class ActivityLog extends Resource
     public static $model = Activity::class;
 
     public static $group = 'Sistem';
+
+    public static $clickAction = 'preview';
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -56,13 +58,13 @@ class ActivityLog extends Resource
                 if (!$this->causer) return '<span class="text-gray-400">Sistem/Qonaq</span>';
 
                 return $this->causer->name . " <span class='text-gray-400'>(ID: {$this->causer->id})</span>";
-            })->asHtml(),
+            })->asHtml()->showOnPreview(),
 
 //            Text::make('Resurs', 'subject_type'),
             Text::make('Resurs', 'subject_type')
                 ->displayUsing(function ($value) {
                     return  class_basename($value);
-                }),
+                })->showOnPreview(),
 
             Badge::make('Növ', 'event')->map([
                 'created' => 'success',
@@ -87,7 +89,7 @@ class ActivityLog extends Resource
             }),
             DateTime::make('Tarix', 'created_at')
                 ->displayUsing(fn($v) => $v ? $v->format('d.m.Y H:i') : '-')
-                ->sortable(),
+                ->sortable()->showOnPreview(),
 
 
             Text::make('Dəyişiklik Tarixçəsi', function () {
@@ -155,7 +157,7 @@ class ActivityLog extends Resource
                 $html .= '</tbody></table></div>';
 
                 return $html;
-            })->asHtml()->onlyOnDetail(),
+            })->asHtml()->onlyOnDetail()->showOnPreview(),
 
 
         ];

@@ -471,5 +471,9 @@
     "Remove": "Sil",
     "Uploading": "Yüklənir",
     "The image could not be loaded.": "Şəkil yüklənmədi.",
-    "User Actions": "İstifadəçi hərəkətləri"
+    "User Actions": "İstifadəçi hərəkətləri",
+    "Preparatlar": "Preparatlar",
+    "Preparat": "Preparat",
+    "Yeni :resource Yarat": "Yeni :resource əlavə et",
+    ":resource Yenilə": ":resource məlumatını yenilə"
 }

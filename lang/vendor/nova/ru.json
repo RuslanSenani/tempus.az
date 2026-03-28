@@ -472,5 +472,9 @@
     "Uploading": "Загрузка",
     "The image could not be loaded.": "Изображение не удалось загрузить.",
     "User Actions": "Действия пользователя",
-    "image": "Изображение"
+    "image": "Изображение",
+    "Preparatlar": "Препараты",
+    "Preparat": "Препарат",
+    "Yeni :resource Yarat": "Создать новый :resource",
+    ":resource Yenilə": "Обновить :resource"
 }
