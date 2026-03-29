@@ -20,8 +20,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         parent::boot();
 
-        // Footer-i özəlləşdiririk
+        Nova::initialPath(function ($request) {
+            if ($request->user()) {
+                return '/admin/resources/users/' . auth()->user()->id;
+            }
 
+            return '/admin/users';
+        });
+        // Footer-i özəlləşdiririk
         Nova::footer(function ($request) {
             return Blade::render('
         <div class="flex justify-center gap-1 text-xs">

@@ -74,10 +74,6 @@ class User extends Resource
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
 
-            Select::make('Rol', 'role')->options([
-                'admin' => 'Admin',
-                'user'  => 'Adi İstifadəçi',
-            ])->displayUsingLabels()->rules('required'),
         ];
     }
 

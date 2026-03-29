@@ -11,14 +11,21 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 class Partner extends Resource
 {
+
+    use HasSortableRows;
+
     /**
      * The model the resource corresponds to.
      *
      * @var class-string<\App\Models\Partner>
      */
+
+    public static $indexDefaultOrder = ['sort_order' => 'asc'];
+    public static $sortableCacheKey = 'partners-sortable';
     public static $model = \App\Models\Partner::class;
 
     /**
@@ -33,6 +40,7 @@ class Partner extends Resource
     {
         return __('Other');
     }
+
     /**
      * The columns that should be searched.
      *
@@ -51,7 +59,7 @@ class Partner extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make(),
             Image::make('Image', 'logo')
                 ->disk('public')
                 ->prunable()
@@ -133,6 +141,7 @@ class Partner extends Resource
     {
         return [];
     }
+
     public static function label()
     {
         return __('Partners');
