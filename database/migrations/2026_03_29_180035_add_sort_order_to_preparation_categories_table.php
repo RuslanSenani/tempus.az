@@ -11,11 +11,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('partners', function (Blueprint $table) {
+        Schema::table('preparation_categories', function (Blueprint $table) {
             $table->integer('sort_order')->default(0)->after('id');
         });
 
-        DB::table('partners')->update([
+        DB::table('preparation_categories')->update([
             'sort_order' => DB::raw('id')
         ]);
     }
@@ -25,7 +25,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('partners', function (Blueprint $table) {
+        Schema::table('preparation_categories', function (Blueprint $table) {
             $table->dropColumn(['sort_order']);
         });
     }

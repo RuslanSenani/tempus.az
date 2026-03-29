@@ -10,12 +10,17 @@ use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 class PreparationCategory extends Resource
 {
+
+    use HasSortableRows;
+
     /**
      * The model the resource corresponds to.
      *
@@ -38,7 +43,7 @@ class PreparationCategory extends Resource
      * @var array
      */
     public static $search = [
-        'name',
+        'name', 'sort_order'
     ];
 
     /**
@@ -138,6 +143,7 @@ class PreparationCategory extends Resource
     {
         return [];
     }
+
     public static function group()
     {
         return __('Other');

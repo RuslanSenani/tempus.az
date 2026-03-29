@@ -19,7 +19,7 @@ class PreparationRepository implements PreparationRepositoryInterface
 
     public function getAllPreparations(): Collection
     {
-        return $this->preparation->newQuery()->orderBy('name')->get();
+        return $this->preparation->newQuery()->orderBy('sort_order')->get();
     }
 
     public function getPreparationById($id)
@@ -29,7 +29,7 @@ class PreparationRepository implements PreparationRepositoryInterface
 
     public function getPreparationsByCategoryId($id)
     {
-        return $this->preparation->newQuery()->with('category')->where('category_id', $id)->orderBy('name')->get();
+        return $this->preparation->newQuery()->with('category')->where('category_id', $id)->orderBy('sort_order')->get();
     }
 
 
@@ -38,7 +38,7 @@ class PreparationRepository implements PreparationRepositoryInterface
         Paginator::currentPageResolver(function () use ($page) {
             return $page;
         });
-        return $this->preparation->newQuery()->orderBy('name')->latest()->paginate($limit);
+        return $this->preparation->newQuery()->orderBy('sort_order')->latest()->paginate($limit);
     }
 
     public function getCount():int

@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Models\PreparationCategory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 
 class CategoryRepository implements CategoryRepositoryInterface
@@ -21,7 +20,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getAllActiveCategory(): Collection
     {
 
-        return $this->category->newQuery()->with('preparations')->withCount('preparations')->where('is_active', 1)->orderBy('name')->get();
+        return $this->category->newQuery()->with('preparations')->withCount('preparations')->where('is_active', 1)->orderBy('sort_order','asc')->get();
 
     }
 
@@ -33,7 +32,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             }])
             ->withCount('preparations')
             ->where('is_active', 1)
-            ->orderBy('name', 'asc')
+            ->orderBy('sort_order', 'asc')
             ->limit($limit)
             ->inRandomOrder()
             ->get();

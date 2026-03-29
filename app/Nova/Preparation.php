@@ -15,10 +15,12 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Mostafaznv\NovaCkEditor\CkEditor;
 use Intervention\Image\ImageManager;
 use Outl1ne\MultiselectField\Multiselect;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 
 class Preparation extends Resource
 {
+    use HasSortableRows;
     /**
      * The model the resource corresponds to.
      *

@@ -5,17 +5,19 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::table('partners', function (Blueprint $table) {
+        Schema::table('preparations', function (Blueprint $table) {
             $table->integer('sort_order')->default(0)->after('id');
+
         });
 
-        DB::table('partners')->update([
+        DB::table('preparations')->update([
             'sort_order' => DB::raw('id')
         ]);
     }
@@ -25,7 +27,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('partners', function (Blueprint $table) {
+        Schema::table('preparations', function (Blueprint $table) {
             $table->dropColumn(['sort_order']);
         });
     }

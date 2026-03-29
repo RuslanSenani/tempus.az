@@ -9,6 +9,7 @@ use Intervention\Image\ImageManager;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Outl1ne\NovaSortable\Traits\HasSortableRows;
@@ -24,8 +25,8 @@ class Partner extends Resource
      * @var class-string<\App\Models\Partner>
      */
 
-    public static $indexDefaultOrder = ['sort_order' => 'asc'];
-    public static $sortableCacheKey = 'partners-sortable';
+//    public static $indexDefaultOrder = ['sort_order' => 'asc'];
+//    public static $sortableCacheKey = 'partners-sortable';
     public static $model = \App\Models\Partner::class;
 
     /**
@@ -47,7 +48,7 @@ class Partner extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'name'
     ];
 
     /**
@@ -59,7 +60,7 @@ class Partner extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make(),
+            ID::make()->sortable(),
             Image::make('Image', 'logo')
                 ->disk('public')
                 ->prunable()
@@ -93,7 +94,7 @@ class Partner extends Resource
                 })->asHtml(),
             NovaTabTranslatable::make([
                 Text::make('Name', 'name')
-//                    ->rules('required', 'max:255'),
+
             ])->setTitle('Name')
         ];
     }
