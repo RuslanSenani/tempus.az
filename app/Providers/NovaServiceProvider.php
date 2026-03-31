@@ -26,7 +26,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 if ($user->is_admin) {
                     return '/resources/activity-logs';
                 }
-                return '/resources/users/' . $user->id;
+                return '/resources/users';
             }
             return '/login';
         });
