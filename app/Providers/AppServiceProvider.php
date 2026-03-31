@@ -8,7 +8,6 @@ use App\Models\SiteContent;
 use App\Models\User;
 use App\Observers\LanguageObserver;
 use App\Observers\SiteContentObserver;
-use App\Policies\BasePolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Gate;

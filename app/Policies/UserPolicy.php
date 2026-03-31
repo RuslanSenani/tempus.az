@@ -21,7 +21,7 @@ class UserPolicy
     public function view(User $user, User $model): bool
     {
         // Admin hər kəsə baxa bilər, normal user ancaq özünə
-        return $user->is_admin || $user->id === $model->id;
+        return (int)$user->is_admin === 1 || (int)$user->id === (int)$model->id;
     }
 
     /**
