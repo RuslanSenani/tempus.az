@@ -130,11 +130,12 @@ class User extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if (!$request->user()->is_admin) {
+        if ($request->user() && (int)$request->user()->is_admin !== 1) {
             return $query->where('id', $request->user()->id);
         }
 
         return $query;
+
     }
 
     public static function label()

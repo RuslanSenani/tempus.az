@@ -21,11 +21,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
 
         Nova::initialPath(function ($request) {
-            if ($request->user()) {
-                return 'admin/resources/activity-logs';
+            $user = $request->user();
+            if ($user) {
+                if ($user->is_admin) {
+                    return '/resources/activity-logs';
+                }
+                return '/resources/users/' . $user->id;
             }
-
-            return 'admin/activity-logs';
+            return '/login';
         });
 
         // Footer-i özəlləşdiririk
@@ -52,13 +55,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
 
         Nova::routes()
-            ->withAuthenticationRoutes(default: true)
+            ->withAuthenticationRoutes()
             ->withPasswordResetRoutes()
             ->register();
-
-        Route::get('/admin', function () {
-            return redirect('/admin/resources/activity-logs');
-        });
     }
 
     /**
@@ -71,7 +70,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return $user->is_admin === 1;
+            return true;
         });
     }
 

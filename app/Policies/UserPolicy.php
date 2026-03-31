@@ -38,7 +38,7 @@ class UserPolicy
     public function update(User $user, User $model): bool
     {
         // Admin hər kəsi redaktə edə bilər, user ancaq özünü
-        return $user->is_admin || $user->id === $model->id;
+        return (int)$user->is_admin === 1 || (int)$user->id === (int)$model->id;
     }
 
     /**
