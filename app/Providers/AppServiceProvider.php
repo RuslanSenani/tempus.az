@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
                     'name' => 'admin',
                     'email' => 'admin@admin.com',
                     'password' => Hash::make('12345678'),
-                    'is_admin' => true
+                    'is_admin' => 1
                 ]);
             }
         }
