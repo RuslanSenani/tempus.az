@@ -46,7 +46,13 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        // Yalnız admin silə bilsin
+
+        // Admin silinə bilməz
+        if ($model->is_admin) return false;
+
+        // İstifadəçi özü-özünü silə bilməz
+        if ($user->id === $model->id) return false;
+
         return $user->is_admin;
     }
 
@@ -63,6 +69,11 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
+        // Hətta bazadan tam silmək istədikdə belə admini silmək olmaz
+        if ($model->is_admin) {
+            return false;
+        }
+
         return $user->is_admin;
     }
 }
