@@ -28,7 +28,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 }
                 return '/resources/users';
             }
-            return '/login';
+            return '/admin/login';
         });
 
         // Footer-i özəlləşdiririk
