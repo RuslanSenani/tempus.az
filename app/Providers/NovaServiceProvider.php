@@ -26,9 +26,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 if ($user->is_admin) {
                     return '/resources/activity-logs';
                 }
-                return '/resources/users';
+                return '/resources/users/' . $user->id;
+
             }
-            return '/admin/login';
+            return '/login';
         });
 
         // Footer-i özəlləşdiririk
@@ -55,9 +56,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
 
         Nova::routes()
-            ->withAuthenticationRoutes()
+            ->withAuthenticationRoutes(default: true)
             ->withPasswordResetRoutes()
             ->register();
+
+        Route::get('/admin', function () {
+            return redirect('/admin/resources/activity-logs');
+        });
     }
 
     /**
