@@ -11,7 +11,6 @@ return [
     App\Providers\PartnersServicesProviders::class,
     App\Providers\PreparationCategoryProvider::class,
     App\Providers\PreparationProvider::class,
-    App\Providers\PreparationProviders::class,
     App\Providers\SettingProvider::class,
     App\Providers\SiteContentProvider::class,
     App\Providers\StatisticServiceProvider::class,

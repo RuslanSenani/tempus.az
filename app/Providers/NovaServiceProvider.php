@@ -22,11 +22,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::initialPath(function ($request) {
             if ($request->user()) {
-                return '/admin/resources/users/' . auth()->user()->id;
+                return '/resources/users/' . auth()->user()->id;
             }
 
-            return '/admin/users';
+            return '/users';
         });
+
         // Footer-i özəlləşdiririk
         Nova::footer(function ($request) {
             return Blade::render('
