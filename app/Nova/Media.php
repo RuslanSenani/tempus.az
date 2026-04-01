@@ -17,6 +17,8 @@ use Mostafaznv\NovaCkEditor\CkEditor;
 
 class Media extends Resource
 {
+
+    public static $displayInNavigation = false;
     /**
      * The model the resource corresponds to.
      *
