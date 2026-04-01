@@ -56,6 +56,8 @@ class PreparationCategory extends Resource
     {
         return [
             ID::make()->sortable(),
+            Number::make('Sıralama', 'sort_order')
+                ->readonly(),
             Boolean::make('Status', 'is_active')
                 ->trueValue(1)
                 ->falseValue(0)

@@ -26,7 +26,7 @@
                         <p>{{$setting->address??''}}</p>
                     </div>
                     <div class="phone">
-                        <h3><img src="{{asset("assets")}}/images/phone-ic.png" alt="phone"/> {{$setting->phone_1??''}}
+                        <h3><i class="fa-solid fa-mobile-screen-button fa-flip-horizontal" style="color: rgb(116, 192, 252);"></i> {{$setting->phone_1??''}}
                         </h3>
                     </div>
                 </div>

@@ -61,6 +61,8 @@ class Partner extends Resource
     {
         return [
             ID::make()->sortable(),
+            Number::make('Sıralama', 'sort_order')
+                ->readonly(),
             Image::make('Image', 'logo')
                 ->disk('public')
                 ->prunable()

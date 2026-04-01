@@ -9,6 +9,7 @@ use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -21,6 +22,7 @@ use Outl1ne\NovaSortable\Traits\HasSortableRows;
 class Preparation extends Resource
 {
     use HasSortableRows;
+
     /**
      * The model the resource corresponds to.
      *
@@ -45,7 +47,7 @@ class Preparation extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'title', 'slug'
+        'id', 'name', 'title', 'slug','category.name'
     ];
 
 
@@ -60,7 +62,9 @@ class Preparation extends Resource
 
         return [
             ID::make()->sortable(),
-            Multiselect::make('Category', 'category_id') // 'category' əvəzinə 'category_id' yazırıq
+            Number::make('Sıralama', 'sort_order')
+                ->readonly(),
+            Multiselect::make('Category', 'category_id')
             ->sortable()
                 ->options(\App\Models\PreparationCategory::all()->mapWithKeys(function ($category) {
                     return [
@@ -104,33 +108,6 @@ class Preparation extends Resource
                         $attribute => $path,
                     ];
                 }),
-//            Image::make('Image', 'image')
-//                ->disk('public')
-//                ->prunable()
-//                ->deletable()
-//                ->store(function ($request, $model, $attribute, $requestAttribute) {
-//                    $file = $request->file($requestAttribute);
-//                    if (!$file) return null;
-//                    if ($model->image && Storage::disk('public')->exists($model->image)) {
-//                        Storage::disk('public')->delete($model->image);
-//                    }
-//                    $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-//                    $path = "preparation/$filename";
-//
-//                    // Version 3-də yeni Manager yaradılır
-//                    $manager = new ImageManager(new Driver());
-//
-//                    // Şəkli oxuyuruq və ölçüləndiririk
-//                    $image = $manager->read($file)
-//                        ->pad(800, 600, 'ffffff');
-//
-//                    // Şəkli formatlayıb Storage-a yazırıq
-//                    Storage::disk('public')->put($path, $image->toJpeg(80));
-//
-//                    return [
-//                        $attribute => $path,
-//                    ];
-//                }),
             Image::make('Official Document', 'official_document')
                 ->disk('public')
                 ->prunable()
@@ -230,6 +207,7 @@ class Preparation extends Resource
     {
         return [];
     }
+
     public static function group()
     {
         return __('Other');
