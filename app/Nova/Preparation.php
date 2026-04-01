@@ -162,7 +162,7 @@ class Preparation extends Resource
                     ->rules('max:255'),
                 Text::make('Title', 'title')
                     ->rules('max:255'),
-                CkEditor::make('Description', 'description'),
+//                CkEditor::make('Description', 'description'),
                 Slug::make('Slug', 'slug')
                     ->from('Name')
                     ->separator('-')
