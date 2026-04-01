@@ -1936,6 +1936,29 @@ canvas {
     }
 }
 
+#navbar .nav > li > a {
+    font-weight: 600; /* 600 - Semibold, 700 - Bold */
+    font-size: 15px;  /* Ehtiyac varsa ölçünü də burdan nizamlayın */
+    letter-spacing: 0.5px; /* Hərflər arası məsafəni bir az açmaq daha peşəkar göstərir */
+}
+
+/* Hover (üstünə gələndə) rəngin bir az daha tünd olması üçün */
+#navbar .nav > li > a:hover {
+    font-weight: 700;
+}
+
+.language-switcher .dropdown-toggle {
+    font-weight: 700 !important; /* Qalınlıq dərəcəsi */
+    font-size: 16px;            /* Ölçünü də bir az böyüdə bilərsiniz */
+    display: flex;
+    align-items: center;
+}
+
+.language-switcher .dropdown-toggle i {
+    stroke-width: 20px; /* Bəzi ikonlarda qalınlıq üçün */
+    font-weight: 900;    /* FontAwesome ikonunu qalınlaşdırır */
+}
+
 
 
 

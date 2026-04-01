@@ -4,7 +4,7 @@
 	## Navigation Menu
 	- Navigation Menu > 991 RES
 	- Navigation Menu Switch < 991 RES
-	
+
 */
 
 /* ## Navigation Menu */
@@ -40,7 +40,7 @@
 .ow-navigation .navbar-collapse > .nav.navbar-nav > li:last-child {
 	margin-right: 0;
 }
-.ow-navigation .navbar-collapse > .nav.navbar-nav > li > a { 
+.ow-navigation .navbar-collapse > .nav.navbar-nav > li > a {
 	padding: 22px 20px 24px;
 }
 .ow-navigation .nav.navbar-nav li a {
@@ -58,10 +58,10 @@
 .ow-navigation .nav.navbar-nav li:focus > a {
 	background-color: transparent;
 }
-.ow-navigation .navbar-nav > .active > a, 
-.ow-navigation .navbar-nav > .active > a:focus, 
+.ow-navigation .navbar-nav > .active > a,
+.ow-navigation .navbar-nav > .active > a:focus,
 .ow-navigation .navbar-nav > .active > a:hover {
-	
+
 }
 .ow-navigation .navbar-collapse > .nav.navbar-nav > li.active > a:before,
 .ow-navigation .navbar-collapse > .nav.navbar-nav > li:focus > a:before,
@@ -80,7 +80,7 @@
 .ow-navigation .container {
 	position: relative;
 }
-.ow-navigation .container > a  { 	
+.ow-navigation .container > a  {
 	background-color: #de302f;
 	padding: 22px 30px;
 	font-size: 15px;
@@ -104,10 +104,10 @@
 }
 /* - Navigation Menu > 991 RES. */
 @media (min-width: 992px) {
-	
+
 	.ow-navigation .nav.navbar-nav li.dropdown:hover > .dropdown-menu {
 		display: block;
-	}	
+	}
 	.ow-navigation .ddl-switch {
 		display: none !important;
 	}
@@ -121,7 +121,7 @@
 		margin-top: 0;
 		max-width: 250px;
 	}
-	.ow-navigation .dropdown-menu { 
+	.ow-navigation .dropdown-menu {
 		border-radius: 0;
 		margin-top: 0;
 	}
@@ -222,7 +222,7 @@
 	.navbar-fixed-top.ow-navigation .navbar-toggle:hover .icon-bar,
 	.ow-navigation .navbar-toggle:hover .icon-bar {
 		background-color: #0F89D1;
-	}	
+	}
     .ow-navigation .navbar-collapse {
         border-top: 1px solid transparent;
         box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
@@ -237,7 +237,7 @@
     }
 	.ow-navigation .navbar-collapse > .nav.navbar-nav > li {
 		margin: 0;
-	}	
+	}
 	.ow-navigation .navbar-collapse > .nav.navbar-nav > li a {
 		padding: 10px;
 	}
@@ -268,7 +268,7 @@
 	}
 
     /* since 3.1.0 */
-    .ow-navigation .navbar-collapse.collapse.in { 
+    .ow-navigation .navbar-collapse.collapse.in {
         display: block!important;
     }
     .ow-navigation .collapsing {
@@ -290,7 +290,7 @@
 	.ow-navigation .dropdown-menu li {
 		position: relative;
 	}
-	.ow-navigation .dropdown-menu  li a {		
+	.ow-navigation .dropdown-menu  li a {
 		color: #fff;
 		padding: 6px 0;
 	}
@@ -298,14 +298,14 @@
 	.ow-navigation .dropdown-menu  li a:focus {
 		background-color: transparent;
 	}
-	
+
 	/* -- Button */
 	.ow-navigation .container > a {
 		position: absolute;
 		left: 15px;
 		top: 0;
 	}
-} 
+}
 
 /* -- min-width: 992 to max-width: 1200 */
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
