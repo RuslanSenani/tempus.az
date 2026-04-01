@@ -33,7 +33,7 @@ class Preparation extends Model
         'sort_when_creating' => true,
 
     ];
-    protected $fillable = ['category_id', 'title', 'name', 'description', 'image', 'slug', 'pdf','sort_order'];
+    protected $fillable = ['category_id', 'title', 'name', 'description', 'image', 'slug', 'pdf','sort_order','is_active'];
 
     public array $translatable = ['name', 'title', 'description', 'image_alt_text', 'slug', 'pdf'];
 

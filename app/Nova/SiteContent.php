@@ -26,6 +26,9 @@ class SiteContent extends Resource
 
     public static $clickAction = 'select';
 
+    public static $perPageOptions = [25,50,100,150,200,250,500,1000];
+
+
     /**
      * The columns that should be searched.
      *

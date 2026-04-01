@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -39,6 +40,7 @@ class Preparation extends Resource
      */
     public static $title = 'name';
     public static $clickAction = 'select';
+    public static $perPageOptions = [25, 50, 100, 150, 200, 250, 500, 1000];
 
 
     /**
@@ -47,7 +49,7 @@ class Preparation extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'title', 'slug','category.name'
+        'id', 'name', 'title', 'slug', 'category.name'
     ];
 
 
@@ -65,7 +67,7 @@ class Preparation extends Resource
             Number::make('Sıralama', 'sort_order')
                 ->readonly(),
             Multiselect::make('Category', 'category_id')
-            ->sortable()
+                ->sortable()
                 ->options(\App\Models\PreparationCategory::all()->mapWithKeys(function ($category) {
                     return [
                         $category->id => $category->getTranslation('name', app()->getLocale())
@@ -133,6 +135,8 @@ class Preparation extends Resource
                         $attribute => $path,
                     ];
                 }),
+
+            Boolean::make('Active', 'is_active'),
 
 
             NovaTabTranslatable::make([
