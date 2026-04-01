@@ -9,6 +9,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Contact extends Resource
 {
+
+    public static $displayInNavigation = false;
     /**
      * The model the resource corresponds to.
      *
@@ -37,6 +39,7 @@ class Contact extends Resource
     public static $search = [
         'id',
     ];
+
 
     /**
      * Get the fields displayed by the resource.
@@ -128,4 +131,6 @@ class Contact extends Resource
     {
         return __(':resource Update', ['resource' => static::singularLabel()]);
     }
+
+
 }

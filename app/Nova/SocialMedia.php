@@ -16,6 +16,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class SocialMedia extends Resource
 {
+
+    public static $displayInNavigation = false;
     /**
      * The model the resource corresponds to.
      *
@@ -40,6 +42,8 @@ class SocialMedia extends Resource
     public static $search = [
         'id',
     ];
+
+
     public static function group()
     {
         return __('Other');
