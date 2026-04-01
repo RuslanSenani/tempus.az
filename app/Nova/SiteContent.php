@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 
+use Illuminate\Http\Request;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -26,7 +27,7 @@ class SiteContent extends Resource
 
     public static $clickAction = 'select';
 
-    public static $perPageOptions = [25,50,100,150,200,250,500,1000];
+    public static $perPageOptions = [25, 50, 100, 150, 200, 250, 500, 1000];
 
 
     /**
@@ -52,7 +53,8 @@ class SiteContent extends Resource
                 ->rules('required', 'max:255')
                 ->creationRules('unique:site_contents,key')
                 ->updateRules('unique:site_contents,key,{{resourceId}}')
-                ->sortable(),
+                ->sortable()
+                ->readonly(),
             NovaTabTranslatable::make([
                 Text::make('Value', 'value')
                     ->rules('required')
@@ -94,6 +96,7 @@ class SiteContent extends Resource
     {
         return [];
     }
+
     public static function group()
     {
         return __('Other');
@@ -111,6 +114,7 @@ class SiteContent extends Resource
             (new Actions\SyncLanguages)->standalone(), // standalone() düyməni yuxarıda, tək göstərir
         ];
     }
+
     public static function label()
     {
         return __('SiteContents');
@@ -133,5 +137,19 @@ class SiteContent extends Resource
         return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+
+    public function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
+
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
 
 }
