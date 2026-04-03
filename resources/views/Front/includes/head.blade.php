@@ -1,14 +1,6 @@
 <head>
 
-    @if(app()->environment('production'))
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('ANALYTICS_PROPERTY_ID') }}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '{{ env('ANALYTICS_PROPERTY_ID') }}');
-        </script>
-    @endif
+
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,3 +99,12 @@
     <![endif]-->
 
 </head>
+@if(app()->environment('production'))
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('ANALYTICS_PROPERTY_ID') }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ env('ANALYTICS_PROPERTY_ID') }}');
+    </script>
+@endif
