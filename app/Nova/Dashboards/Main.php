@@ -2,7 +2,8 @@
 
 namespace App\Nova\Dashboards;
 
-use Laravel\Nova\Cards\Help;
+
+use Illuminate\Http\Request;
 use Laravel\Nova\Dashboards\Main as Dashboard;
 use Tightenco\NovaGoogleAnalytics\MostVisitedPagesCard;
 use Tightenco\NovaGoogleAnalytics\PageViewsMetric;
@@ -28,4 +29,11 @@ class Main extends Dashboard
         ];
     }
 
+
+    public function authorize(Request $request)
+    {
+        // Yalnız admin olanlar bu dashboard-u görə bilsin
+        return $request->user()->is_admin;
+
+    }
 }

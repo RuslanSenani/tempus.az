@@ -25,9 +25,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             $user = $request->user();
             if ($user) {
                 if ($user->is_admin) {
-                    return '/resources/activity-logs';
+                    return '/dashboards/main';
                 }
-                return '/resources/users/' . $user->id;
+                return '/resources/users/';
 
             }
             return '/login';
