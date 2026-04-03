@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
+
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
@@ -63,6 +64,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Route::get('/admin', function () {
             return redirect('/admin/resources/activity-logs');
         });
+
+
     }
 
     /**
@@ -87,7 +90,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [
-//            new \App\Nova\Dashboards\Main,
+            new \App\Nova\Dashboards\Main,
 
         ];
     }
@@ -111,4 +114,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         //
     }
+
+
 }
