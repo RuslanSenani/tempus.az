@@ -4,7 +4,7 @@
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BHC30NP3V"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
-
+alert('Salam')
             function gtag() {
                 dataLayer.push(arguments);
             }
