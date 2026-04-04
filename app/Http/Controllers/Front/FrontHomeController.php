@@ -226,7 +226,7 @@ class FrontHomeController extends Controller
     }
 
 
-    public function mediaDetails(int $id): View
+    public function mediaDetails($id): View
     {
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
@@ -272,7 +272,7 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
-    public function medicalInfoDetails(int $id): View
+    public function medicalInfoDetails($id): View
     {
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
@@ -294,7 +294,7 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
-    public function preparationDetail(int $id): View
+    public function preparationDetail($id): View
     {
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
@@ -340,7 +340,7 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
-    public function categoryDetails(int $id): View
+    public function categoryDetails($id): View
     {
         $abouts = $this->aboutRepository->getAll();
         $languages = $this->languageRepository->getAllLanguages();
