@@ -11,7 +11,7 @@ Artisan::command('inspire', function () {
 
 Schedule::command('instagram:refresh-token')->monthlyOn(1, '03:00');
 
-Schedule::command('queue:work --stop-when-empty')->everyMinute()->withoutOverlapping();
+Schedule::command('queue:work --stop-when-empty')->everyFifteenMinutes()->withoutOverlapping();
 
 Schedule::call(function () {
     Visit::where('created_at', '<', now()->subDays(30))->delete();
