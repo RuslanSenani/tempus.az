@@ -39,9 +39,9 @@ Route::get('/media-details/{id}', [FrontHomeController::class, 'mediaDetails'])-
 Route::get('/media/page/{page}', [FrontHomeController::class, 'media'])->name('media.page');
 Route::get('/instagram-feed', [FrontHomeController::class, 'instagramFeed'])->name('instagram.ajax');
 
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:3,1');
 Route::post('/vacancy-store', [VacancyApplicationController::class, 'store'])
-    ->name('vacancy.store');
+    ->name('vacancy.store')->middleware('throttle:3,1');
 
 
 Route::post('/vacancy-application', [VacancyApplicationController::class, 'store'])->name('vacancy.store');
