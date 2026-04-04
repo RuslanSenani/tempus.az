@@ -83,30 +83,32 @@ class SiteSettings extends Resource
                     Image::make('Image', 'logo')
                         ->disk('public')
                         ->prunable()
+                        ->preview(fn($value, $disk) => $value ? Storage::disk($disk)->url($value) : null)
+                        ->thumbnail(fn($value, $disk) => $value ? Storage::disk($disk)->url($value) : null)
                         ->store(function ($request, $model, $attribute, $requestAttribute) {
                             $file = $request->file($requestAttribute);
                             if (!$file) return null;
+
                             if ($model->logo && Storage::disk('public')->exists($model->logo)) {
                                 Storage::disk('public')->delete($model->logo);
                             }
-                            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+                            // Favicon üçün PNG daha məsləhətdir (şəffaflıq üçün)
+                            $filename = Str::uuid() . '.png';
                             $path = "Logo/$filename";
 
-                            // Version 3-də yeni Manager yaradılır
                             $manager = new ImageManager(new Driver());
 
-                            // Şəkli oxuyuruq və ölçüləndiririk
                             $image = $manager->read($file)
-                                ->pad(800, 600, 'ffffff');
+                                ->cover(128, 128); // Şəkli kvadrat kəsir və doldurur
 
-                            // Şəkli formatlayıb Storage-a yazırıq
-                            Storage::disk('public')->put($path, $image->toJpeg(80));
+                            // PNG olaraq saxlayırıq ki, şəffaflıq itməsin
+                            Storage::disk('public')->put($path, $image->toPng());
 
                             return [
                                 $attribute => $path,
                             ];
                         }),
-
                     NovaTabTranslatable::make([
                         Text::make('Company Name', 'company_name')
                             ->rules('required')
