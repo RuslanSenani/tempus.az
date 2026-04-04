@@ -108,7 +108,7 @@
 
         <form id="contact-form" class="comment-form enquiry-form" method="POST" action="{{route('contact.store')}}">
             @csrf
-            <input type="text" name="name" placeholder="Adınız">
+
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="form-group">
