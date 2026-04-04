@@ -31,49 +31,27 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    <!-- Standard Favicon -->
+
     @php
-        // Default olaraq public qovluğundakı standart faviconu götür
-        // (Bura öz loqonun adını yaz)
-        $faviconUrl = asset('favicon.ico');
+        $faviconUrl = "#";
         $type = 'image/x-icon';
 
-        if($setting && $setting->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->logo)) {
+
+        if($setting && $setting->logo) {
             $faviconUrl = asset('storage/' . $setting->logo);
             $extension = pathinfo($setting->logo, PATHINFO_EXTENSION);
             $type = ($extension == 'ico') ? 'image/x-icon' : 'image/' . $extension;
         }
     @endphp
 
-    {{-- Brauzeri keşi qırmağa məcbur etmək üçün ?v= əlavə edirik --}}
-    <link rel="icon" type="{{ $type }}" href="{{ $faviconUrl }}?v={{ time() }}"/>
-    <link rel="shortcut icon" href="{{ $faviconUrl }}?v={{ time() }}" type="{{ $type }}">
-
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ $faviconUrl }}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ $faviconUrl }}">
-    <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
-
-
-    {{--    @php--}}
-    {{--        $faviconUrl = "#";--}}
-    {{--        $type = 'image/x-icon';--}}
-
-
-    {{--        if($setting && $setting->logo) {--}}
-    {{--            $faviconUrl = asset('storage/' . $setting->logo);--}}
-    {{--            $extension = pathinfo($setting->logo, PATHINFO_EXTENSION);--}}
-    {{--            $type = ($extension == 'ico') ? 'image/x-icon' : 'image/' . $extension;--}}
-    {{--        }--}}
-    {{--    @endphp--}}
-
-    {{--    <link rel="icon" type="{{$type}}" href="{{ $faviconUrl }}"/>--}}
-    {{--    <!-- For iPhone 4 Retina display: -->--}}
-    {{--    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ $faviconUrl }}">--}}
-    {{--    <!-- For iPad: -->--}}
-    {{--    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ $faviconUrl }}">--}}
-    {{--    <!-- For iPhone: -->--}}
-    {{--    <link rel="apple-touch-icon-precomposed" href="{{ $faviconUrl }}">--}}
-    {{--    <!-- Library - Loader CSS -->--}}
+    <link rel="icon" type="{{$type}}" href="{{ $faviconUrl }}"/>
+    <!-- For iPhone 4 Retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ $faviconUrl }}">
+    <!-- For iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ $faviconUrl }}">
+    <!-- For iPhone: -->
+    <link rel="apple-touch-icon-precomposed" href="{{ $faviconUrl }}">
+    <!-- Library - Loader CSS -->
 
 
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/loader/loaders.min.css">
