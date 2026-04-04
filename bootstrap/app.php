@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\LogVisits;
 use App\Http\Middleware\SetLocaleLanguage;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             SetLocaleLanguage::class,
         ]);
+        $middleware->append(LogVisits::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

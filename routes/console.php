@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Visit;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -9,3 +10,9 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('instagram:refresh-token')->monthlyOn(1, '03:00');
+
+Schedule::command('queue:work --stop-when-empty')->everyMinute()->withoutOverlapping();
+
+Schedule::call(function () {
+    Visit::where('created_at', '<', now()->subDays(30))->delete();
+})->daily();
