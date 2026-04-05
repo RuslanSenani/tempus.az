@@ -36,8 +36,15 @@ class BotFilter extends Filter
     public function options(NovaRequest $request)
     {
         return [
-            'Sırf Botlar' => true,
-            'Real İnsanlar' => false,
+            __('Only Bots') => true,
+            __('Real Humans') => false,
         ];
     }
+
+    public function name()
+    {
+        return __('Traffic Type');
+    }
+
+
 }

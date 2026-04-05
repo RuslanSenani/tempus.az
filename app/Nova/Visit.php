@@ -34,6 +34,11 @@ class Visit extends Resource
         'id', 'ip_address'
     ];
 
+    public static function group()
+    {
+        return __('Other');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -127,5 +132,27 @@ class Visit extends Resource
         return [
             new Actions\UnblockIP
         ];
+    }
+
+    public static function label()
+    {
+        return __('Visitors');
+    }
+
+
+    public static function singularLabel()
+    {
+        return __('Visitor');
+    }
+
+
+    public static function createButtonLabel()
+    {
+        return __('New :resource Create', ['resource' => static::singularLabel()]);
+    }
+
+    public static function updateButtonLabel()
+    {
+        return __(':resource Update', ['resource' => static::singularLabel()]);
     }
 }
