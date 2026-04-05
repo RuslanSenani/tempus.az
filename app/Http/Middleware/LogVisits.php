@@ -46,7 +46,8 @@ class LogVisits
             // Arxivlər və Backup-lar
             'backup', 'config.php.bak', 'database.sql',
             // Digər CMS və Panellər
-            'administrator', 'joomla', 'vpanel', 'cpanel'
+            'administrator', 'joomla', 'vpanel', 'cpanel',
+            'f7.php', 'shell.php', 'config.php', 'setup.php'
         ];
         $currentPath = $request->path();
 
