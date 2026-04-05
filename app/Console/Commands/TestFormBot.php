@@ -6,7 +6,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
 class TestFormBot extends Command
-{// Komandanın adı (Terminalda işlətmək üçün)
+{
+    // Komandanın adı (Terminalda işlətmək üçün)
     protected $signature = 'test:bot {count=10}';
 
     protected $description = 'Formu test etmək üçün bot sorğuları göndərir';
@@ -14,7 +15,7 @@ class TestFormBot extends Command
     public function handle()
     {
         $count = $this->argument('count');
-        $url = url('https://123.az/partners'); // Sənin contact route-un (route name deyil, birbaşa URL)
+        $url = url('https://123.az/partners');
 
         $this->info("$count ədəd sorğu göndərilir: $url");
 
@@ -24,8 +25,6 @@ class TestFormBot extends Command
                 'email' => "bot$i@test.com",
                 'phone' => '0501234567',
                 'message' => 'Bu bir avtomatlaşdırılmış test mesajıdır #' . $i,
-                // Əgər @csrf istifadə edirsənsə, lokalda çox vaxt Http client bunu avtomatik keçir,
-                // amma problem olsa middleware-dən çıxarmalı olacaqsan.
             ]);
 
             if ($response->successful()) {
@@ -34,7 +33,6 @@ class TestFormBot extends Command
                 $this->error("Sorğu $i: Uğursuz (" . $response->status() . ")");
             }
 
-            // Çox sürətli olub serveri bloklamasın deyə 0.5 saniyə gözləyə bilərsən
             usleep(500000);
         }
 

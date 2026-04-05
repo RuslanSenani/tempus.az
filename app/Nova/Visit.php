@@ -83,18 +83,34 @@ class Visit extends Resource
                 ->sortable(),
 
             // Bot olub-olmadığını rəngli nişanla göstərək
-            Badge::make('Status', 'is_bot')
+            Badge::make('Status', function () {
+                // 1. Əgər botdursa və heç bir qayda pozmayıbsa (reason boşdursa) -> Yaxşı Bot
+                if ($this->is_bot && empty($this->reason)) {
+                    return 'friendly_bot';
+                }
+
+                // 2. Əgər həm botdursa, həm də reason (səbəb) varsa -> Pis Bot / Hücumçu
+                if ($this->is_bot && !empty($this->reason)) {
+                    return 'malicious_bot';
+                }
+
+                // 3. Əgər bot deyilsə -> Real İnsan
+                return 'human';
+            })
                 ->map([
-                    true => 'danger',
-                    false => 'success',
+                    'friendly_bot' => 'info',    // Göy rəng (Yaxşı botlar üçün)
+                    'malicious_bot' => 'danger',  // Qırmızı rəng (Hücumçular üçün)
+                    'human' => 'success', // Yaşıl rəng (İnsanlar üçün)
                 ])
                 ->labels([
-                    true => 'Bot / Hücum',
-                    false => 'Real İnsan',
+                    'friendly_bot' => 'Faydalı Bot (Google/Yandex)',
+                    'malicious_bot' => 'Zərərli Bot / Hücum',
+                    'human' => 'Real İnsan',
                 ])
                 ->icons([
-                    'danger' => 'exclamation-circle',
-                    'success' => 'check-circle',
+                    'info' => 'search',             // Axtarış ikonu
+                    'danger' => 'exclamation-circle', // Xəbərdarlıq ikonu
+                    'success' => 'user',               // İnsan ikonu
                 ]),
 
             Text::make('Brauzer / OS', function () {
