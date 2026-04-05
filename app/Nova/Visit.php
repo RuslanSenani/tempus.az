@@ -57,16 +57,28 @@ class Visit extends Resource
                 ->sortable()
                 ->copyable(),
             Badge::make('Səbəb', 'reason', function () {
-                // Əgər bazada NULL və ya boşdursa, 'CLEAN' qaytar, yoxsa özünü
-                return $this->reason ?: 'CLEAN';
+                // Əgər bazada reason yoxdursa (NULL), onu 'NORMAL' statusuna çeviririk
+                return $this->reason ?: 'NORMAL';
             })
                 ->map([
-                    'CLEAN' => 'success',  // Yaşıl (Real İnsanlar)
-                    'DANGEROUS_PATH' => 'danger',   // Qırmızı
-                    'FAKE_BROWSER_NO_OS' => 'warning',  // Narıncı
-                    'MALICIOUS_AGENT' => 'danger',   // Qırmızı
-                    'RATE_LIMIT_EXCEEDED' => 'info',     // Göy
-                    'PROGRAMMATIC_BOT' => 'warning',  // Narıncı
+                    'NORMAL' => 'success', // Yaşıl
+                    'RECURRING_BLOCK_TRY' => 'danger',  // Qırmızı
+                    'EMPTY_OR_SHORT_UA' => 'warning', // Narıncı
+                    'MALICIOUS_AGENT' => 'danger',  // Qırmızı
+                    'HACKING_ATTEMPT' => 'danger',  // Qırmızı
+                    'FAKE_BROWSER_NO_OS' => 'warning', // Narıncı
+                    'PROGRAMMATIC_BOT' => 'warning', // Narıncı
+                    'TOO_MANY_REQUESTS' => 'info',    // Göy
+                ])
+                ->labels([
+                    'NORMAL' => 'Normal Giriş',
+                    'RECURRING_BLOCK_TRY' => 'Bloklu İP Təkrarı',
+                    'EMPTY_OR_SHORT_UA' => 'Şübhəli Başlıq (UA)',
+                    'MALICIOUS_AGENT' => 'Zərərli Bot',
+                    'HACKING_ATTEMPT' => 'Hücum Cəhdi',
+                    'FAKE_BROWSER_NO_OS' => 'Saxta Brauzer',
+                    'PROGRAMMATIC_BOT' => 'Avtomat Skript',
+                    'TOO_MANY_REQUESTS' => 'Limit Aşıldı',
                 ])
                 ->sortable(),
 
