@@ -80,7 +80,6 @@ class LogVisits
         }
 
 
-
         // 4. Əgər bu yaxşı bot DEYİLSƏ, limitləri yoxla
         if (!$isFriendly) {
             if (cache()->has('blocked_ip_' . $ip)) {
