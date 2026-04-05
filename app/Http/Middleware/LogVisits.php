@@ -101,16 +101,47 @@ class LogVisits
 
     private function isDangerousPath($path)
     {
-        $dangerousPaths = [
-            'xmlrpc.php', 'wp-admin','wp-login.php', '.env', 'phpinfo', 'f7.php', 'shell.php',
-            'config.php', 'setup.php', 'phpmyadmin', 'rip.php', 'eval-stdin.php',
-            'actuator', '.git', 'backup'
-        ];
-        foreach ($dangerousPaths as $badPath) {
-            if (str_contains(strtolower($path), $badPath)) return true;
+        $path = strtolower($path);
+
+        // 1. İstisnalar (Bunlara icazə verilir)
+        $allowedPaths = ['index.php', 'api.php'];
+        if (in_array($path, $allowedPaths)) {
+            return false;
         }
+
+        // 2. Sonu .php ilə bitən hər şeyi blokla
+        // index.php deyilsə və (sonu .php-dirsə VƏ YA içində .env, .git, wp-admin keçirsə)
+        if ($path !== 'index.php' && preg_match('/\.php$|\.env|\.git|wp-admin|phpmyadmin|actuator/i', $path)) {
+            return true;
+        }
+
+        // 3. Digər təhlükəli sözləri yoxla
+        $dangerousKeywords = [
+            'wp-admin', '.env', 'phpinfo', 'phpmyadmin',
+            'actuator', '.git', 'backup', 'setup.php', 'eval-stdin'
+        ];
+
+        foreach ($dangerousKeywords as $badPath) {
+            if (str_contains($path, $badPath)) {
+                return true;
+            }
+        }
+
         return false;
     }
+
+//    private function isDangerousPath($path)
+//    {
+//        $dangerousPaths = [
+//            'xmlrpc.php', 'wp-admin','wp-login.php', '.env', 'phpinfo', 'f7.php', 'shell.php',
+//            'config.php', 'setup.php', 'phpmyadmin', 'rip.php', 'eval-stdin.php',
+//            'actuator', '.git', 'backup'
+//        ];
+//        foreach ($dangerousPaths as $badPath) {
+//            if (str_contains(strtolower($path), $badPath)) return true;
+//        }
+//        return false;
+//    }
 
     private function isFriendly($robotName, $friendlyBots)
     {
