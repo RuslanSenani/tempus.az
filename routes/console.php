@@ -15,4 +15,4 @@ Schedule::command('queue:work --stop-when-empty')->everyTenSeconds()->withoutOve
 
 Schedule::call(function () {
     Visit::where('created_at', '<', now()->subMinutes(5))->delete();
-})->daily();
+})->everyMinute();
