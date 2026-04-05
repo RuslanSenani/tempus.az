@@ -103,7 +103,7 @@ class Visit extends Resource
                     'human' => 'success', // Yaşıl rəng (İnsanlar üçün)
                 ])
                 ->labels([
-                    'friendly_bot' => 'Faydalı Bot (Google/Yandex)',
+                    'friendly_bot' => 'Faydalı Bot',
                     'malicious_bot' => 'Zərərli Bot / Hücum',
                     'human' => 'Real İnsan',
                 ])
