@@ -30,6 +30,9 @@ class Visit extends Resource
      *
      * @var array
      */
+
+    public static $perPageOptions = [25, 50, 100, 150, 200, 250, 500, 1000];
+
     public static $search = [
         'id', 'ip_address'
     ];
@@ -154,5 +157,20 @@ class Visit extends Resource
     public static function updateButtonLabel()
     {
         return __(':resource Update', ['resource' => static::singularLabel()]);
+    }
+
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
+
+    public function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
+
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
     }
 }
