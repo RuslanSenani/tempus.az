@@ -25,9 +25,7 @@ class BotFilter extends Filter
      */
     public function apply(NovaRequest $request, $query, $value)
     {
-        Log::error("Value : " . $value);
         return $query->where('is_bot', $value);
-
     }
 
     /**
