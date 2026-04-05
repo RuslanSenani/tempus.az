@@ -27,7 +27,8 @@ class LogVisits
         }
 
 // 3. Zərərli User-Agent-lərin sürətli yoxlanışı
-        $badAgents = ['WormGPT', 'Sqlmap', 'Nmap', 'AhrefsBot', 'MJ12bot', 'DotBot'];
+        $badAgents = ['WormGPT', 'Sqlmap', 'Nmap', 'AhrefsBot', 'MJ12bot', 'DotBot',
+            'Python', 'aiohttp', 'Requests', 'curl', 'Wget', 'Go-http-client'];
         foreach ($badAgents as $bad) {
             if (str_contains($userAgent, $bad)) {
                 $this->logAndAbort($request, $ip, 'BAD_USER_AGENT', true);
