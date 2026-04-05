@@ -36,6 +36,27 @@ class LogVisits
             }
         }
 
+        $dangerousPaths = [
+            // WordPress
+            'xmlrpc.php', 'wp-admin', 'wp-login', 'wp-content/debug.log',
+            // Verilənlər bazası
+            'phpmyadmin', 'pma', 'adminer.php', 'mysql-admin',
+            // Sistem və Konfiqurasiya
+            '.env', '.git', '.aws', 'composer.json', 'phpinfo.php', 'info.php',
+            // Arxivlər və Backup-lar
+            'backup', 'config.php.bak', 'database.sql',
+            // Digər CMS və Panellər
+            'administrator', 'joomla', 'vpanel', 'cpanel'
+        ];
+        $currentPath = $request->path();
+
+        foreach ($dangerousPaths as $path) {
+            if (str_contains($currentPath, $path)) {
+                cache()->put('blocked_ip_' . $ip, true, now()->addDay());
+                abort(403, 'Sistem tərəfindən bloklandınız.');
+            }
+        }
+
         // 3. Yaxşı Botlara (Google, Bing və s.) imtiyaz tanımaq
         $isBot = $agent->isRobot();
         $robotName = $agent->robot();
