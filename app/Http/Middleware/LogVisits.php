@@ -15,42 +15,66 @@ class LogVisits
         $ip = $request->ip();
         $userAgent = $request->userAgent() ?? '';
 
-// 1. İLK ADDIM: Whitelist (Hər şeydən əvvəl)
-// Bura mütləq öz sabit İP-ni və ofis İP-ni əlavə et
+        // 1. Whitelist - Özünü heç vaxt bloklama
         if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
             return $next($request);
         }
 
-// 2. Kəşdən blok yoxlaması (Tez qərar vermək üçün)
+        // 2. Cache-dən sürətli blok yoxlaması
         if (cache()->has('blocked_ip_' . $ip)) {
-            $this->logAndAbort($request, $ip, 'BLOCKED_IP_RETRY');
+            $this->logAndAbort($request, $ip, 'RECURRING_BLOCK_TRY', false);
         }
 
-// 3. Zərərli User-Agent-lərin sürətli yoxlanışı
-        $badAgents = ['WormGPT', 'Sqlmap', 'Nmap', 'AhrefsBot', 'MJ12bot', 'DotBot',
-            'Python', 'aiohttp', 'Requests', 'curl', 'Wget', 'Go-http-client'];
+        // 3. Şübhəli boş başlıqlar (Real insanlarda UA boş olmur)
+        if (empty($userAgent) || strlen($userAgent) < 15) {
+            $this->logAndAbort($request, $ip, 'EMPTY_OR_SHORT_UA', true);
+        }
+
+        // 4. Zərərli Agentlərin siyahısını genişləndirək
+        $badAgents = [
+            'WormGPT', 'Sqlmap', 'Nmap', 'AhrefsBot', 'MJ12bot', 'DotBot',
+            'Python', 'aiohttp', 'Requests', 'curl', 'Wget', 'Go-http-client',
+            'Palo Alto Networks', 'CensysInspect', 'NetSystemsExe', 'Zgrab'
+        ];
         foreach ($badAgents as $bad) {
-            if (str_contains($userAgent, $bad)) {
-                $this->logAndAbort($request, $ip, 'BAD_USER_AGENT', true);
+            if (str_contains(strtolower($userAgent), strtolower($bad))) {
+                $this->logAndAbort($request, $ip, 'MALICIOUS_AGENT', true);
             }
         }
 
-// 4. Təhlükəli yollar (Path trapping)
+        // 5. Təhlükəli yollar (Path trapping) - Siyahını sənə gələn hücumlara görə artırdım
         if ($this->isDangerousPath($request->path())) {
-            cache()->put('blocked_ip_' . $ip, true, now()->addDays(7)); // Təhlükəli yola girəni 7 gün blokla
-            $this->logAndAbort($request, $ip, 'DANGEROUS_PATH_ACCESS', true);
+            cache()->put('blocked_ip_' . $ip, true, now()->addDays(7));
+            $this->logAndAbort($request, $ip, 'HACKING_ATTEMPT', true);
         }
 
-// 5. Bot Analizi (Yalnız bura qədər gələnlər üçün)
+        // 6. Bot Analizi
         $agent = new Agent();
         $isBot = $agent->isRobot();
         $robotName = $agent->robot();
 
-// Dost bot siyahısını genişləndir  // 'bingbot', 'msnbot', 'YandexBot'
-        $friendlyBots = ['Googlebot', 'DuckDuckBot'];
+        $friendlyBots = ['googlebot', 'duckduckbot', 'bingbot', 'msnbot', 'yandexbot', 'applebot'];
         $isFriendly = $isBot && $this->isFriendly($robotName, $friendlyBots);
 
-// 6. Rate Limiting (Normal istifadəçi və ya qeyri-dost bot üçün)
+        // --- HİYLƏGƏR BOTLARI TUTMAQ ÜÇÜN KRİTİK YOXLA (HEURISTICS) ---
+        if (!$isFriendly) {
+            $os = $agent->platform();
+            $browser = $agent->browser();
+
+            // Qayda A: Əgər brauzer Chrome/Safari deyir, amma OS "Unknown" gəlirsə - bu botdur.
+            if (($browser == 'Chrome' || $browser == 'Safari') && $os == 'Unknown') {
+                cache()->put('blocked_ip_' . $ip, true, now()->addDay());
+                $this->logAndAbort($request, $ip, 'FAKE_BROWSER_NO_OS', true);
+            }
+
+            // Qayda B: Əgər sənə bayaq gələn "Aiohttp" kimi bir şey gəlibsə və isRobot hələ tutmayıbsa
+            if (str_contains(strtolower($userAgent), 'aiohttp') || str_contains(strtolower($userAgent), 'python')) {
+                cache()->put('blocked_ip_' . $ip, true, now()->addDay());
+                $this->logAndAbort($request, $ip, 'PROGRAMMATIC_BOT', true);
+            }
+        }
+
+        // 7. Rate Limiting
         if (!$isFriendly) {
             $cacheKey = 'visit_count_' . $ip;
             $visitCount = cache()->increment($cacheKey);
@@ -59,27 +83,29 @@ class LogVisits
                 cache()->put($cacheKey, 1, now()->addMinutes(60));
             }
 
-// Limit: İnsan üçün 100, naməlum bot üçün 20 (Daha real rəqəmlər)
-            $limit = $isBot ? 20 : 100;
+            // Limitləri bir az sərtləşdirək (Naməlumlar üçün)
+            $limit = $isBot ? 15 : 80;
 
             if ($visitCount > $limit) {
                 cache()->put('blocked_ip_' . $ip, true, now()->addDay());
-                Log::alert("LIMIT AŞILDI: $ip (Count: $visitCount)");
-                $this->logAndAbort($request, $ip, 'RATE_LIMIT_EXCEEDED', true);
+                Log::alert("RATE LIMIT: $ip (Count: $visitCount)");
+                $this->logAndAbort($request, $ip, 'TOO_MANY_REQUESTS', true);
             }
         }
 
-// 7. Normal Ziyarət Logu (Arxa fonda Job-a göndərilir)
+        // 8. Normal Log
         $this->dispatchLog($request, $ip, $agent, $isBot, $isFriendly);
 
         return $next($request);
     }
 
-// YARDIMÇI METODLAR (Kod təkrarını önləmək üçün)
-
     private function isDangerousPath($path)
     {
-        $dangerousPaths = ['xmlrpc.php', 'wp-admin', '.env', 'phpinfo', 'f7.php', 'shell.php', 'config.php', 'setup.php', 'phpmyadmin'];
+        $dangerousPaths = [
+            'xmlrpc.php', 'wp-admin', '.env', 'phpinfo', 'f7.php', 'shell.php',
+            'config.php', 'setup.php', 'phpmyadmin', 'rip.php', 'eval-stdin.php',
+            'actuator', '.git', 'backup'
+        ];
         foreach ($dangerousPaths as $badPath) {
             if (str_contains(strtolower($path), $badPath)) return true;
         }
@@ -88,6 +114,7 @@ class LogVisits
 
     private function isFriendly($robotName, $friendlyBots)
     {
+        if (!$robotName) return false;
         foreach ($friendlyBots as $bot) {
             if (str_contains(strtolower($robotName), strtolower($bot))) return true;
         }
@@ -97,28 +124,29 @@ class LogVisits
     private function logAndAbort($request, $ip, $reason, $shouldLog = true)
     {
         if ($shouldLog) {
-            $agent = new Agent(); // Yalnız bloklananda Agent-i işə salırıq
-            $this->dispatchLog($request, $ip, $agent, true, false);
+            $agent = new Agent();
+            $this->dispatchLog($request, $ip, $agent, true, false, $reason);
         }
-        abort(403, "Access Denied: $reason");
+        abort(403, "Forbidden: $reason");
     }
 
-    private function dispatchLog($request, $ip, $agent, $isBot, $isFriendly)
+    private function dispatchLog($request, $ip, $agent, $isBot, $isFriendly, $reason = null)
     {
         try {
             $data = [
                 'ip_address' => $ip,
-                'browser' => $isBot ? ($agent->robot() ?: 'Unknown Bot') : $agent->browser(),
-                'os' => $agent->platform() ?: ($isBot ? 'Server/Bot' : 'Unknown OS'),
-                'is_bot' => $isBot && !$isFriendly,
-                'user_agent' => $request->userAgent(),
-                'url' => mb_strcut($request->fullUrl(), 0, 250), // Sənin aldığın o uzun URL xətasının qarşısı
-                'referer' => $request->headers->get('referer'),
-                'language' => $request->getPreferredLanguage(),
+                'browser'    => $isBot ? ($agent->robot() ?: 'Bot/Script') : $agent->browser(),
+                'os'         => $agent->platform() ?: 'Unknown',
+                'is_bot'     => $isBot && !$isFriendly,
+                'user_agent' => mb_strcut($request->userAgent(), 0, 500),
+                'url'        => mb_strcut($request->fullUrl(), 0, 250),
+                'referer'    => mb_strcut($request->headers->get('referer'), 0, 250),
+                'language'   => $request->getPreferredLanguage(),
+                // 'reason'  => $reason, // Əgər bazada sütun açsan bunu da əlavə et, çox faydalıdır
             ];
             dispatch(new LogVisitJob($data));
         } catch (\Exception $e) {
-            Log::error("LogVisit Middleware Job Xətası: " . $e->getMessage());
+            Log::error("LogVisit Job Error: " . $e->getMessage());
         }
     }
 }
