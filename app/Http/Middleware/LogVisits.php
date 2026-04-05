@@ -102,7 +102,7 @@ class LogVisits
     private function isDangerousPath($path)
     {
         $dangerousPaths = [
-            'xmlrpc.php', 'wp-admin', '.env', 'phpinfo', 'f7.php', 'shell.php',
+            'xmlrpc.php', 'wp-admin','wp-login.php', '.env', 'phpinfo', 'f7.php', 'shell.php',
             'config.php', 'setup.php', 'phpmyadmin', 'rip.php', 'eval-stdin.php',
             'actuator', '.git', 'backup'
         ];
