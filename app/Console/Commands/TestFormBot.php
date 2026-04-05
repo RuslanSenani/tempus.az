@@ -14,12 +14,12 @@ class TestFormBot extends Command
     public function handle()
     {
         $count = $this->argument('count');
-        $url = url('/contact'); // Sənin contact route-un (route name deyil, birbaşa URL)
+        $url = url('https://123.az/partners'); // Sənin contact route-un (route name deyil, birbaşa URL)
 
         $this->info("$count ədəd sorğu göndərilir: $url");
 
         for ($i = 1; $i <= $count; $i++) {
-            $response = Http::asForm()->post($url, [
+            $response = Http::asForm()->get($url, [
                 'name' => 'Bot Test ' . $i,
                 'email' => "bot$i@test.com",
                 'phone' => '0501234567',
