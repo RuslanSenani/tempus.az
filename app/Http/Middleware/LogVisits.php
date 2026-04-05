@@ -15,8 +15,8 @@ class LogVisits
         $ip = $request->ip();
         $userAgent = $request->userAgent() ?? '';
 
-        // 1. Whitelist - Özünü heç vaxt bloklama
-        if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
+        // 1. Whitelist - Özünü heç vaxt bloklama '37.61.124.14'
+        if (in_array($ip, ['127.0.0.1', '::1'])) {
             return $next($request);
         }
 
