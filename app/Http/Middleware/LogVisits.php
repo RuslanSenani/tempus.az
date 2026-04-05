@@ -16,9 +16,9 @@ class LogVisits
         $userAgent = $request->userAgent() ?? '';
 
         // 1. Whitelist - Özünü heç vaxt bloklama
-//        if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
-//            return $next($request);
-//        }
+        if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
+            return $next($request);
+        }
 
         // 2. Cache-dən sürətli blok yoxlaması
         if (cache()->has('blocked_ip_' . $ip)) {
@@ -103,19 +103,17 @@ class LogVisits
     {
         $path = strtolower($path);
 
-        // 1. İstisnalar (Bunlara icazə verilir)
+
         $allowedPaths = ['index.php', 'api.php'];
         if (in_array($path, $allowedPaths)) {
             return false;
         }
 
-        // 2. Sonu .php ilə bitən hər şeyi blokla
-        // index.php deyilsə və (sonu .php-dirsə VƏ YA içində .env, .git, wp-admin keçirsə)
-        if ($path !== 'index.php' && preg_match('/\.php$|\.env|\.git|wp-admin|phpmyadmin|actuator/i', $path)) {
+
+        if ($path !== 'index.php' && preg_match('/\.php$|\.env|\.git|wp-admin|backup|eval-stdin|phpinfo|phpmyadmin|actuator/i', $path)) {
             return true;
         }
 
-        // 3. Digər təhlükəli sözləri yoxla
         $dangerousKeywords = [
             'wp-admin', '.env', 'phpinfo', 'phpmyadmin',
             'actuator', '.git', 'backup', 'setup.php', 'eval-stdin'
@@ -130,18 +128,6 @@ class LogVisits
         return false;
     }
 
-//    private function isDangerousPath($path)
-//    {
-//        $dangerousPaths = [
-//            'xmlrpc.php', 'wp-admin','wp-login.php', '.env', 'phpinfo', 'f7.php', 'shell.php',
-//            'config.php', 'setup.php', 'phpmyadmin', 'rip.php', 'eval-stdin.php',
-//            'actuator', '.git', 'backup'
-//        ];
-//        foreach ($dangerousPaths as $badPath) {
-//            if (str_contains(strtolower($path), $badPath)) return true;
-//        }
-//        return false;
-//    }
 
     private function isFriendly($robotName, $friendlyBots)
     {
