@@ -19,53 +19,124 @@ class LogVisits
 
     public function handle(Request $request, Closure $next)
     {
-
-
         $ip = $request->ip();
+        $userAgent = $request->userAgent();
         $agent = new Agent();
 
-        // Lokal IP yoxlaması
-//        if (in_array($ip, ['127.0.0.1', '192.168.1.1'])) {
-//            return $next($request);
-//        }
-
-        // Cache yoxlaması
-        $cacheKey = 'visit_count_' . $ip;
-        $visitCount = cache()->get($cacheKey, 0);
-
-
-        if ($visitCount > 100) {
-            cache()->put('blocked_ip_' . $ip, true, now()->addHour());
-            abort(403);
+        // 1. Lokal IP və ya Ağ Siyahı (Whitelist)
+        if (in_array($ip, ['127.0.0.1', '192.168.1.1', '::1'])) {
+            return $next($request);
         }
 
-        if (cache()->has('blocked_ip_' . $ip)) {
-            abort(403);
+        // 2. KRİTİK: Zərərli User-Agent yoxlaması (Hələ Agent kitabxanasına çatmadan)
+        $badAgents = ['WormGPT', 'Sqlmap', 'Nmap', 'AhrefsBot', 'MJ12bot', 'DotBot'];
+        foreach ($badAgents as $bad) {
+            if (str_contains($userAgent, $bad)) {
+                abort(403, 'Giriş qadağandır.');
+            }
         }
 
-        cache()->put($cacheKey, $visitCount + 1, 60);
+        // 3. Yaxşı Botlara (Google, Bing və s.) imtiyaz tanımaq
+        $isBot = $agent->isRobot();
+        $robotName = $agent->robot();
+        $friendlyBots = ['Googlebot', 'Bingbot', 'YandexBot', 'DuckDuckBot'];
 
-        // ƏN KRİTİK HİSSƏ: Verilənlərin hazırlanması
+        $isFriendly = false;
+        if ($isBot && in_array($robotName, $friendlyBots)) {
+            $isFriendly = true;
+        }
+
+        // 4. Əgər bu yaxşı bot DEYİLSƏ, limitləri yoxla
+        if (!$isFriendly) {
+            if (cache()->has('blocked_ip_' . $ip)) {
+                abort(403);
+            }
+
+            $cacheKey = 'visit_count_' . $ip;
+            $visitCount = cache()->increment($cacheKey); // increment daha sürətlidir
+
+            if ($visitCount === 1) {
+                cache()->put($cacheKey, 1, now()->addMinutes(60));
+            }
+
+            if ($visitCount > 100) {
+                cache()->put('blocked_ip_' . $ip, true, now()->addHour());
+                Log::alert("IP LIMITI AŞDI VƏ BLOKLANDI: $ip");
+                abort(403);
+            }
+        }
+
+        // 5. Məlumatların hazırlanması və Job-a ötürülməsi
         try {
             $data = [
                 'ip_address' => $ip,
-                'browser'    => $agent->browser(),
+                'browser'    => $isBot ? $robotName : $agent->browser(),
                 'os'         => $agent->platform(),
-                'is_bot'     => $agent->isRobot(),
-                'user_agent' => $request->userAgent(),
+                'is_bot'     => $isBot && !$isFriendly, // Yaxşı botları bazada bot kimi işarələməyə bilərsən
+                'user_agent' => $userAgent,
                 'url'        => $request->fullUrl(),
                 'referer'    => $request->headers->get('referer'),
                 'language'   => $request->getPreferredLanguage(),
-                'updated_at' => now(),
             ];
-
 
             dispatch(new LogVisitJob($data));
 
         } catch (\Exception $e) {
-            Log::error("XƏTA BAŞ VERDİ: " . $e->getMessage());
+            Log::error("LogVisit Middleware Xətası: " . $e->getMessage());
         }
 
         return $next($request);
     }
+
+//    public function handle(Request $request, Closure $next)
+//    {
+//
+//
+//        $ip = $request->ip();
+//        $agent = new Agent();
+//
+//        // Lokal IP yoxlaması
+//        if (in_array($ip, ['127.0.0.1', '192.168.1.1'])) {
+//            return $next($request);
+//        }
+//
+//        // Cache yoxlaması
+//        $cacheKey = 'visit_count_' . $ip;
+//        $visitCount = cache()->get($cacheKey, 0);
+//
+//
+//        if ($visitCount > 100) {
+//            cache()->put('blocked_ip_' . $ip, true, now()->addHour());
+//            abort(403);
+//        }
+//
+//        if (cache()->has('blocked_ip_' . $ip)) {
+//            abort(403);
+//        }
+//
+//        cache()->put($cacheKey, $visitCount + 1, 60);
+//
+//        // ƏN KRİTİK HİSSƏ: Verilənlərin hazırlanması
+//        try {
+//            $data = [
+//                'ip_address' => $ip,
+//                'browser'    => $agent->browser(),
+//                'os'         => $agent->platform(),
+//                'is_bot'     => $agent->isRobot(),
+//                'user_agent' => $request->userAgent(),
+//                'url'        => $request->fullUrl(),
+//                'referer'    => $request->headers->get('referer'),
+//                'language'   => $request->getPreferredLanguage(),
+//                'updated_at' => now(),
+//            ];
+//
+//
+//            dispatch(new LogVisitJob($data));
+//
+//        } catch (\Exception $e) {
+//            Log::error("XƏTA BAŞ VERDİ: " . $e->getMessage());
+//        }
+//
+//        return $next($request);
+//    }
 }
