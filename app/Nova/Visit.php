@@ -173,4 +173,9 @@ class Visit extends Resource
     {
         return false;
     }
+
+    public function authorizedToUpdate(Request $request)
+    {
+        return false;
+    }
 }
