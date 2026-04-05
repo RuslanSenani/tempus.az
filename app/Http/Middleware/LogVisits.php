@@ -15,8 +15,8 @@ class LogVisits
         $ip = $request->ip();
         $userAgent = $request->userAgent() ?? '';
 
-        // 1. Whitelist - Özünü heç vaxt bloklama '37.61.124.14'
-        if (in_array($ip, ['127.0.0.1', '::1'])) {
+        // 1. Whitelist - Özünü heç vaxt bloklama
+        if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
             return $next($request);
         }
 
@@ -135,14 +135,14 @@ class LogVisits
         try {
             $data = [
                 'ip_address' => $ip,
-                'browser'    => $isBot ? ($agent->robot() ?: 'Bot/Script') : $agent->browser(),
-                'os'         => $agent->platform() ?: 'Unknown',
-                'is_bot'     => $isBot && !$isFriendly,
+                'browser' => $isBot ? ($agent->robot() ?: 'Bot/Script') : $agent->browser(),
+                'os' => $agent->platform() ?: 'Unknown',
+                'is_bot' => $isBot && !$isFriendly,
                 'user_agent' => mb_strcut($request->userAgent(), 0, 500),
-                'url'        => mb_strcut($request->fullUrl(), 0, 250),
-                'referer'    => mb_strcut($request->headers->get('referer'), 0, 250),
-                'language'   => $request->getPreferredLanguage(),
-                'reason'  => $reason,
+                'url' => mb_strcut($request->fullUrl(), 0, 250),
+                'referer' => mb_strcut($request->headers->get('referer'), 0, 250),
+                'language' => $request->getPreferredLanguage(),
+                'reason' => $reason,
             ];
             dispatch(new LogVisitJob($data));
         } catch (\Exception $e) {
