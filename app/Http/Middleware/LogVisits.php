@@ -108,7 +108,7 @@ class LogVisits
             $data = [
                 'ip_address' => $ip,
                 'browser' => $isBot ? ($agent->robot() ?: 'Unknown Bot') : $agent->browser(),
-                'os' => $agent->platform(),
+                'os' => $agent->platform() ?: ($isBot ? 'Server/Bot' : 'Unknown OS'),
                 'is_bot' => $isBot && !$isFriendly,
                 'user_agent' => $request->userAgent(),
                 'url' => mb_strcut($request->fullUrl(), 0, 250), // Sənin aldığın o uzun URL xətasının qarşısı
