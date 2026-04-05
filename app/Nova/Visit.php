@@ -56,17 +56,19 @@ class Visit extends Resource
             Text::make('IP Ünvanı', 'ip_address')
                 ->sortable()
                 ->copyable(),
-//            Badge::make('Səbəb', 'reason')
-//                ->map([
-//                    'DANGEROUS_PATH' => 'danger',
-//                    'FAKE_BROWSER_NO_OS' => 'warning',
-//                    'MALICIOUS_AGENT' => 'danger',
-//                    'RATE_LIMIT_EXCEEDED' => 'info',
-//                    'PROGRAMMATIC_BOT' => 'warning',
-//                ])
-//                ->withDefault('info') // Əgər siyahıda yoxdursa 'info' rəngini ver
-//                ->sortable()
-//                ->nullable(),
+            Badge::make('Səbəb', 'reason', function () {
+                // Əgər bazada NULL və ya boşdursa, 'CLEAN' qaytar, yoxsa özünü
+                return $this->reason ?: 'CLEAN';
+            })
+                ->map([
+                    'CLEAN' => 'success',  // Yaşıl (Real İnsanlar)
+                    'DANGEROUS_PATH' => 'danger',   // Qırmızı
+                    'FAKE_BROWSER_NO_OS' => 'warning',  // Narıncı
+                    'MALICIOUS_AGENT' => 'danger',   // Qırmızı
+                    'RATE_LIMIT_EXCEEDED' => 'info',     // Göy
+                    'PROGRAMMATIC_BOT' => 'warning',  // Narıncı
+                ])
+                ->sortable(),
 
             // Bot olub-olmadığını rəngli nişanla göstərək
             Badge::make('Status', 'is_bot')
