@@ -58,12 +58,13 @@ class Visit extends Resource
                 ->copyable(),
             Badge::make('Səbəb', 'reason')
                 ->map([
-                    'DANGEROUS_PATH' => 'danger',    // Qırmızı
-                    'FAKE_BROWSER_NO_OS' => 'warning',   // Narıncı
-                    'MALICIOUS_AGENT' => 'danger',    // Qırmızı
-                    'RATE_LIMIT_EXCEEDED' => 'info',      // Göy
-                    'PROGRAMMATIC_BOT' => 'warning',   // Narıncı
+                    'DANGEROUS_PATH' => 'danger',
+                    'FAKE_BROWSER_NO_OS' => 'warning',
+                    'MALICIOUS_AGENT' => 'danger',
+                    'RATE_LIMIT_EXCEEDED' => 'info',
+                    'PROGRAMMATIC_BOT' => 'warning',
                 ])
+                ->withDefault('info') // Əgər siyahıda yoxdursa 'info' rəngini ver
                 ->sortable()
                 ->nullable(),
 
