@@ -23,6 +23,15 @@ class LogVisits
         $userAgent = $request->userAgent();
         $agent = new Agent();
 
+        // 3. Yaxşı Botlara (Google, Bing və s.) imtiyaz tanımaq
+        $isBot = $agent->isRobot();
+        $robotName = $agent->robot();
+        $friendlyBots = ['Googlebot', 'DuckDuckBot'];
+
+        $isFriendly = false;
+        if ($isBot && in_array($robotName, $friendlyBots)) {
+            $isFriendly = true;
+        }
         // 1. Lokal IP və ya Ağ Siyahı (Whitelist)
         if (in_array($ip, ['127.0.0.1', '192.168.1.1', '::1'])) {
             return $next($request);
@@ -35,6 +44,7 @@ class LogVisits
                 abort(403, 'Giriş qadağandır.');
             }
         }
+
 
         $dangerousPaths = [
             // WordPress
@@ -54,23 +64,37 @@ class LogVisits
         foreach ($dangerousPaths as $path) {
             if (str_contains($currentPath, $path)) {
                 cache()->put('blocked_ip_' . $ip, true, now()->addDay());
+                $data = [
+                    'ip_address' => $ip,
+                    'browser' => $isBot ? $robotName : $agent->browser(),
+                    'os' => $agent->platform(),
+                    'is_bot' => $isBot && !$isFriendly, // Yaxşı botları bazada bot kimi işarələməyə bilərsən
+                    'user_agent' => $userAgent,
+                    'url' => $request->fullUrl(),
+                    'referer' => $request->headers->get('referer'),
+                    'language' => $request->getPreferredLanguage(),
+                ];
+                dispatch(new LogVisitJob($data));
                 abort(403, 'Sistem tərəfindən bloklandınız.');
             }
         }
 
-        // 3. Yaxşı Botlara (Google, Bing və s.) imtiyaz tanımaq
-        $isBot = $agent->isRobot();
-        $robotName = $agent->robot();
-        $friendlyBots = ['Googlebot', 'DuckDuckBot'];
 
-        $isFriendly = false;
-        if ($isBot && in_array($robotName, $friendlyBots)) {
-            $isFriendly = true;
-        }
 
         // 4. Əgər bu yaxşı bot DEYİLSƏ, limitləri yoxla
         if (!$isFriendly) {
             if (cache()->has('blocked_ip_' . $ip)) {
+                $data = [
+                    'ip_address' => $ip,
+                    'browser' => $isBot ? $robotName : $agent->browser(),
+                    'os' => $agent->platform(),
+                    'is_bot' => $isBot && !$isFriendly, // Yaxşı botları bazada bot kimi işarələməyə bilərsən
+                    'user_agent' => $userAgent,
+                    'url' => $request->fullUrl(),
+                    'referer' => $request->headers->get('referer'),
+                    'language' => $request->getPreferredLanguage(),
+                ];
+                dispatch(new LogVisitJob($data));
                 abort(403);
             }
 
@@ -84,6 +108,17 @@ class LogVisits
             if (($isBot && !$isFriendly) || (!$isFriendly && $visitCount > 10)) {
                 cache()->put('blocked_ip_' . $ip, true, now()->addDay());
                 Log::alert("IP LIMITI AŞDI VƏ BLOKLANDI: $ip");
+                $data = [
+                    'ip_address' => $ip,
+                    'browser' => $isBot ? $robotName : $agent->browser(),
+                    'os' => $agent->platform(),
+                    'is_bot' => $isBot && !$isFriendly, // Yaxşı botları bazada bot kimi işarələməyə bilərsən
+                    'user_agent' => $userAgent,
+                    'url' => $request->fullUrl(),
+                    'referer' => $request->headers->get('referer'),
+                    'language' => $request->getPreferredLanguage(),
+                ];
+                dispatch(new LogVisitJob($data));
                 abort(403);
             }
         }
