@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,6 +12,7 @@ return new class extends Migration
     {
         Schema::table('visits', function (Blueprint $table) {
             $table->text('url')->change();
+            $table->string('reason')->nullable()->after('is_bot');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('visits', function (Blueprint $table) {
-            Schema::dropIfExists('visits');
+            $table->dropColumn(['url', 'reason']);
 
         });
     }

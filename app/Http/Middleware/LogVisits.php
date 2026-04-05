@@ -127,7 +127,7 @@ class LogVisits
             $agent = new Agent();
             $this->dispatchLog($request, $ip, $agent, true, false, $reason);
         }
-        abort(403, "Forbidden: $reason");
+        abort(403);
     }
 
     private function dispatchLog($request, $ip, $agent, $isBot, $isFriendly, $reason = null)
@@ -142,7 +142,7 @@ class LogVisits
                 'url'        => mb_strcut($request->fullUrl(), 0, 250),
                 'referer'    => mb_strcut($request->headers->get('referer'), 0, 250),
                 'language'   => $request->getPreferredLanguage(),
-                // 'reason'  => $reason, // Əgər bazada sütun açsan bunu da əlavə et, çox faydalıdır
+                'reason'  => $reason,
             ];
             dispatch(new LogVisitJob($data));
         } catch (\Exception $e) {
