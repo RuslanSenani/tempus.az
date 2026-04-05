@@ -39,7 +39,7 @@ class LogVisits
         // 3. Yaxşı Botlara (Google, Bing və s.) imtiyaz tanımaq
         $isBot = $agent->isRobot();
         $robotName = $agent->robot();
-        $friendlyBots = ['Googlebot', 'Bingbot', 'YandexBot', 'DuckDuckBot'];
+        $friendlyBots = ['Googlebot', 'DuckDuckBot'];
 
         $isFriendly = false;
         if ($isBot && in_array($robotName, $friendlyBots)) {
