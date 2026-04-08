@@ -3,6 +3,7 @@
 use App\Models\Visit;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
@@ -16,3 +17,9 @@ Schedule::command('queue:work --stop-when-empty')->everyTenSeconds()->withoutOve
 Schedule::call(function () {
     Visit::where('created_at', '<', now()->subDays(5))->delete();
 })->daily();
+
+
+Schedule::call(function () {
+    $message = 'Cron isledi: ' . now();
+    Log::info($message);
+})->everyMinute();
