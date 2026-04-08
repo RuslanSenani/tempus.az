@@ -21,5 +21,5 @@ Schedule::call(function () {
 
 Schedule::call(function () {
     $message = 'Cron isledi: ' . now();
-    Log::info($message);
+    Log::error($message);
 })->everyMinute();
