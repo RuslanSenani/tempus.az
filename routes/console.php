@@ -14,6 +14,6 @@ Schedule::command('instagram:refresh-token')->monthlyOn(1, '03:00');
 Schedule::command('queue:work --stop-when-empty')->everyTenSeconds()->withoutOverlapping();
 
 Schedule::call(function () {
-    Visit::where('created_at', '<', now()->subDays(5))->delete();
+    Visit::where('created_at', '<', now()->subDays(2))->delete();
 })->daily();
 
