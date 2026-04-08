@@ -145,6 +145,7 @@ class LogVisits
     private function dispatchLog($request, $ip, $agent, $isBot, $isFriendly, $reason = null)
     {
         try {
+            $count = cache()->get('visit_count_' . $ip, 0);
             $data = [
                 'ip_address' => $ip,
                 'browser' => $isBot ? ($agent->robot() ?: 'Bot/Script') : $agent->browser(),
@@ -155,7 +156,10 @@ class LogVisits
                 'referer' => mb_strcut($request->headers->get('referer'), 0, 250),
                 'language' => $request->getPreferredLanguage(),
                 'reason' => $reason,
+                'request_count' => $count,
             ];
+
+
             dispatch(new LogVisitJob($data));
         } catch (\Exception $e) {
             Log::error("LogVisit Job Error: " . $e->getMessage());

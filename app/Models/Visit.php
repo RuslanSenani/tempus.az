@@ -16,7 +16,8 @@ class Visit extends Model
         'url',
         'referer',
         'language',
-        'reason'
+        'reason',
+        'request_count'
     ];
 
 }

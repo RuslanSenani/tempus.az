@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Badge;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -81,7 +82,7 @@ class Visit extends Resource
                     'TOO_MANY_REQUESTS' => 'Limit Aşıldı',
                 ])
                 ->sortable(),
-
+            Number::make('Sorgu Sayı', 'request_count')->sortable(),
             // Bot olub-olmadığını rəngli nişanla göstərək
             Badge::make('Status', function () {
                 // 1. Əgər botdursa və heç bir qayda pozmayıbsa (reason boşdursa) -> Yaxşı Bot
