@@ -1,7 +1,7 @@
 <head>
 
     @if(app()->environment('production'))
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BHC30NP3V"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-450PZVJBPW"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
 
@@ -10,9 +10,13 @@
             }
 
             gtag('js', new Date());
-            gtag('config', 'G-1BHC30NP3V');
+
+            gtag('config', 'G-450PZVJBPW');
         </script>
     @endif
+
+    <!-- Google tag (gtag.js) -->
+
     <meta charset="utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

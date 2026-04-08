@@ -15,7 +15,7 @@ class TestFormBot extends Command
     public function handle()
     {
         $count = $this->argument('count');
-        $url = url('https://123.az/test.php');
+        $url = url('/contact');
 
         $this->info("$count ədəd sorğu göndərilir: $url");
 

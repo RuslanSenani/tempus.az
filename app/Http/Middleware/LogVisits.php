@@ -16,9 +16,9 @@ class LogVisits
         $userAgent = $request->userAgent() ?? '';
 
         // 1. Whitelist - Özünü heç vaxt bloklama
-        if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
-            return $next($request);
-        }
+//        if (in_array($ip, ['127.0.0.1', '::1', '37.61.124.14'])) {
+//            return $next($request);
+//        }
 
         // 2. Cache-dən sürətli blok yoxlaması
         if (cache()->has('blocked_ip_' . $ip)) {
