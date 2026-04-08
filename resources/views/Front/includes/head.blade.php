@@ -50,7 +50,7 @@
 
     <link rel="icon" type="{{$type}}" href="{{ $faviconUrl }}"/>
     <!-- For iPhone 4 Retina display: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ $faviconUrl }}">
+    <link rel="apple-touch-icon-precomposed" sizes="32x32" href="{{ $faviconUrl }}">
     <!-- For iPad: -->
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ $faviconUrl }}">
     <!-- For iPhone: -->

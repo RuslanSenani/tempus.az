@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Models\Visit;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class LogVisitJob implements ShouldQueue
