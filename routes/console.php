@@ -18,8 +18,3 @@ Schedule::call(function () {
     Visit::where('created_at', '<', now()->subDays(5))->delete();
 })->daily();
 
-
-Schedule::call(function () {
-    $message = 'Cron isledi: ' . now();
-    Log::error($message);
-})->everyMinute();
