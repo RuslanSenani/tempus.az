@@ -17,3 +17,4 @@ Schedule::call(function () {
     Visit::where('created_at', '<', now()->subDays(2))->delete();
 })->daily();
 
+Schedule::command('sitemap:generate')->dailyAt('02:00');

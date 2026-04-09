@@ -101,9 +101,9 @@
         "ru": "СМИ"
     },
     "home_opening_hours": {
-        "az": "Açılış saatları",
+        "az": "İş saatları",
         "en": "Opening Hours",
-        "ru": "Часы работы"
+        "ru": "Рабочее время"
     },
     "home_opening_mon_fri": {
         "az": "Bazar ertəsi - cümə",
@@ -153,7 +153,7 @@
     "home_our_vision": {
         "az": "Vizion",
         "en": "Vision",
-        "ru": "Зрение"
+        "ru": "Наше видение"
     },
     "home_our_mission": {
         "az": "Missiya",

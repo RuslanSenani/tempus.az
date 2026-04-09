@@ -7,8 +7,8 @@ use App\Contracts\{SettingsRepositoryInterface,
     CategoryRepositoryInterface,
     AboutRepositoryInterface
 };
-use App\Models\{Language, SiteContent, User};
-use App\Observers\{LanguageObserver, SiteContentObserver};
+use App\Models\{Language, Preparation, SiteContent, User};
+use App\Observers\{LanguageObserver, PreparationObserver, SiteContentObserver};
 use App\Listeners\{LogSuccessfulLogin, LogSuccessfulLogout};
 use App\Contracts\LanguageRepositoryInterface;
 use Illuminate\Support\Facades\{View, Route, URL, Event, Artisan, Schema, Hash};
@@ -57,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Language::observe(LanguageObserver::class);
         SiteContent::observe(SiteContentObserver::class);
+        Preparation::observe(PreparationObserver::class);
     }
 
     /**

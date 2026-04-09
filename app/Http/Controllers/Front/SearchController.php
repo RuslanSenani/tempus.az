@@ -37,7 +37,7 @@ class SearchController extends Controller
         $searchTerm = "%" . mb_strtolower($query, 'UTF-8') . "%";
 
         // 1. Kateqoriyalarda axtarış
-        $categories = PreparationCategory::where("name->{$lang}", 'LIKE', $searchTerm)
+        $categories = PreparationCategory::where("slug->{$lang}", 'LIKE', $searchTerm)
             ->where('is_active', 1)
             ->get()
             ->map(function ($item) use ($lang) {
@@ -49,7 +49,7 @@ class SearchController extends Controller
 
         // 2. Preparatlarda axtarış
         $preparations = Preparation::with('category')
-            ->where("name->{$lang}", 'LIKE', $searchTerm)
+            ->where("slug->{$lang}", 'LIKE', $searchTerm)
             ->where('is_active', 1)
             ->whereHas('category', function ($q) {
                 $q->where('is_active', 1);
