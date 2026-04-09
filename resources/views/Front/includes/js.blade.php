@@ -155,18 +155,44 @@
         let pdfDoc = null;
         const scale = 2.0;
 
+        {{--function loadPdf() {--}}
+        {{--    loading.style.display = "block";--}}
+
+        {{--    pdfjsLib.getDocument(url).promise.then(function (pdf) {--}}
+        {{--        pdfDoc = pdf;--}}
+        {{--        loading.style.display = "none";--}}
+
+        {{--        // pageInfo elementi varsa yazdır--}}
+        {{--        if (pageInfo) {--}}
+        {{--            pageInfo.innerText = "{{$preparation->name??''}}";--}}
+        {{--        }--}}
+
+        {{--        renderAllPages();--}}
+        {{--    }).catch(function (error) {--}}
+        {{--        console.error("PDF yükləmə xətası:", error);--}}
+        {{--        loading.innerText = "{{$siteContent['home_download_error_pdf']->value??''}}";--}}
+        {{--    });--}}
+        {{--}--}}
+
+
+
+        // PDF yüklənmə hissəsi
         function loadPdf() {
             loading.style.display = "block";
 
-            pdfjsLib.getDocument(url).promise.then(function (pdf) {
+            const loadingTask = pdfjsLib.getDocument({
+                url: url,
+                // Şrift xətalarını azaltmaq üçün Google-un cMap-larını istifadə edirik
+                cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+                cMapPacked: true,
+            });
+
+            loadingTask.promise.then(function (pdf) {
                 pdfDoc = pdf;
                 loading.style.display = "none";
-
-                // pageInfo elementi varsa yazdır
                 if (pageInfo) {
                     pageInfo.innerText = "{{$preparation->name??''}}";
                 }
-
                 renderAllPages();
             }).catch(function (error) {
                 console.error("PDF yükləmə xətası:", error);
