@@ -20,13 +20,13 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getAllActiveCategory(): Collection
     {
 
-        return $this->category->newQuery()->with('preparations')->withCount('preparations')->where('is_active', 1)->orderBy('sort_order','asc')->get();
+        return $this->category->newQuery()->with('preparations')->withCount('preparations')->where('is_active', 1)->orderBy('sort_order', 'asc')->get();
 
     }
 
-    public function getRandomActiveCategories($limit = 5): Collection
+    public function getRandomActiveCategories($limit = 30): Collection
     {
-       return $this->category->newQuery()
+        return $this->category->newQuery()
             ->with(['preparations' => function ($query) use ($limit) {
                 $query->limit($limit);
             }])
@@ -37,6 +37,16 @@ class CategoryRepository implements CategoryRepositoryInterface
             ->inRandomOrder()
             ->get();
 
+    }
+
+    public function getCategoryBySlug($slug)
+    {
+        $locale = app()->getLocale();
+
+        return $this->category->newQuery()
+            ->where("slug->{$locale}", $slug)
+            ->where('is_active', 1)
+            ->firstOrFail();
     }
 
     public function getCategoryById($id)

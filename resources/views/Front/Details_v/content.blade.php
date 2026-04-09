@@ -55,7 +55,7 @@
         @foreach($preparationCategory as $preparation)
             <div class="col-md-3 col-sm-4 col-6 mb-4 d-flex">
                 <div class="product-box w-100 d-flex flex-column">
-                    <a href="{{route('preparation-detail',$preparation->id)}}"
+                    <a href="{{ route('preparation-detail', ['slug' => $preparation->slug]) }}"
                        class="product-link d-flex flex-column h-100">
                         <div class="product-img-wrapper">
                             <img src="{{asset('storage/'.$preparation->image)}}"

@@ -27,13 +27,6 @@ class SiteContentObserver
         $this->updateJsonFile();
     }
 
-    /**
-     * Sətir silinəndə də faylı yenilə.
-     */
-//    public function deleted(SiteContent $siteContent)
-//    {
-//        $this->updateJsonFile();
-//    }
 
 
     protected function updateJsonFile()

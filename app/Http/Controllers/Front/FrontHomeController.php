@@ -2,170 +2,191 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Contracts\AboutRepositoryInterface;
-use App\Contracts\CategoryRepositoryInterface;
-use App\Contracts\MediaRepositoryInterface;
-use App\Contracts\MedicalInfoRepositoryInterface;
-use App\Contracts\PartnersRepositoryInterface;
-use App\Contracts\PreparationRepositoryInterface;
-use App\Contracts\SettingsRepositoryInterface;
-use App\Contracts\SiteContentInterface;
-use App\Contracts\StatisticRepositoryInterface;
-use App\Contracts\VacancyRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Models\Region;
-use App\Models\Site_Settings;
+use App\Contracts\{
+    AboutRepositoryInterface,
+    CategoryRepositoryInterface,
+    MediaRepositoryInterface,
+    PartnersRepositoryInterface,
+    PreparationRepositoryInterface,
+    StatisticRepositoryInterface,
+    VacancyRepositoryInterface,
+};
+use App\Models\{Region, Site_Settings};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\{Cache, Http};
 use Illuminate\View\View;
 
 class FrontHomeController extends Controller
 {
-    private string $viewFolder;
+    private string $viewFolder = 'Front/';
     private AboutRepositoryInterface $aboutRepository;
-
-    private SettingsRepositoryInterface $settingsRepository;
-    private SiteContentInterface $siteContent;
     private CategoryRepositoryInterface $categoryRepository;
     private PreparationRepositoryInterface $preparationRepository;
     private PartnersRepositoryInterface $partnersRepository;
-    private MedicalInfoRepositoryInterface $medicalInfoRepository;
     private MediaRepositoryInterface $mediaRepository;
     private VacancyRepositoryInterface $vacancyRepository;
-
     private StatisticRepositoryInterface $statisticRepository;
 
-
-    public function __construct(AboutRepositoryInterface $aboutRepository,  SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository, StatisticRepositoryInterface $statisticRepository)
+    public function __construct(
+        AboutRepositoryInterface       $aboutRepository,
+        CategoryRepositoryInterface    $categoryRepository,
+        PreparationRepositoryInterface $preparationRepository,
+        PartnersRepositoryInterface    $partnersRepository,
+        MediaRepositoryInterface       $mediaRepository,
+        VacancyRepositoryInterface     $vacancyRepository,
+        StatisticRepositoryInterface   $statisticRepository
+    )
     {
         $this->aboutRepository = $aboutRepository;
-
-        $this->settingsRepository = $settingsRepository;
-        $this->siteContent = $siteContent;
         $this->categoryRepository = $categoryRepository;
         $this->preparationRepository = $preparationRepository;
         $this->partnersRepository = $partnersRepository;
-        $this->medicalInfoRepository = $medicalInfoRepository;
         $this->mediaRepository = $mediaRepository;
         $this->vacancyRepository = $vacancyRepository;
         $this->statisticRepository = $statisticRepository;
-        $this->viewFolder = 'Front/';
     }
 
+    // $locale parametri bütün metodlara əlavə edildi ki, 404 xətası və parametr sürüşməsi olmasın.
 
-    public function index(): View
+    public function index($locale): View
     {
-
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-        $categories = $this->categoryRepository->getRandomActiveCategories(9);
-        $preparations = $this->preparationRepository->getPreparationsByLimit(4);
-        $partners = $this->partnersRepository->getPartnersByLimit(4);
-        $statistic = $this->statisticRepository->getIsActiveStatistics();
-        $media = $this->mediaRepository->getMediaByLimit(12);
-
-
-        $regionData = Region::first();
-
-        $regions = [];
-        if ($regionData && isset($regionData->names)) {
-            $regions = $regionData->names;
-        }
-
-
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'categories' => $categories,
-            'preparations' => $preparations,
-            'partners' => $partners,
-            'media' => $media,
-            'statistic' => $statistic,
-            'regions' => $regions,
+            'abouts' => $this->aboutRepository->getAll(),
+            'categories' => $this->categoryRepository->getRandomActiveCategories(9),
+            'preparations' => $this->preparationRepository->getPreparationsByLimit(4),
+            'partners' => $this->partnersRepository->getPartnersByLimit(4),
+            'statistic' => $this->statisticRepository->getIsActiveStatistics(),
+            'media' => $this->mediaRepository->getMediaByLimit(12),
+            'regions' => Region::first('names')?->names ?? [],
         ];
         return view("{$viewData['viewFolder']}.index")->with($viewData);
-
     }
 
-    public function about(): View
+    public function about($locale): View
     {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-        $categories = $this->categoryRepository->getAllActiveCategory();
-        $regionData = Region::first();
-
-        $regions = [];
-        if ($regionData && isset($regionData->names)) {
-            $regions = $regionData->names;
-        }
-
         $viewData = [
             'viewFolder' => $this->viewFolder . "About_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'categories' => $categories,
-            'regions' => $regions,
+            'abouts' => $this->aboutRepository->getAll(),
+            'categories' => $this->categoryRepository->getAllActiveCategory(),
+            'regions' => Region::first('names')?->names ?? [],
         ];
-
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
-    public function preparation(Request $request, $page = 1): View
+    public function preparation($locale, $page = 1): View
     {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
         $preparations = $this->preparationRepository->getPreparationsByLimit(16, (int)$page);
-        $preparations->setPath(url('preparations/page'));
+        // Pagination linklərində dili qorumaq üçün:
+        $preparations->setPath(url($locale . '/preparation/page'));
 
+        return view($this->viewFolder . "Preparation_v.index", compact('preparations'));
+    }
+
+    public function media($locale, $page = 1): View
+    {
+        $media = $this->mediaRepository->getMediaByLimit(12, (int)$page);
+        $media->setPath(url($locale . '/media/page'));
+
+        $instaData = $this->getInstagramData();
+
+        return view($this->viewFolder . "Gallery_v.index", [
+            'media' => $media,
+            'posts' => $instaData['posts'],
+            'next_cursor' => $instaData['next_cursor']
+        ]);
+    }
+
+    public function preparationDetail($locale, $slug): View
+    {
+        // Slug-ın sonundakı ID-ni götürürük
+        $preparation = $this->preparationRepository->getPreparationBySlug($slug);
+
+        $preparation = $this->preparationRepository->getPreparationById($preparation->id);
+
+        if (!$preparation) abort(404);
+
+        return view($this->viewFolder . "PreparationDetails_v.index", compact('preparation'));
+    }
+
+    public function allCategories($locale): View
+    {
+        $categories = $this->categoryRepository->getAllActiveCategory();
+        return view($this->viewFolder . "Category_v.index", compact('categories'));
+    }
+
+    public function categoryDetails($locale, $slug): View
+    {
+
+        $category = $this->categoryRepository->getCategoryBySlug($slug);
+
+        if (!$category) {
+            abort(404);
+        }
+
+        $id = $category->id;
+        $preparationCategory = $this->preparationRepository->getPreparationsByCategoryId($id);
 
         $viewData = [
-            'viewFolder' => $this->viewFolder . "Preparation_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'preparations' => $preparations
+            'viewFolder' => $this->viewFolder . "Details_v",
+            'categoryName' => $category->name,
+            'preparationCategory' => $preparationCategory,
         ];
+
 
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
+//    public function categoryDetails($locale, $slug): View
+//    {
+//        // Kateqoriyanı slug-a görə tapırıq
+//        $category = $this->categoryRepository->getCategoryBySlug($slug);
+//
+//        if (!$category) abort(404);
+//
+//        $id = $category->id;
+//        $viewData = [
+//            'categoryName' => $category->name,
+//            'preparations' => $this->preparationRepository->getPreparationById($id),
+//            'preparationCategory' => $this->preparationRepository->getPreparationsByCategoryId($id)
+//        ];
+//
+//        return view($this->viewFolder . "Details_v.index", $viewData);
+//    }
 
+    public function partners($locale, $page = 1): View
+    {
+        $partners = $this->partnersRepository->getPartnersByLimit(16, (int)$page);
+        $partners->setPath(url($locale . '/partners/page'));
+
+        return view($this->viewFolder . "Partners_v.index", compact('partners'));
+    }
+
+    public function contact($locale): View
+    {
+        return view($this->viewFolder . "Contact_v.index");
+    }
+
+    public function vacancy($locale): View
+    {
+        $vacancy = $this->vacancyRepository->getVacancies();
+        return view($this->viewFolder . "Vacancy_v.index", compact('vacancy'));
+    }
+
+    // Instagram məntiqi olduğu kimi qalır
     private function getInstagramData($after = null, $limit = 28)
     {
-
-
-        $setting = Site_Settings::first();
+        $setting = Site_Settings::first('key_value');
         $token = $setting->key_value['instagram_access_token'] ?? null;
 
         if (!$token) return ['posts' => [], 'next_cursor' => null];
-
 
         $cacheKey = 'insta_feed_' . ($after ?: 'initial');
         return Cache::remember($cacheKey, 86400, function () use ($limit, $token, $after) {
             $url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&limit={$limit}&access_token={$token}";
 
-            if ($after) {
-                $url .= "&after={$after}";
-            }
+            if ($after) $url .= "&after={$after}";
 
             $response = Http::get($url);
 
@@ -184,7 +205,6 @@ class FrontHomeController extends Controller
                     'next_cursor' => $resJson['paging']['cursors']['after'] ?? null
                 ];
             }
-
             return ['posts' => [], 'next_cursor' => null];
         });
     }
@@ -195,296 +215,4 @@ class FrontHomeController extends Controller
         $data = $this->getInstagramData($after, 50);
         return response()->json($data);
     }
-
-
-    public function media(Request $request, $page = 1): View
-    {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-        $media = $this->mediaRepository->getMediaByLimit(12, (int)$page);
-        $media->setPath(url('media/page'));
-
-        $instaData = $this->getInstagramData();
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "Gallery_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'media' => $media,
-            'posts' => $instaData['posts'],
-            'next_cursor' => $instaData['next_cursor']
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-
-    public function mediaDetails($id): View
-    {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-        $media = $this->mediaRepository->getMediaByLimit(12, (int)$page);
-        $media->setPath(url('media/page'));
-
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "GalleryDetails_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'media' => $media
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function medicalInfo(): View
-    {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-        $medicalInfos = $this->medicalInfoRepository->getAllMedicalInfo();
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "MedicalInfo_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'medicalInfos' => $medicalInfos
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function medicalInfoDetails($id): View
-    {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-        $medicalInfo = $this->medicalInfoRepository->getMedicalInfoById($id);
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "MedicalInfoDetails_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'medicalInfo' => $medicalInfo
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function preparationDetail($locale, $slug_and_id): View
-    {
-
-        $id = last(explode('-', $slug_and_id));
-
-        $preparation = $this->preparationRepository->getPreparationById($id);
-
-        if (!$preparation) {
-            abort(404);
-        }
-
-        // 3. Digər lazımi dataları çəkirik
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories(20);
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "PreparationDetails_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'preparation' => $preparation
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-//    public function preparationDetail($id): View
-//    {
-//        $abouts = $this->aboutRepository->getAll();
-//        $languages = $this->languageRepository->getAllLanguages();
-//        $setting = $this->settingsRepository->getSettings();
-//        $siteContent = $this->siteContent->getAllContent();
-//        $allCategories = $this->categoryRepository->getRandomActiveCategories(20);
-//        $preparation = $this->preparationRepository->getPreparationById($id);
-//
-//        $viewData = [
-//            'viewFolder' => $this->viewFolder . "PreparationDetails_v",
-//            'abouts' => $abouts,
-//            'languages' => $languages,
-//            'setting' => $setting,
-//            'siteContent' => $siteContent,
-//            'allCategories' => $allCategories,
-//            'preparation' => $preparation
-//        ];
-//
-//        return view("{$viewData['viewFolder']}.index")->with($viewData);
-//    }
-
-
-    public function allCategories(): View
-    {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $categories = $this->categoryRepository->getAllActiveCategory();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();
-
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "Category_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'categories' => $categories,
-            'allCategories' => $allCategories,
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function categoryDetails($id): View
-    {
-        $abouts = $this->aboutRepository->getAll();
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
-        $categoryName = $this->categoryRepository->getCategoryById($id)->name;
-        $preparations = $this->preparationRepository->getPreparationById($id);
-        $preparationCategory = $this->preparationRepository->getPreparationsByCategoryId($id);
-
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "Details_v",
-            'abouts' => $abouts,
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'categoryName' => $categoryName,
-            'allCategories' => $allCategories,
-            'preparations' => $preparations,
-            'preparationCategory' => $preparationCategory
-
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function partners(Request $request, $page = 1): View
-    {
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $allCategories = $this->categoryRepository->getRandomActiveCategories(20);// Menu-da gorunmesi ucun
-        $partners = $this->partnersRepository->getPartnersByLimit(16, (int)$page);
-        $partners->setPath(url('partners/page'));
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "Partners_v",
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'partners' => $partners,
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function contact(): View
-    {
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
-
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "Contact_v",
-
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-
-
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-    public function contactUs(Request $request)
-    {
-
-
-        $validation = $request->validate([
-            'contact_name' => 'required|string|regex:/^[\p{L}\s]+$/u|max:100',
-            'contact_email' => 'required|string|email|max:100',
-            'contact_phone' => 'required|numeric|digits:10',
-            'contact_message' => 'required|string|regex:/^[\p{L}\s]+$/u',
-        ]);
-
-        //dd($validation['contact_name']);
-
-//        try {
-//            $validatedData = $request->validate(
-//                [
-//                    'categoryName' => 'required|string|regex:/^[\p{L}\s]+$/u|max:100',
-//                ]
-//            );
-//            $validatedData['name'] = $validatedData['categoryName'];
-//            $this->categoryServices->saveOrRestore([['name', '=', $validatedData['categoryName']]], $validatedData);
-//            return redirect()->route('categories.index');
-//
-//        } catch (\Exception $exception) {
-//
-//            $this->alertServices->error("Xəta", $exception->getMessage());
-//
-//            return redirect()->route('categories.create')->withInput();
-//        }
-    }
-
-    public function vacancy(): View
-    {
-        $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
-        $setting = $this->settingsRepository->getSettings();
-        $siteContent = $this->siteContent->getAllContent();
-        $vacancy = $this->vacancyRepository->getVacancies();
-        $viewData = [
-            'viewFolder' => $this->viewFolder . "Vacancy_v",
-            'setting' => $setting,
-            'siteContent' => $siteContent,
-            'allCategories' => $allCategories,
-            'vacancy' => $vacancy,
-
-
-        ];
-
-        return view("{$viewData['viewFolder']}.index")->with($viewData);
-    }
-
-
 }

@@ -55,24 +55,22 @@
     <!-- What We Do Best Left -->
 
     <!-- What We Do Best Right -->
-    <div class="col-md-12  no-padding">
+    <div class="col-md-12 no-padding">
         @foreach($categories as $category)
-
             <div class="col-md-3 col-sm-4 col-6 mb-4">
                 <div class="product-box">
-                    <a href="{{route('category-details',$category->id)}}" class="product-link">
+                    <a href="{{ route('category-details', ['slug' => $category->slug]) }}" class="product-link">
                         <div class="product-img-wrapper">
-                            <img src="{{asset('storage/'.$category->image)}}"
-                                 alt="{{$category->slug??''}}"
+                            <img src="{{ asset('storage/'.$category->image) }}"
+                                 alt="{{ $category->name }}"
                                  class="img-fluid">
                         </div>
                         <div class="product-info text-center mt-2">
-                            <h5 class="product-title">{{$category->name}}</h5>
+                            <h5 class="product-title">{{ $category->name }}</h5>
                         </div>
                     </a>
                 </div>
             </div>
-
         @endforeach
     </div>
     <!-- What We Do Best Right /- -->

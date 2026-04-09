@@ -65,7 +65,7 @@
         @endphp
         <div class="col-md-{{$col}} col-sm-4 col-6 mb-4">
             <div class="product-box">
-                <a href="{{route('preparation-detail',$preparation->id)}}" class="product-link">
+                <a href="{{ route('preparation-detail', ['slug' => $preparation->slug]) }}" class="product-link">
                     <div class="product-img-wrapper">
                         <img src="{{asset('storage/'.$preparation->image)}}"
                              alt="{{$preparation->image_alt_text}}"

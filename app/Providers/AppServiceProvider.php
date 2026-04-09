@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Contracts\{SettingsRepositoryInterface,
+    SiteContentInterface,
+    CategoryRepositoryInterface,
+    AboutRepositoryInterface
+};
 use App\Models\{Language, SiteContent, User};
 use App\Observers\{LanguageObserver, SiteContentObserver};
 use App\Listeners\{LogSuccessfulLogin, LogSuccessfulLogout};
@@ -10,27 +15,6 @@ use Illuminate\Support\Facades\{View, Route, URL, Event, Artisan, Schema, Hash};
 use Illuminate\Auth\Events\{Login, Logout};
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-
-//use App\Contracts\LanguageRepositoryInterface;
-//use App\Models\Language;
-//use App\Models\SiteContent;
-//use App\Models\User;
-//use App\Observers\LanguageObserver;
-//use App\Observers\SiteContentObserver;
-//use Illuminate\Pagination\Paginator;
-//use Illuminate\Support\Facades\Artisan;
-//use Illuminate\Support\Facades\Gate;
-//use Illuminate\Support\Facades\Hash;
-//use Illuminate\Support\Facades\Route;
-//use Illuminate\Support\Facades\Schema;
-//use Illuminate\Support\Facades\URL;
-//use Illuminate\Support\Facades\View;
-//use Illuminate\Support\ServiceProvider;
-//use Illuminate\Support\Facades\Event;
-//use Illuminate\Auth\Events\Login;
-//use Illuminate\Auth\Events\Logout;
-//use App\Listeners\LogSuccessfulLogin;
-//use App\Listeners\LogSuccessfulLogout;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -131,15 +115,14 @@ class AppServiceProvider extends ServiceProvider
     protected function registerViewComposers(): void
     {
         View::composer('*', function ($view) {
-            // Admin paneldirsə datanı yükləməyə ehtiyac yoxdur
             if (request()->is('admin*') || request()->is('nova-api*')) return;
 
             $route = Route::current();
             if (!$route) return;
 
+            // 1. Dillər və Linklər
             $activeLanguages = cache('active_languages') ?? collect();
             $languageLinks = [];
-
             $currentRouteName = $route->getName() ?: 'home';
             $currentParameters = $route->parameters();
 
@@ -147,9 +130,17 @@ class AppServiceProvider extends ServiceProvider
                 $languageLinks[$lang->code] = route($currentRouteName, array_merge($currentParameters, ['locale' => $lang->code]));
             }
 
+            $setting = app(SettingsRepositoryInterface::class)->getSettings();
+            $siteContent = app(SiteContentInterface::class)->getAllContent();
+            $allCategories = app(CategoryRepositoryInterface::class)->getRandomActiveCategories();
+
+
             $view->with([
                 'languages' => $activeLanguages,
-                'languageLinks' => $languageLinks
+                'languageLinks' => $languageLinks,
+                'setting' => $setting,       // Avtomatik getdi
+                'siteContent' => $siteContent,   // Avtomatik getdi
+                'allCategories' => $allCategories, // Avtomatik getdi
             ]);
         });
     }

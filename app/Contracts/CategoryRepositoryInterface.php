@@ -12,4 +12,6 @@ interface CategoryRepositoryInterface
 
     public function getRandomActiveCategories($limit): Collection;
 
+    public function getCategoryBySlug($slug);
+
 }

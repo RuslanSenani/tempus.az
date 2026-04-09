@@ -84,4 +84,15 @@ class PreparationRepository implements PreparationRepositoryInterface
             })
             ->count();
     }
+
+    public function getPreparationBySlug($slug)
+    {
+        $locale = app()->getLocale();
+
+        return $this->preparation->newQuery()
+            ->where("slug->{$locale}", $slug)
+            ->where('is_active', 1)
+            ->firstOrFail();
+    }
+
 }

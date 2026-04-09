@@ -78,7 +78,7 @@
                     <ul class="categories-type list-unstyled">
                         @foreach($allCategories as $category)
                             <li class="mb-2">
-                                <a href="{{route('category-details',$category->id)}}"
+                                <a href="{{ route('category-details', ['slug' => $category->slug]) }}"
                                    class="d-flex justify-content-between">
                                     <span>{{$category->name}}</span>
                                     <span>({{$category->preparations_count}})</span>
