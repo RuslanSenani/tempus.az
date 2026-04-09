@@ -232,3 +232,18 @@
     });
 </script>
 
+@if(app()->environment('production'))
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-450PZVJBPW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-450PZVJBPW');
+    </script>
+@endif
+
