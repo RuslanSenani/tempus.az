@@ -1,4 +1,4 @@
-<head>
+
 
     @if(app()->environment('production'))
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-450PZVJBPW"></script>
@@ -103,6 +103,4 @@
     <!--[if lt IE 9]>
     <script src="{{asset("assets")}}/js/html5/respond.min.js"></script>
     <![endif]-->
-
-</head>
 
