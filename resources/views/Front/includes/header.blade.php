@@ -130,18 +130,32 @@
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 @if($languages->count() > 1)
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        @foreach($languages as $lang)
-                                            @if($displayCode !== $lang->code)
-                                                <li>
-                                                    <a href="{{ route('lang.switch', $lang->code) }}"
-                                                       class="dropdown-item">
-                                                        {{ strtoupper($lang->code) }}
-                                                    </a>
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
+                                    @if(isset($languageLinks) && count($languageLinks) > 1)
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            @foreach($languageLinks as $code => $url)
+                                                {{-- Hazırkı dildən başqa digər dilləri göstəririk --}}
+                                                @if(app()->getLocale() !== $code)
+                                                    <li>
+                                                        <a href="{{ $url }}" class="dropdown-item">
+                                                            {{ strtoupper($code) }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @endif
+{{--                                    <ul class="dropdown-menu dropdown-menu-right">--}}
+{{--                                        @foreach($languages as $lang=>$url)--}}
+{{--                                            @if($displayCode !== $lang->code)--}}
+{{--                                                <li>--}}
+{{--                                                    <a href="{{ route('lang.switch', $lang->code) }}"--}}
+{{--                                                       class="dropdown-item">--}}
+{{--                                                        {{ strtoupper($lang->code) }}--}}
+{{--                                                    </a>--}}
+{{--                                                </li>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    </ul>--}}
                                 @endif
                             </div>
                         </li>

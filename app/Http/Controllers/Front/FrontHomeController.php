@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Front;
 
 use App\Contracts\AboutRepositoryInterface;
 use App\Contracts\CategoryRepositoryInterface;
-use App\Contracts\LanguageRepositoryInterface;
 use App\Contracts\MediaRepositoryInterface;
 use App\Contracts\MedicalInfoRepositoryInterface;
 use App\Contracts\PartnersRepositoryInterface;
@@ -25,7 +24,7 @@ class FrontHomeController extends Controller
 {
     private string $viewFolder;
     private AboutRepositoryInterface $aboutRepository;
-    private LanguageRepositoryInterface $languageRepository;
+
     private SettingsRepositoryInterface $settingsRepository;
     private SiteContentInterface $siteContent;
     private CategoryRepositoryInterface $categoryRepository;
@@ -38,10 +37,10 @@ class FrontHomeController extends Controller
     private StatisticRepositoryInterface $statisticRepository;
 
 
-    public function __construct(AboutRepositoryInterface $aboutRepository, LanguageRepositoryInterface $languageRepository, SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository, StatisticRepositoryInterface $statisticRepository)
+    public function __construct(AboutRepositoryInterface $aboutRepository,  SettingsRepositoryInterface $settingsRepository, SiteContentInterface $siteContent, CategoryRepositoryInterface $categoryRepository, PreparationRepositoryInterface $preparationRepository, PartnersRepositoryInterface $partnersRepository, MedicalInfoRepositoryInterface $medicalInfoRepository, MediaRepositoryInterface $mediaRepository, VacancyRepositoryInterface $vacancyRepository, StatisticRepositoryInterface $statisticRepository)
     {
         $this->aboutRepository = $aboutRepository;
-        $this->languageRepository = $languageRepository;
+
         $this->settingsRepository = $settingsRepository;
         $this->siteContent = $siteContent;
         $this->categoryRepository = $categoryRepository;
@@ -59,7 +58,7 @@ class FrontHomeController extends Controller
     {
 
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -81,7 +80,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "Home_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -99,7 +98,7 @@ class FrontHomeController extends Controller
     public function about(): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -114,7 +113,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "About_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -128,7 +127,7 @@ class FrontHomeController extends Controller
     public function preparation(Request $request, $page = 1): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -139,7 +138,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "Preparation_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -201,7 +200,7 @@ class FrontHomeController extends Controller
     public function media(Request $request, $page = 1): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -213,7 +212,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "Gallery_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -229,7 +228,7 @@ class FrontHomeController extends Controller
     public function mediaDetails($id): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -240,7 +239,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "GalleryDetails_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -253,7 +252,7 @@ class FrontHomeController extends Controller
     public function medicalInfo(): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -262,7 +261,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "MedicalInfo_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -275,7 +274,7 @@ class FrontHomeController extends Controller
     public function medicalInfoDetails($id): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();
@@ -284,7 +283,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "MedicalInfoDetails_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -294,19 +293,28 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
-    public function preparationDetail($id): View
+    public function preparationDetail($locale, $slug_and_id): View
     {
+
+        $id = last(explode('-', $slug_and_id));
+
+        $preparation = $this->preparationRepository->getPreparationById($id);
+
+        if (!$preparation) {
+            abort(404);
+        }
+
+        // 3. Digər lazımi dataları çəkirik
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories(20);
-        $preparation = $this->preparationRepository->getPreparationById($id);
 
         $viewData = [
             'viewFolder' => $this->viewFolder . "PreparationDetails_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -316,11 +324,33 @@ class FrontHomeController extends Controller
         return view("{$viewData['viewFolder']}.index")->with($viewData);
     }
 
+//    public function preparationDetail($id): View
+//    {
+//        $abouts = $this->aboutRepository->getAll();
+//        $languages = $this->languageRepository->getAllLanguages();
+//        $setting = $this->settingsRepository->getSettings();
+//        $siteContent = $this->siteContent->getAllContent();
+//        $allCategories = $this->categoryRepository->getRandomActiveCategories(20);
+//        $preparation = $this->preparationRepository->getPreparationById($id);
+//
+//        $viewData = [
+//            'viewFolder' => $this->viewFolder . "PreparationDetails_v",
+//            'abouts' => $abouts,
+//            'languages' => $languages,
+//            'setting' => $setting,
+//            'siteContent' => $siteContent,
+//            'allCategories' => $allCategories,
+//            'preparation' => $preparation
+//        ];
+//
+//        return view("{$viewData['viewFolder']}.index")->with($viewData);
+//    }
+
 
     public function allCategories(): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $categories = $this->categoryRepository->getAllActiveCategory();
@@ -330,7 +360,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "Category_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'categories' => $categories,
@@ -343,7 +373,7 @@ class FrontHomeController extends Controller
     public function categoryDetails($id): View
     {
         $abouts = $this->aboutRepository->getAll();
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
@@ -354,7 +384,7 @@ class FrontHomeController extends Controller
         $viewData = [
             'viewFolder' => $this->viewFolder . "Details_v",
             'abouts' => $abouts,
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'categoryName' => $categoryName,
@@ -369,7 +399,7 @@ class FrontHomeController extends Controller
 
     public function partners(Request $request, $page = 1): View
     {
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $allCategories = $this->categoryRepository->getRandomActiveCategories(20);// Menu-da gorunmesi ucun
@@ -377,7 +407,7 @@ class FrontHomeController extends Controller
         $partners->setPath(url('partners/page'));
         $viewData = [
             'viewFolder' => $this->viewFolder . "Partners_v",
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -390,12 +420,12 @@ class FrontHomeController extends Controller
     public function contact(): View
     {
         $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
-        $languages = $this->languageRepository->getAllLanguages();
+
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $viewData = [
             'viewFolder' => $this->viewFolder . "Contact_v",
-            'languages' => $languages,
+
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
@@ -440,13 +470,11 @@ class FrontHomeController extends Controller
     public function vacancy(): View
     {
         $allCategories = $this->categoryRepository->getRandomActiveCategories();// Menu-da gorunmesi ucun
-        $languages = $this->languageRepository->getAllLanguages();
         $setting = $this->settingsRepository->getSettings();
         $siteContent = $this->siteContent->getAllContent();
         $vacancy = $this->vacancyRepository->getVacancies();
         $viewData = [
             'viewFolder' => $this->viewFolder . "Vacancy_v",
-            'languages' => $languages,
             'setting' => $setting,
             'siteContent' => $siteContent,
             'allCategories' => $allCategories,
