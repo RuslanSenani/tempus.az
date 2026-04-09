@@ -66,7 +66,7 @@
         {{-- Yükləmə bölməsi --}}
         <div class="text-center my-5 w-100">
             {{-- "Daha çox" düyməsi --}}
-            <button id="load-more-btn" class="btn btn-primary px-5 py-2 shadow-sm" onclick="loadMoreInstagram()"
+            <button id="load-more-btn" class="btn btn-primary px-5 py-2 shadow-sm"
                     style="{{ !$next_cursor ? 'display:none;' : '' }}">
                 {{$siteContent['home_load_more']->value??''}}
             </button>

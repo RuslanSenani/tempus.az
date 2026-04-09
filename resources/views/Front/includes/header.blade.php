@@ -144,18 +144,7 @@
                                             @endforeach
                                         </ul>
                                     @endif
-{{--                                    <ul class="dropdown-menu dropdown-menu-right">--}}
-{{--                                        @foreach($languages as $lang=>$url)--}}
-{{--                                            @if($displayCode !== $lang->code)--}}
-{{--                                                <li>--}}
-{{--                                                    <a href="{{ route('lang.switch', $lang->code) }}"--}}
-{{--                                                       class="dropdown-item">--}}
-{{--                                                        {{ strtoupper($lang->code) }}--}}
-{{--                                                    </a>--}}
-{{--                                                </li>--}}
-{{--                                            @endif--}}
-{{--                                        @endforeach--}}
-{{--                                    </ul>--}}
+
                                 @endif
                             </div>
                         </li>

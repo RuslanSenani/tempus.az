@@ -1,30 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+@extends('Front.includes.master')
 
-
-<a id="top"></a>
-
-<!-- Main Container -->
-<div class="main-container">
-
-    @include('Front.includes.head')
-
-    <!-- Header -->
-
-    @include('Front.includes.header')
-
-
+@section('content')
     @include('Front.PreparationDetails_v.content')
+@endsection
 
-    @include('Front.includes.footer')
 
-</div>
+@push('js')
+    {{-- PDF.js Ana Kitabxana --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-<!-- Main Container -->
+    <script>
+        // JS faylından əvvəl datanı window obyektinə ötürürük
+        window.pdfConfig = {
+            url: "{{ (isset($preparation) && $preparation->pdf) ? asset('storage/' . $preparation->pdf) : '' }}",
+            preparationName: "{{ $preparation->name ?? '' }}",
+            translations: {
+                notFound: "{{ $siteContent['home_not_found_pdf']->value ?? 'PDF tapılmadı' }}",
+                error: "{{ $siteContent['home_download_error_pdf']->value ?? 'Yükləmə xətası' }}"
+            }
+        };
+    </script>
 
-@include('Front.includes.js')
-
-</body>
-
-</html>
+    {{-- Sənin təmiz JS faylın --}}
+    <script src="{{ asset('assets/js/pdf.js') }}"></script>
+@endpush

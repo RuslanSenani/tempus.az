@@ -1,30 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+@extends('Front.includes.master')
 
-
-<a id="top"></a>
-
-<!-- Main Container -->
-<div class="main-container">
-
-    @include('Front.includes.head')
-
-    <!-- Header -->
-
-    @include('Front.includes.header')
-
-
+@section('content')
     @include('Front.Gallery_v.content')
+@endsection
 
-    @include('Front.includes.footer')
-
-</div>
-
-<!-- Main Container -->
-
-@include('Front.includes.js')
-
-</body>
-
-</html>
+@push('js')
+    <script>
+        // JS faylından əvvəl datanı window obyektinə yükləyirik
+        window.instaConfig = {
+            ajaxUrl: "{{ route('instagram.ajax') }}",
+            nextCursor: "{{ $next_cursor ?? '' }}",
+            translations: {
+                more_details: "{{ $siteContent['home_more_details']->value ?? 'Daha Ətraflı..' }}",
+                video: "{{ $siteContent['home_in_video']->value ?? 'Video' }}",
+                default_caption: "{{ $siteContent['home_instagram_post']->value ?? '' }}"
+            }
+        };
+    </script>
+    <script src="{{asset("assets")}}/js/instagram.js"></script>
+@endpush
