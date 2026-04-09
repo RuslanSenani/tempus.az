@@ -56,6 +56,7 @@
 
     <!-- What We Do Best Right -->
     <div class="col-md-12 no-padding">
+
         @foreach($categories as $category)
             <div class="col-md-3 col-sm-4 col-6 mb-4">
                 <div class="product-box">

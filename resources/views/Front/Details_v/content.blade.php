@@ -53,6 +53,7 @@
     <!-- What We Do Best Right -->
     <div class="row no-padding d-flex flex-wrap">
         @foreach($preparationCategory as $preparation)
+
             <div class="col-md-3 col-sm-4 col-6 mb-4 d-flex">
                 <div class="product-box w-100 d-flex flex-column">
                     <a href="{{ route('preparation-detail', ['slug' => $preparation->slug]) }}"

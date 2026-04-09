@@ -94,12 +94,6 @@
                         <li>
                             <a href="{{route('vacancy')}}">{{ $siteContent['home_vacancy']->value ?? 'Vakansiya' }}</a>
                         </li>
-                        <li>
-                            <a href="{{route('media')}}">{{ $siteContent['home_media']->value ?? 'Media' }}
-                            </a>
-                        </li>
-
-
                     </ul>
                 </aside>
             </div>
@@ -109,13 +103,12 @@
                     <h3 class="widget-title">{{$siteContent['home_preparation_category']->value??'Kateqoriya'}}</h3>
                     <ul>
                         @foreach($allCategories as $category)
-                            <li><a href="{{route('category-details',$category->id)}}"
+                            <li><a href="{{ route('category-details', ['slug' => $category->slug]) }}"
                                    title="Prostheses">{{$category->name}}</a></li>
                         @endforeach
                     </ul>
                 </aside>
             </div>
-
             <div class="footer-social-section">
                 <h4 class="social-title">{{$siteContent['home_follow_us']->value??''}}</h4>
                 <div class="social-icons">
