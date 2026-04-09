@@ -45,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
 
         // View Composer (Blade üçün data)
         $this->registerViewComposers();
+
+        $this->forceHttps();
     }
 
 
@@ -143,6 +145,16 @@ class AppServiceProvider extends ServiceProvider
                 'allCategories' => $allCategories, // Avtomatik getdi
             ]);
         });
+    }
+
+    /**
+     * @return void
+     */
+    public function forceHttps(): void
+    {
+        if (app()->environment('production') || env('FORCE_HTTPS', false)) {
+            URL::forceScheme('https');
+        }
     }
 
 }
