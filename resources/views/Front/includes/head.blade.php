@@ -18,7 +18,7 @@
     <!-- Google tag (gtag.js) -->
 
     <meta charset="utf-8">
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
