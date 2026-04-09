@@ -136,18 +136,23 @@
         const loading = document.getElementById("loading");
         const pageInfo = document.getElementById("pageInfo");
 
-        // PDF JS Worker mütləq təyin olunmalıdır (render sürəti üçün)
+        // ƏGƏR PDF elementləri bu səhifədə yoxdursa, aşağıdakı kodları İŞLƏTMƏ
+        if (!wrapper || !loading) {
+            return;
+        }
+
+        // PDF JS Worker mütləq təyin olunmalıdır
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
         const url = "{{ isset($preparation) && $preparation->pdf ? asset('storage/' . $preparation->pdf) : '' }}";
 
         if (!url) {
+            // Elementin mövcudluğunu yoxlayıb sonra daxilinə yazırıq
             loading.innerText = "{{$siteContent['home_not_found_pdf']->value??''}}";
             return;
         }
 
         let pdfDoc = null;
-        // Keyfiyyət üçün scale (2.0 aydın görüntü verir, mobil üçün idealdır)
         const scale = 2.0;
 
         function loadPdf() {
@@ -156,20 +161,21 @@
             pdfjsLib.getDocument(url).promise.then(function (pdf) {
                 pdfDoc = pdf;
                 loading.style.display = "none";
-                pageInfo.innerText = "{{$preparation->name??''}}";
 
-                // Bütün səhifələri ardıcıl render edirik
+                // pageInfo elementi varsa yazdır
+                if (pageInfo) {
+                    pageInfo.innerText = "{{$preparation->name??''}}";
+                }
+
                 renderAllPages();
             }).catch(function (error) {
-                console.error("{{$siteContent['home_upload_error_pdf']->value??''}}", error);
+                console.error("PDF yükləmə xətası:", error);
                 loading.innerText = "{{$siteContent['home_download_error_pdf']->value??''}}";
             });
         }
 
         async function renderAllPages() {
             wrapper.innerHTML = "";
-
-            // Səhifələrin sırası pozulmasın deye async/await istifadə edirik
             for (let i = 1; i <= pdfDoc.numPages; i++) {
                 await renderSinglePage(i);
             }
