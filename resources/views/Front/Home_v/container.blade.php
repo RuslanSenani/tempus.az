@@ -160,7 +160,7 @@
 
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-12">
-                        <a href="{{route('all-categories')}}">
+                        <a href="{{route('categories')}}">
                             {{$siteContent['home_more_details']->value??'Daha ətraflı '}}
                         </a>
                     </div>

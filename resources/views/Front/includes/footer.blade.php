@@ -80,7 +80,7 @@
                     <h3 class="widget-title">{{$siteContent['home_easy_links']->value??'Sürətli keçid'}}</h3>
                     <ul>
                         <li>
-                            <a href="{{route('all-categories')}}">{{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}</a>
+                            <a href="{{route('categories')}}">{{ $siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}</a>
                         </li>
                         <li>
                             <a href="{{route('preparation')}}">{{ $siteContent['home_preparations']->value ?? 'Preparatlar' }}</a>

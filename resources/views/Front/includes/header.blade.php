@@ -26,7 +26,8 @@
                         <p>{{$setting->address??''}}</p>
                     </div>
                     <div class="phone">
-                        <h3><i class="fa-solid fa-mobile-screen-button fa-flip-horizontal" style="color: rgb(116, 192, 252);"></i> {{$setting->phone_1??''}}
+                        <h3><i class="fa-solid fa-mobile-screen-button fa-flip-horizontal"
+                               style="color: rgb(116, 192, 252);"></i> {{$setting->phone_1??''}}
                         </h3>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
                         </li>
 
                         <li class="dropdown px-1 custom-hover-dropdown">
-                            <a href="{{ route('all-categories') }}"
+                            <a href="{{ route('categories') }}"
                                class="dropdown-toggle"
                                data-bs-toggle="dropdown"
                                data-bs-auto-close="outside"> {{$siteContent['home_preparation_category']->value ?? 'Kateqoriya' }}

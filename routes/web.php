@@ -30,7 +30,7 @@ Route::group([
     Route::get('/vacancy', [FrontHomeController::class, 'vacancy'])->name('vacancy');
 
     // Kateqoriya Ümumi Siyahı
-    Route::get('/all-categories', [FrontHomeController::class, 'allCategories'])->name('all-categories');
+    Route::get('/categories', [FrontHomeController::class, 'allCategories'])->name('categories');
 
     // Preparatlar (Məhsullar)
     Route::get('/preparation', [FrontHomeController::class, 'preparation'])->name('preparation');
