@@ -48,7 +48,7 @@
         }
     @endphp
 
-    <link rel="icon" type="{{$type}}" href="{{ $faviconUrl }}"/>
+    <link rel="shortcut icon" type="{{$type}}" href="{{ $faviconUrl }}"/>
     <!-- For iPhone 4 Retina display: -->
     <link rel="apple-touch-icon-precomposed" sizes="32x32" href="{{ $faviconUrl }}">
     <!-- For iPad: -->
