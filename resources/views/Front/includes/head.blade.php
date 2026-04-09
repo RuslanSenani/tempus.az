@@ -61,17 +61,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/loader/loaders.min.css">
 
     <!-- Library - Google Font Familys -->
-    <link href='{{asset("assets")}}/fonts.googleapis.com/css812c.css?family=PT+Sans:400,400italic,700,700italic'
-          rel='stylesheet' type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/csse491.css?family=Raleway:400,100,200,300,500,600,700,800,900'
-          rel='stylesheet' type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/csse3e5.css?family=Montserrat:400,700' rel='stylesheet'
-          type='text/css'>
-    <link href='{{asset("assets")}}/fonts.googleapis.com/cssf60f.css?family=Philosopher:400,400italic,700,700italic'
-          rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href='{{asset("assets")}}/fonts.googleapis.com/css0733.css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
-        rel='stylesheet' type='text/css'>
+        href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@400;700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+
 
     <!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="{{asset("assets")}}/libraries/bootstrap/bootstrap.min.css">
