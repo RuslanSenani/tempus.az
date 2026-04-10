@@ -20,8 +20,8 @@ Schedule::call(function () {
     DB::listen(function ($query) {
         // Query-nin içində "visits" və "delete" sözü varsa log-a yaz
         if (str_contains($query->sql, 'delete') && str_contains($query->sql, 'visits')) {
-            Log::info("Kankret SQL: " . $query->sql);
-            Log::info("Kankret Dəyərlər (Bindings): ", $query->bindings);
+            Log::error("Kankret SQL: " . $query->sql);
+            Log::error("Kankret Dəyərlər (Bindings): ", $query->bindings);
         }
     });
 
