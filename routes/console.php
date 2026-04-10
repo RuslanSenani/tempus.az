@@ -3,6 +3,7 @@
 use App\Models\Visit;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schedule;
 
@@ -15,18 +16,18 @@ Schedule::command('instagram:refresh-token')->monthlyOn(1, '03:00');
 Schedule::command('queue:work --stop-when-empty')->everyMinute()->withoutOverlapping();
 
 Schedule::call(function () {
-    $query = Visit::where('created_at', '<', now()->subDays(2));
+    // 1. Bazaya gedən hər şeyi qulaq asırıq
+    DB::listen(function ($query) {
+        // Query-nin içində "visits" və "delete" sözü varsa log-a yaz
+        if (str_contains($query->sql, 'delete') && str_contains($query->sql, 'visits')) {
+            Log::info("Kankret SQL: " . $query->sql);
+            Log::info("Kankret Dəyərlər (Bindings): ", $query->bindings);
+        }
+    });
 
-    // Kankret olaraq sorğunu və dəyərləri götürürük
-    $sql = $query->toSql();
-    $bindings = $query->getBindings();
+    // 2. Əməliyyatı icra edirik
+    Visit::where('created_at', '<', now()->subDays(1))->delete();
 
-    // Log-a birbaşa yazdırırıq
-    Log::info("SQL: " . $sql);
-    Log::info("Bindings: ", $bindings);
-
-    // Sonra da icra edirik
-    $query->delete();
 })->everyMinute();
 
 //Schedule::call(function () {
