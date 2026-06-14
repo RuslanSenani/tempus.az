@@ -161,7 +161,7 @@
                                         <i class="bi bi-patch-check-fill text-success me-2"></i>
                                     @endif
                                     <span>
-                                    <a href="{{ route('category-details', $item->id) }}"
+                                    <a href="{{ route('category-details', $item->slug) }}"
                                        class="text-decoration-none text-dark fw-medium">
                                         {{ $item->name }}
                                     </a>
