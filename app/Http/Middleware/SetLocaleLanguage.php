@@ -18,7 +18,7 @@ class SetLocaleLanguage
 
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->is('admin*') || $request->is('nova-api*')) {
+        if ($request->is('admin*') || $request->is('nova-api*') || $request->is('nova-vendor*')) {
             return $next($request);
         }
 
